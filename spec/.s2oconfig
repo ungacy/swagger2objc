@@ -1,0 +1,13 @@
+author: Ye Tao
+company: SiMu
+project: Super Id
+class_prefix: SI
+ignore:
+ - Timestamp
+mapping:
+ AffairTreeVO: AffairTree
+trim:
+ VO: Item
+avoid:
+  id: id_p
+  description: desc
