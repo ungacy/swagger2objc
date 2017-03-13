@@ -11,10 +11,10 @@ module Swagger2objc
       attr_reader :type
 
       def setup
-        puts '------------------Parameter----------------'
-        puts 'paramType : ' + paramType
-        puts 'description : ' + description
-        puts 'type : ' + type
+        # puts '------------------Parameter----------------'
+        # puts 'paramType : ' + paramType
+        # puts 'description : ' + description
+        # puts 'type : ' + type
       end
 
       def result

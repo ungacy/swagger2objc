@@ -24,11 +24,19 @@ module Swagger2objc
           @controllers << controller
         end
       end
+      Swagger2objc::Configure.setup
+      Swagger2objc::Generator::ModelGenerator.clear
     end
 
     def result
-      Swagger2objc::Configure.setup
-      Swagger2objc::Generator::ModelGenerator.clear
+      @controllers.each do |controller|
+        controller.result
+      end
+
+    end
+
+    def model_result
+
       @controllers.each do |controller|
         controller.models.each do |_key, model|
           begin

@@ -10,15 +10,33 @@ module Swagger2objc
     MAPPING = 'mapping'.freeze
     TRIM = 'trim'.freeze
     AVOID = 'avoid'.freeze
+    OUTPUT = 'output'.freeze
   end
 
   class Configure
+    @@output = ''
+    def self.output
+      if @@output.length == 0
+        puts self.config
+        @@output = self.config[Swagger2objc::Config::OUTPUT]
+        if @@output.nil?
+          @@output = '/result/'
+        end
+      end
+      unless @@output.end_with?('/')
+        @@output << '/'
+      end
+      @@output
+    end
+
     def self.parse_yaml(file)
       YAML.safe_load(File.open(File.join(Dir.pwd, file)))
     end
 
     def self.setup
-      @@config = parse_yaml('.s2oconfig') if @@config.count == 0
+      if @@config.count == 0
+        @@config = parse_yaml('.s2oconfig')
+      end
       @@config
     end
     @@config = {}

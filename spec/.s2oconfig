@@ -11,3 +11,4 @@ trim:
 avoid:
   id: id_p
   description: desc
+output: /result/output

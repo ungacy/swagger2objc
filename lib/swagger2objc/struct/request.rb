@@ -9,7 +9,7 @@ module Swagger2objc
       attr_reader :path
 
       def setup
-        operation = Operation.new(operations.first)
+        @operation = Operation.new(operations.first)
       end
 
       def result
