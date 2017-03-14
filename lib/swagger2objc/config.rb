@@ -11,22 +11,22 @@ module Swagger2objc
     TRIM = 'trim'.freeze
     AVOID = 'avoid'.freeze
     OUTPUT = 'output'.freeze
+    MODEL = 'model'.freeze
+    SDK = 'sdk'.freeze
   end
 
   class Configure
-    @@output = ''
-    def self.output
-      if @@output.length == 0
-        puts "Current config is #{self.config}"
+    @@output = {}
+    def self.output(type)
+      if @@output.count == 0
         @@output = self.config[Swagger2objc::Config::OUTPUT]
-        if @@output.nil?
-          @@output = '/result/'
-        end
+        puts "Current config is #{self.config}"
       end
-      unless @@output.end_with?('/')
-        @@output << '/'
+      result = @@output[type]
+      unless result.end_with?('/')
+        result << '/'
       end
-      @@output
+      result
     end
 
     def self.parse_yaml(file)

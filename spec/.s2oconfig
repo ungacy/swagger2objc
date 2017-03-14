@@ -11,4 +11,6 @@ trim:
 avoid:
   id: id_p
   description: desc
-output: /result/output
+output:
+ model: /result/models/
+ sdk: /result/sdk/

@@ -14,7 +14,7 @@ module Swagger2objc
         contents
       end
 
-      def self.replace(replacement)
+      def self.replace(replacement, type)
         # path length = 0时是返回.不重生成
         category = replacement[:category]
         category.capitalize!
@@ -25,7 +25,7 @@ module Swagger2objc
           return
         end
         @@generated_set << class_name
-        file_path_array = FileGenerator.copy_class_files(category)
+        file_path_array = FileGenerator.copy_class_files(category, type)
         file_path_array = replace_file_array_name(file_path_array, '{class_name}', class_name)
         replacement.each do |key, value|
           replace_file_array_content(file_path_array, "{#{key}}", value)

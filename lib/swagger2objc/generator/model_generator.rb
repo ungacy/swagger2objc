@@ -18,7 +18,8 @@ module Swagger2objc
       attr_reader :model
 
       def self.clear
-        FileGenerator.clear
+        FileGenerator.clear(Swagger2objc::Config::MODEL)
+        FileGenerator.clear(Swagger2objc::Config::SDK)
       end
 
       def initialize(category, model)
@@ -85,7 +86,7 @@ module Swagger2objc
           property_mapping: property_mapping,
           category: category
         }
-        TemplateReplacer.replace(replacement)
+        TemplateReplacer.replace(replacement, Swagger2objc::Config::MODEL)
       end
 
       def result; end
