@@ -9,6 +9,8 @@ require 'nokogiri-plist'
 module Swagger2objc
   class Parser
     def initialize(base_uri, filter = nil)
+      Swagger2objc::Configure.setup
+      Swagger2objc::Generator::ModelGenerator.clear
       @request = Swagger2objc::Client.new(base_uri)
       @filter = filter
       setup
@@ -26,8 +28,6 @@ module Swagger2objc
           @controllers << controller
         end
       end
-      Swagger2objc::Configure.setup
-      Swagger2objc::Generator::ModelGenerator.clear
     end
 
     def sdk_result
@@ -39,7 +39,7 @@ module Swagger2objc
       @controllers.each do |controller|
         controller.models.each do |_key, model|
           begin
-            generator = Swagger2objc::Generator::ModelGenerator.new(controller.resourcePath.sub('/', ''), model)
+            generator = Swagger2objc::Generator::ModelGenerator.new(controller.category, model)
             generator.generate
           rescue => err
             puts err

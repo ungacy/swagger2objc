@@ -17,9 +17,9 @@ module Swagger2objc
           path: path,
           description: description
         }
-        operation.result.each {|key, value|
+        operation.result.each do |key, value|
           hash[key] = value
-        }
+        end
         hash
       end
     end

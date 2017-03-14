@@ -1,7 +1,9 @@
 author: Ye Tao
 company: SiMu
 project: Super Id
-class_prefix: SI
+class_prefix:
+ model: SI
+ sdk: SRK
 ignore:
  - Timestamp
 mapping:
@@ -11,9 +13,12 @@ trim:
 avoid:
   id: id_p
   description: desc
+  newPwd: password
 output:
  model: /result/models/
  sdk: /result/sdk/
 hate:
  - get
  - Get
+ - set
+ - Set

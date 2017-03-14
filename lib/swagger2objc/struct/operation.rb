@@ -33,7 +33,7 @@ module Swagger2objc
 
         {
           method: method,
-          notes: notes.sub('<', '[').sub('>',']'),
+          notes: notes.sub('<', '[').sub('>', ']'),
           summary: summary,
           type: type,
           param: parameter_result,

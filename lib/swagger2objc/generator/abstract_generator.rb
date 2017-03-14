@@ -14,6 +14,36 @@ module Swagger2objc
       attr_reader :project
       attr_reader :model
 
+      def custom_class_map(hash)
+        return '' if hash.count == 0
+        template = "\n/**
+ The generic class mapper for container properties.\n*/
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{
+{line}            };
+}\n"
+        line = ''
+        hash.each do |key, value|
+          line << "            @\"#{key}\": [#{value} class],\n"
+        end
+        template.sub('{line}', line)
+      end
+
+      def custom_property_map(hash)
+        return '' if hash.count == 0
+        template = "/**
+ Custom property mapper.\n*/
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{
+{line}            };
+}\n"
+        line = ''
+        hash.each do |key, value|
+          line << "            @\"#{key}\": @\"#{value}\",\n"
+        end
+        template.sub('{line}', line)
+      end
+
       def self.clear
         FileGenerator.clear(Swagger2objc::Config::MODEL)
         FileGenerator.clear(Swagger2objc::Config::SDK)

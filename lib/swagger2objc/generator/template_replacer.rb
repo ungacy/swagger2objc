@@ -16,8 +16,6 @@ module Swagger2objc
       def self.replace(replacement, type)
         # path length = 0时是返回.不重生成
         category = replacement[:category]
-        category.capitalize!
-        category = category.gsub(/\_\w/) { |match| match[1].upcase }
 
         class_name = replacement[:class_name]
         return if @@generated_set.include?(class_name)
@@ -84,6 +82,12 @@ module Swagger2objc
         file_path_array.each do |file_path|
           replace_file_content(file_path, target, replacement)
         end
+      end
+
+      def self.replace_plist_content(replacement)
+        target = '{content}'
+        file_path = FileGenerator.copy_plist_file(Swagger2objc::Config::SDK)
+        replace_file_content(file_path, target, replacement)
       end
 
       def self.replace_file_content(file_path, target, replacement)

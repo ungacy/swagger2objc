@@ -36,8 +36,8 @@ module Swagger2objc
         file_path_array
       end
 
-      def self.copy_plist_file(_path)
-        template_dir = Dir.pwd + '/template/'
+      def self.copy_plist_file(type)
+        template_dir = File.dirname(__FILE__) + '/template/' + type + '/'
         result_dir = Dir.pwd + Swagger2objc::Configure.output(type)
         plist = 'Interface.plist'
         FileUtils.mkdir_p(result_dir) unless File.directory?(result_dir)
