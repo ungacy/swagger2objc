@@ -6,6 +6,7 @@ class_prefix:
  sdk: SRK
 ignore:
  - Timestamp
+ - SimpleResponse
 mapping:
  AffairTreeVO: AffairTree
 trim:

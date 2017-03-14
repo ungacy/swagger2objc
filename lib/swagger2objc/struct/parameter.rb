@@ -11,18 +11,18 @@ module Swagger2objc
       attr_reader :paramType
       attr_reader :required
       attr_reader :type
+      attr_reader :rename
 
       def setup
         @type = @format if 'integer' == @type || 'number' == @type
       end
 
-      def output(import, _class_map, avoid_map)
+      def output(import, avoid_map)
         info = "\n/**\n"
         info << " paramType  : #{paramType}\n"
         info << " key        : #{description}\n"
         info << " type       : #{type}\n"
         info << " required   : #{required}\n"
-        info << "*/\n"
 
         raise "type : #{description}" if type.nil?
         format_name = description.clone
@@ -30,7 +30,11 @@ module Swagger2objc
         if avoid[format_name] && !avoid[format_name].empty?
           format_name = avoid[format_name]
           avoid_map[format_name] = description
+          @rename = format_name
+          info << " rename     : #{format_name}\n"
         end
+        info << "*/\n"
+
         oc_type = Swagger2objc::Generator::Type::OC_MAP[type]
         raise "unkown format : #{name}" if oc_type.nil? && format == 'object'
 
@@ -51,14 +55,15 @@ module Swagger2objc
       end
 
       def result
-        {
+        hash = {
           paramType: paramType,
           key: description,
           type: type,
-          required: required,
-          defaultValue: defaultValue ? defaultValue : ' ',
-          format: format ? format : ''
+          required: required
         }
+
+        hash[:rename] = @rename if @rename
+        hash
       end
     end
   end

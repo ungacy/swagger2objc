@@ -7,3 +7,4 @@ filter = '/affair-controller'
 filter = nil
 parser = Swagger2objc::Parser.new(base_uri, filter)
 parser.sdk_result
+parser.model_result

@@ -5,38 +5,42 @@ module Swagger2objc
   module Generator
     class SDKGenerator < AbstractGenerator
       def generate
-        result = {}
         sim = {}
+        model.each do |controller|
+          controller.apis.each do |request|
+            class_name = Swagger2objc::Utils.sdk_name_formatter(request.path.sub(controller.resourcePath, ''), controller.category, Swagger2objc::Config::SDK)
+            sim[class_name] = {
+              parameters: request.operation.parameters,
+              category: controller.category
+            }
+          end
+        end
+
+        sim.each do |class_name, config|
+          category = config[:category]
+          # puts "---------#{class_name}--------------"
+          param_generate(class_name, config[:parameters], category)
+        end
+        result = {}
         model.each do |controller|
           controller.apis.each do |request|
             hash = request.operation.result
             hash['path'] = request.path
             hash['category'] = controller.category
             class_name = Swagger2objc::Utils.sdk_name_formatter(request.path.sub(controller.resourcePath, ''), controller.category, Swagger2objc::Config::SDK)
-            sim[class_name] = {
-              parameters: request.operation.parameters,
-              category: controller.category
-            }
-
             result[class_name] = hash
           end
         end
-        # Swagger2objc::Generator::TemplateReplacer.replace_plist_content(result.to_plist_xml)
-        sim.each do |class_name, config|
-          category = config[:category]
-          puts "---------#{class_name}--------------"
-          param_generate(class_name, config[:parameters], category)
-        end
+        Swagger2objc::Generator::TemplateReplacer.replace_plist_content(result.to_plist_xml)
       end
 
       def param_generate(class_name, parameters, category)
         properties = ''
         import = ''
-        class_map = {}
         avoid_map = {}
         model_name = class_name.clone
         parameters.each do |parameter|
-          properties << parameter.output(import, class_map, avoid_map)
+          properties << parameter.output(import, avoid_map)
         end
         property_mapping = custom_property_map(avoid_map)
         replacement = {
