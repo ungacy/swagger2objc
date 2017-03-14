@@ -4,7 +4,6 @@ require 'set'
 module Swagger2objc
   module Generator
     class TemplateReplacer
-
       @@generated_set = Set.new
 
       def self.read_file_content(file_path)
@@ -18,12 +17,10 @@ module Swagger2objc
         # path length = 0时是返回.不重生成
         category = replacement[:category]
         category.capitalize!
-        category = category.gsub(/\_\w/){ |match| match[1].upcase }
+        category = category.gsub(/\_\w/) { |match| match[1].upcase }
 
         class_name = replacement[:class_name]
-        if @@generated_set.include?(class_name)
-          return
-        end
+        return if @@generated_set.include?(class_name)
         @@generated_set << class_name
         file_path_array = FileGenerator.copy_class_files(category, type)
         file_path_array = replace_file_array_name(file_path_array, '{class_name}', class_name)
@@ -31,7 +28,7 @@ module Swagger2objc
           replace_file_array_content(file_path_array, "{#{key}}", value)
         end
         time = Time.now
-        year = time.year.to_s# + '年'
+        year = time.year.to_s # + '年'
         date = time.strftime('%Y/%m/%d')
         replace_file_array_content(file_path_array, '{year}', year)
         replace_file_array_content(file_path_array, '{date}', date)

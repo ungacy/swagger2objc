@@ -13,17 +13,15 @@ module Swagger2objc
       attr_reader :swaggerVersion
 
       def setup
-        apis.map! { |item | Request.new(item)}
+        apis.map! { |item| Request.new(item) }
         models.transform_values! { |item| Model.new(item) }
       end
 
       def result
-        apis.each { |item|
+        apis.each do |item|
           puts item.result
-        }
-
+        end
       end
-
     end
   end
 end

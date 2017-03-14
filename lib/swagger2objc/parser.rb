@@ -29,14 +29,10 @@ module Swagger2objc
     end
 
     def result
-      @controllers.each do |controller|
-        controller.result
-      end
-
+      @controllers.each(&:result)
     end
 
     def model_result
-
       @controllers.each do |controller|
         controller.models.each do |_key, model|
           begin

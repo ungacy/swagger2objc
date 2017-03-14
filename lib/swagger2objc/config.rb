@@ -19,13 +19,11 @@ module Swagger2objc
     @@output = {}
     def self.output(type)
       if @@output.count == 0
-        @@output = self.config[Swagger2objc::Config::OUTPUT]
-        puts "Current config is #{self.config}"
+        @@output = config[Swagger2objc::Config::OUTPUT]
+        puts "Current config is #{config}"
       end
       result = @@output[type]
-      unless result.end_with?('/')
-        result << '/'
-      end
+      result << '/' unless result.end_with?('/')
       result
     end
 
@@ -34,9 +32,7 @@ module Swagger2objc
     end
 
     def self.setup
-      if @@config.count == 0
-        @@config = parse_yaml('.s2oconfig')
-      end
+      @@config = parse_yaml('.s2oconfig') if @@config.count == 0
       @@config
     end
     @@config = {}

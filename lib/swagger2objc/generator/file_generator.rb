@@ -1,6 +1,7 @@
 require 'fileutils'
 require 'swagger2objc/generator/type'
 require 'swagger2objc/config'
+
 module Swagger2objc
   module Generator
     class FileGenerator
@@ -19,7 +20,6 @@ module Swagger2objc
       end
 
       def self.copy_template_file(source_file, target_dir, type)
-
         template_dir = File.dirname(__FILE__) + '/template/' + type + '/'
         result_dir = Dir.pwd + Swagger2objc::Configure.output(type) + target_dir + '/'
         FileUtils.mkdir_p(result_dir) unless File.directory?(result_dir)
