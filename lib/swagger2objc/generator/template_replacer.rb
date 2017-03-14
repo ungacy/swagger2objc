@@ -4,6 +4,9 @@ require 'set'
 module Swagger2objc
   module Generator
     class TemplateReplacer
+
+      @@generated_set = Set.new
+
       def self.read_file_content(file_path)
         file = File.open(file_path, 'rb')
         contents = file.read
@@ -14,7 +17,14 @@ module Swagger2objc
       def self.replace(replacement)
         # path length = 0时是返回.不重生成
         category = replacement[:category]
+        category.capitalize!
+        category = category.gsub(/\_\w/){ |match| match[1].upcase }
+
         class_name = replacement[:class_name]
+        if @@generated_set.include?(class_name)
+          return
+        end
+        @@generated_set << class_name
         file_path_array = FileGenerator.copy_class_files(category)
         file_path_array = replace_file_array_name(file_path_array, '{class_name}', class_name)
         replacement.each do |key, value|

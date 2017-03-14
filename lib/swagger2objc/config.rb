@@ -17,7 +17,7 @@ module Swagger2objc
     @@output = ''
     def self.output
       if @@output.length == 0
-        puts self.config
+        puts "Current config is #{self.config}"
         @@output = self.config[Swagger2objc::Config::OUTPUT]
         if @@output.nil?
           @@output = '/result/'
