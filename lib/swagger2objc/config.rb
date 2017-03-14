@@ -13,6 +13,7 @@ module Swagger2objc
     OUTPUT = 'output'.freeze
     MODEL = 'model'.freeze
     SDK = 'sdk'.freeze
+    HATE = 'hate'.freeze
   end
 
   class Configure

@@ -20,8 +20,11 @@ module Swagger2objc
       def result
         {
           paramType: paramType,
-          description: description,
-          type: type
+          key: description,
+          type: type,
+          required: required,
+          defaultValue: defaultValue ? defaultValue : ' ',
+          format: format ? format : ''
         }
       end
     end

@@ -13,11 +13,14 @@ module Swagger2objc
       end
 
       def result
-        {
-          operation: operation.result,
+        hash =  {
           path: path,
           description: description
         }
+        operation.result.each {|key, value|
+          hash[key] = value
+        }
+        hash
       end
     end
   end

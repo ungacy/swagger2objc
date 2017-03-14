@@ -2,7 +2,9 @@ require 'swagger2objc/client/client'
 require 'swagger2objc/struct'
 require 'swagger2objc/constants'
 require 'swagger2objc/generator/model_generator'
+require 'swagger2objc/generator/sdk_generator'
 require 'swagger2objc/config'
+require 'nokogiri-plist'
 
 module Swagger2objc
   class Parser
@@ -28,15 +30,17 @@ module Swagger2objc
       Swagger2objc::Generator::ModelGenerator.clear
     end
 
-    def result
-      @controllers.each(&:result)
+    def sdk_result
+      sdk = Swagger2objc::Generator::SDKGenerator.new(@controllers)
+      sdk.generate
     end
 
     def model_result
       @controllers.each do |controller|
         controller.models.each do |_key, model|
           begin
-            Swagger2objc::Generator::ModelGenerator.new(controller.resourcePath.sub('/', ''), model)
+            generator = Swagger2objc::Generator::ModelGenerator.new(controller.resourcePath.sub('/', ''), model)
+            generator.generate
           rescue => err
             puts err
             puts model.result

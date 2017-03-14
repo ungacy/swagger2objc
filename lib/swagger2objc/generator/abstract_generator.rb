@@ -19,14 +19,13 @@ module Swagger2objc
         FileGenerator.clear(Swagger2objc::Config::SDK)
       end
 
-      def initialize(category, model)
+      def initialize(category = nil, model)
         config = Configure.config
         @author = config[Swagger2objc::Config::AUTHOR]
         @company = config[Swagger2objc::Config::COMPANY]
         @project = config[Swagger2objc::Config::PROJECT]
         @category = category
         @model = model
-        generate
       end
 
       def generate; end

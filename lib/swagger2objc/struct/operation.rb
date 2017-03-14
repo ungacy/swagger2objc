@@ -33,11 +33,11 @@ module Swagger2objc
 
         {
           method: method,
-          notes: notes,
+          notes: notes.sub('<', '[').sub('>',']'),
           summary: summary,
           type: type,
-          parameters: parameter_result,
-          responseMessages: @response_model
+          param: parameter_result,
+          response: @response_model
         }
       end
     end

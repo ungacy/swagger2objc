@@ -12,5 +12,22 @@ module Swagger2objc
       end
       class_prefix + result
     end
+
+    def self.sdk_name_formatter(class_name)
+      hate = Swagger2objc::Configure.config[Swagger2objc::Config::HATE]
+      class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX]
+      result = class_name.clone
+
+      result.gsub!(/[\/\_]\w/) { |match| match[1].upcase }
+      result.gsub!(/\/\{\w+\}/,'')
+      hate.each do |key|
+        result.sub!(key, '')
+      end
+      if result != class_name
+        # puts "Rename [#{class_name}] to [#{result}]"
+      end
+      class_prefix + result
+    end
+
   end
 end

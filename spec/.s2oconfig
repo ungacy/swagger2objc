@@ -14,3 +14,6 @@ avoid:
 output:
  model: /result/models/
  sdk: /result/sdk/
+hate:
+ - get
+ - Get
