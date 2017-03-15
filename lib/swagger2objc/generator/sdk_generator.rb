@@ -11,15 +11,17 @@ module Swagger2objc
             class_name = Swagger2objc::Utils.sdk_name_formatter(request.path.sub(controller.resourcePath, ''), controller.category, Swagger2objc::Config::SDK)
             sim[class_name] = {
               parameters: request.operation.parameters,
-              category: controller.category
+              category: controller.category,
+              operation: request.operation
             }
           end
         end
 
         sim.each do |class_name, config|
           category = config[:category]
+          operation = config[:operation]
           # puts "---------#{class_name}--------------"
-          param_generate(class_name, config[:parameters], category)
+          param_generate(class_name, config[:parameters], category, operation.output)
         end
         result = {}
         model.each do |controller|
@@ -34,7 +36,7 @@ module Swagger2objc
         Swagger2objc::Generator::TemplateReplacer.replace_plist_content(result.to_plist_xml)
       end
 
-      def param_generate(class_name, parameters, category)
+      def param_generate(class_name, parameters, category, comment)
         properties = ''
         import = ''
         avoid_map = {}
@@ -52,7 +54,8 @@ module Swagger2objc
           author: author,
           container_mapping: {},
           property_mapping: property_mapping,
-          category: category
+          category: category,
+          comment: comment
         }
         TemplateReplacer.replace(replacement, Swagger2objc::Config::SDK)
       end

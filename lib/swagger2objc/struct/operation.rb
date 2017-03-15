@@ -40,6 +40,17 @@ module Swagger2objc
           response: @response_model
         }
       end
+
+      def output
+        info = "\n/**\n"
+        info << " method    : #{method}\n"
+        info << " notes     : #{notes}\n"
+        info << " summary   : #{summary}\n"
+        info << " type      : #{type}\n"
+        info << " response  : #{@response_model}\n"
+        info << "*/"
+      end
+
     end
   end
 end
