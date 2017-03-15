@@ -3,12 +3,11 @@
 //  {class_name}.h
 //  {project}
 //
-//  Created by {author} on {date}.
 //  Copyright © {year} {company}. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-{import}
+{import}#import <Foundation/Foundation.h>
+
 @interface {class_name} : NSObject
 {properties}
 @end

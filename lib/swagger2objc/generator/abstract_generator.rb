@@ -20,26 +20,26 @@ module Swagger2objc
  The generic class mapper for container properties.\n*/
 + (NSDictionary *)modelContainerPropertyGenericClass {
     return @{
-{line}            };
+{line}    };
 }\n"
         line = ''
         hash.each do |key, value|
-          line << "            @\"#{key}\": [#{value} class],\n"
+          line << "        @\"#{key}\": [#{value} class],\n"
         end
         template.sub('{line}', line)
       end
 
       def custom_property_map(hash)
         return '' if hash.count == 0
-        template = "/**
+        template = "\n/**
  Custom property mapper.\n*/
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{
-{line}            };
+{line}    };
 }\n"
         line = ''
         hash.each do |key, value|
-          line << "            @\"#{key}\": @\"#{value}\",\n"
+          line << "        @\"#{key}\": @\"#{value}\",\n"
         end
         template.sub('{line}', line)
       end

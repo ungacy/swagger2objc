@@ -35,7 +35,11 @@ module Swagger2objc
         info << " required    : #{required}\n"
         info << " type        : #{type}\n"
         info << " name        : #{name}\n"
-        info << " description : #{description}\n"
+
+        if description && description.gsub(' ','').length != 0
+          info << " description : #{description}\n"
+        end
+
         info << "*/\n"
         avoid = Swagger2objc::Configure.config[Swagger2objc::Config::AVOID]
 
@@ -57,7 +61,7 @@ module Swagger2objc
           class_name = Swagger2objc::Utils.class_name_formatter(format)
           import << "#import \"#{class_name}.h\"\n" if format != model.id
           if !items.nil?
-            info << "@property (nonatomic, strong) NSArray <#{class_name} *> *#{format_name};\n"
+            info << "@property (nonatomic, strong) NSArray<#{class_name} *> *#{format_name};\n"
             class_map[name] = class_name
           else
             info << "@property (nonatomic, strong) #{class_name} *#{format_name};\n"
