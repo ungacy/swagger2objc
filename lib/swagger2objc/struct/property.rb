@@ -10,7 +10,7 @@ module Swagger2objc
       attr_accessor :name
 
       def setup
-        if @type == 'List'
+        if @type == 'List' || @type == 'Array'
           @format = items['type']
           @format = items['format'] if @format == 'integer'
         elsif 'integer' == @type || 'number' == @type
@@ -54,7 +54,11 @@ module Swagger2objc
         raise "unkown format : #{name}" if oc_type.nil? && format == 'object'
 
         if oc_type == 'NSString'
-          info << "@property (nonatomic, copy) #{oc_type} *#{format_name};\n"
+          if @type == 'List' || @type == 'Array'
+            info << "@property (nonatomic, strong) NSArray<#{oc_type} *> *#{format_name};\n"
+          else
+            info << "@property (nonatomic, copy) #{oc_type} *#{format_name};\n"
+          end
         elsif oc_type == 'id'
           info << "@property (nonatomic, strong) id #{format_name};\n"
         elsif oc_type.nil? # Custom Model Type
