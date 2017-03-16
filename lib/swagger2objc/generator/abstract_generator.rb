@@ -44,6 +44,15 @@ module Swagger2objc
         template.sub('{line}', line)
       end
 
+      def wrap_primary_key(primary_key)
+        template = "\n/**
+ Defined for database.\n*/
++ (NSString *)primaryKey {
+    return @\"{primary_key}\";
+}\n"
+        template.sub('{primary_key}', primary_key)
+      end
+
       def self.clear
         FileGenerator.clear(Swagger2objc::Config::MODEL)
         FileGenerator.clear(Swagger2objc::Config::SDK)
