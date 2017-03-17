@@ -9,6 +9,10 @@ module Swagger2objc
       trim.each do |key, value|
         result.sub!(key, value)
       end
+      mapping = Swagger2objc::Configure.config[Swagger2objc::Config::MAPPING]
+      if mapping[result]
+        result = mapping[result]
+      end
       if result != class_name
         # puts "Rename [#{class_name}] to [#{result}]"
       end

@@ -7,10 +7,10 @@ class_prefix:
 ignore:
  - Timestamp
  - SimpleResponse
-mapping:
- AffairTreeVO: AffairTree
 trim:
  VO: Item
+mapping:
+  ListAffairItem: AffairListItem
 avoid:
   id: id_p
   description: desc
