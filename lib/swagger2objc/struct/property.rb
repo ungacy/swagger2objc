@@ -33,14 +33,13 @@ module Swagger2objc
         info = "\n/**\n"
         info << " format      : #{format}\n"
         info << " required    : #{required}\n"
-        info << " type        : #{type}\n"
+        info << " type        : {#{type}}\n"
         info << " name        : #{name}\n"
-
         if description && description.gsub(' ','').length != 0
           info << " description : #{description}\n"
         end
-
         info << "*/\n"
+
         avoid = Swagger2objc::Configure.config[Swagger2objc::Config::AVOID]
 
         raise "format : #{name}" if format.nil?
@@ -56,22 +55,28 @@ module Swagger2objc
         if oc_type == 'NSString'
           if @type == 'List' || @type == 'Array'
             info << "@property (nonatomic, strong) NSArray<#{oc_type} *> *#{format_name};\n"
+            info.sub!("{#{type}}","[#{oc_type}]")
           else
             info << "@property (nonatomic, copy) #{oc_type} *#{format_name};\n"
+            info.sub!("{#{type}}",oc_type)
           end
         elsif oc_type == 'id'
           info << "@property (nonatomic, strong) id #{format_name};\n"
+          info.sub!("{#{type}}",'id')
         elsif oc_type.nil? # Custom Model Type
           class_name = Swagger2objc::Utils.class_name_formatter(format)
           import << "#import \"#{class_name}.h\"\n" if format != model.id
           if !items.nil?
             info << "@property (nonatomic, strong) NSArray<#{class_name} *> *#{format_name};\n"
             class_map[name] = class_name
+            info.sub!("{#{type}}","[#{class_name}]")
           else
+            info.sub!("{#{type}}",class_name)
             info << "@property (nonatomic, strong) #{class_name} *#{format_name};\n"
           end
 
         else
+          info.sub!("{#{type}}",oc_type)
           info << "@property (nonatomic, assign) #{oc_type} #{format_name};\n"
         end
         info

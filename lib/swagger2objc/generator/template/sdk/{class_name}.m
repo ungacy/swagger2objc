@@ -9,5 +9,5 @@
 #import "{class_name}.h"
 
 @implementation {class_name}
-{container_mapping}{property_mapping}
+{container_mapping}{property_mapping}{response_class_body}
 @end

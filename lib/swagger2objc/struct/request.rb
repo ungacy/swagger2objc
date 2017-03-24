@@ -10,6 +10,7 @@ module Swagger2objc
 
       def setup
         @operation = Operation.new(operations.first)
+        @operation.path = path
       end
 
       def result

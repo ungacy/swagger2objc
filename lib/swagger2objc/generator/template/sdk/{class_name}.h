@@ -9,5 +9,5 @@
 {import}#import <Foundation/Foundation.h>
 {comment}
 @interface {class_name} : NSObject
-{properties}
+{properties}{response_class_header}
 @end

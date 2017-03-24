@@ -90,6 +90,22 @@ module Swagger2objc
         replace_file_content(file_path, target, replacement)
       end
 
+      def self.replace_module_header_content(replacement)
+        category = replacement[:category]
+        module_name = replacement[:module_name]
+        file_path = FileGenerator.copy_module_header_files(category, Swagger2objc::Config::SDK)
+        replacement.each do |key, value|
+          replace_file_content(file_path, "{#{key}}", value)
+        end
+        time = Time.now
+        year = time.year.to_s # + '年'
+        date = time.strftime('%Y/%m/%d')
+        replace_file_content(file_path, '{year}', year)
+        replace_file_content(file_path, '{date}', date)
+        replace_file_name(file_path,'{module_name}',module_name)
+
+      end
+
       def self.replace_file_content(file_path, target, replacement)
         File.open(file_path) do |fr|
           buffer = fr.read.gsub(target, replacement)

@@ -14,25 +14,27 @@ module Swagger2objc
       attr_reader :responseMessages
       attr_reader :summary
       attr_reader :type
+      attr_reader :response_class
+      attr_accessor :path
 
       def setup
         parameters.map! { |item| Parameter.new(item) }
         responseMessages.select! { |item| item['code'] == '200' }
         # NO responseMessages
         if responseMessages.count == 0
-          @response_model = type
+          @response_class = type
         else
-          @response_model = responseMessages.first[responseModel]
+          @response_class = responseMessages.first[responseModel]
         end
-        if @response_model == 'integer'
-          @response_model = format
+        if @response_class == 'integer'
+          @response_class = format
         end
-        raise 'No response model' if @response_model.nil?
-        oc_type = Swagger2objc::Generator::Type::OC_MAP[@response_model]
+        raise 'No response model' if @response_class.nil?
+        oc_type = Swagger2objc::Generator::Type::OC_MAP[@response_class]
         if oc_type.nil?
-          @response_model = Swagger2objc::Utils.class_name_formatter(@response_model)
+          @response_class = Swagger2objc::Utils.class_name_formatter(@response_class)
         else
-          @response_model = oc_type
+          @response_class = oc_type
         end
       end
 
@@ -47,22 +49,23 @@ module Swagger2objc
           param: parameter_result,
         }
         class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][Swagger2objc::Config::MODEL]
-        if @response_model.start_with?(class_prefix)
-          hash[:response] = @response_model
+        if @response_class.start_with?(class_prefix)
+          hash[:response] = @response_class
         end
         hash
       end
 
       def output
         info = "\n/**\n"
-        info << " method    : #{method}\n"
-        info << " notes     : #{notes}\n"
-        info << " summary   : #{summary}\n"
-        info << " type      : #{type}\n"
+        info << " path       : #{path}\n"
+        info << " method     : #{method}\n"
+        info << " notes      : #{notes}\n"
+        info << " summary    : #{summary}\n"
+        info << " type       : #{type}\n"
         if format
-          info << " format    : #{format}\n"
+          info << " format     : #{format}\n"
         end
-        info << " response  : #{@response_model}\n"
+        info << " response   : #{@response_class}\n"
         info << "*/"
       end
 
