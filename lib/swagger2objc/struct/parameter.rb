@@ -49,7 +49,7 @@ module Swagger2objc
           import << "#import \"#{class_name}.h\"\n"
           info << "@property (nonatomic, strong) #{class_name} *#{format_name};\n"
         else
-          info << "@property (nonatomic, assign) #{oc_type} #{format_name};\n"
+          info << "@property (nonatomic, strong) NSNumber/*#{oc_type}*/ *#{format_name};\n"
         end
         info
       end

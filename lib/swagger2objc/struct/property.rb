@@ -77,7 +77,7 @@ module Swagger2objc
 
         else
           info.sub!("{#{type}}",oc_type)
-          info << "@property (nonatomic, assign) #{oc_type} #{format_name};\n"
+          info << "@property (nonatomic, strong) NSNumber/*#{oc_type}*/ *#{format_name};\n"
         end
         info
       end
