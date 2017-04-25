@@ -13,6 +13,7 @@ module Swagger2objc
         avoid_map = {}
         plan_b = ''
         model_name = Swagger2objc::Utils.class_name_formatter(model.id)
+        return if !model_name
         model.properties.each do |_key, property|
           properties << property.output(import, model, class_map, avoid_map)
           if property.name == 'id'

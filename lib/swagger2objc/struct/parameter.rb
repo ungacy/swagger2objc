@@ -45,11 +45,16 @@ module Swagger2objc
         elsif oc_type == 'id'
           info << "@property (nonatomic, strong) id #{format_name};\n"
         elsif oc_type.nil? # Custom Model Type
-          class_name = Swagger2objc::Utils.class_name_formatter(type)
-          import << "#import \"#{class_name}.h\"\n"
-          info << "@property (nonatomic, strong) #{class_name} *#{format_name};\n"
+          if type.start_with?('HashMap')
+            info << "@property (nonatomic, strong) NSDictionary *#{format_name};\n"
+          else
+            class_name = Swagger2objc::Utils.class_name_formatter(type)
+            import << "#import \"#{class_name}.h\"\n"
+            info << "@property (nonatomic, strong) #{class_name} *#{format_name};\n"
+          end
+
         else
-          info << "@property (nonatomic, strong) NSNumber/*#{oc_type}*/ *#{format_name};\n"
+          info << "@property (nonatomic, strong) NSNumber /*#{oc_type}*/ *#{format_name};\n"
         end
         info
       end

@@ -2,6 +2,7 @@
 module Swagger2objc
   class Utils
     def self.class_name_formatter(class_name)
+      return if class_name.start_with?('HashMap')
       type = Swagger2objc::Config::MODEL
       trim = Swagger2objc::Configure.config[Swagger2objc::Config::TRIM]
       class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][type]
