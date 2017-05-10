@@ -29,7 +29,7 @@ module Swagger2objc
         }
       end
 
-      def output(import, model, class_map, avoid_map)
+      def output(import, model, class_map, avoid_map, rename)
         info = "\n/**\n"
         info << " format      : #{format}\n"
         info << " required    : #{required}\n"
@@ -48,7 +48,9 @@ module Swagger2objc
           format_name = avoid[format_name]
           avoid_map[format_name] = name
         end
-
+        if rename && rename[format_name]
+          format_name = rename[format_name]
+        end
         oc_type = Swagger2objc::Generator::Type::OC_MAP[format]
         raise "unkown format : #{name}" if oc_type.nil? && format == 'object'
 

@@ -45,12 +45,26 @@ module Swagger2objc
       end
 
       def wrap_primary_key(primary_key)
+        if primary_key.instance_of? String
         template = "\n/**
  Defined for database.\n*/
 + (NSString *)primaryKey {
     return @\"{primary_key}\";
 }\n"
         template.sub('{primary_key}', primary_key)
+        elsif primary_key.instance_of? Array
+
+          template = "\n/**
+ Defined for database.\n*/
++ (NSArray *)primaryKeyArray {
+    return @[{primary_key}];
+}\n"
+          result = ''
+          primary_key.each {|key|
+            result = result + "@\"#{key}\", "
+          }
+          template.sub('{primary_key}', result[0..-3])
+          end
       end
 
       def self.clear

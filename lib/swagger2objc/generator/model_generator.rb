@@ -13,9 +13,17 @@ module Swagger2objc
         avoid_map = {}
         plan_b = ''
         model_name = Swagger2objc::Utils.class_name_formatter(model.id)
+
         return if !model_name
+        rename_config = Swagger2objc::Configure.config[Swagger2objc::Config::RENAME]
+        if rename_config
+          rename = rename_config[model_name]
+        end
+        if rename
+          rename.each {|key, value | avoid_map[value] = key}
+        end
         model.properties.each do |_key, property|
-          properties << property.output(import, model, class_map, avoid_map)
+          properties << property.output(import, model, class_map, avoid_map, rename)
           if property.name == 'id'
             primary_key = avoid_map.key('id')
           elsif property.name.length > 2 && property.name.downcase.end_with?('id')
@@ -30,6 +38,10 @@ module Swagger2objc
         end
         if primary_key != ''
           primary_key = wrap_primary_key(primary_key)
+        end
+        primary_config = Swagger2objc::Configure.config[Swagger2objc::Config::PRIMARY]
+        if primary_config && primary_config[model_name]
+          primary_key = wrap_primary_key(primary_config[model_name])
         end
         container_mapping = custom_class_map(class_map)
         property_mapping = custom_property_map(avoid_map)

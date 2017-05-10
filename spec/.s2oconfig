@@ -14,6 +14,13 @@ avoid:
   id: id_p
   description: desc
   newPwd: password
+rename:
+  SIFileItem:
+    fileName: name
+primary:
+  SIFileItem:
+    - id_p
+    - version
 output:
  model: /result/models/
  sdk: /result/sdk/

@@ -24,6 +24,7 @@ module Swagger2objc
       def generate
         sim = {}
         module_header = {}
+        return if model.nil?
         model.each do |controller|
           controller.apis.each do |request|
             class_name = Swagger2objc::Utils.sdk_name_formatter(request.path.sub(controller.resourcePath, ''), controller.category, Swagger2objc::Config::SDK)

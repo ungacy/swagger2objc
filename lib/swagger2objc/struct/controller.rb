@@ -14,8 +14,12 @@ module Swagger2objc
       attr_reader :category
 
       def setup
+
         apis.map! { |item| Request.new(item) }
-        models.transform_values! { |item| Model.new(item) }
+        if models
+          models.transform_values! { |item| Model.new(item) }
+        end
+
         @category = resourcePath.sub('/', '')
         @category.capitalize!
         @category.gsub!(/\_\w/) { |match| match[1].upcase }

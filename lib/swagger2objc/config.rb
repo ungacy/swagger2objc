@@ -14,6 +14,8 @@ module Swagger2objc
     MODEL = 'model'.freeze
     SDK = 'sdk'.freeze
     HATE = 'hate'.freeze
+    RENAME = 'rename'.freeze
+    PRIMARY = 'primary'.freeze
   end
 
   class Configure
