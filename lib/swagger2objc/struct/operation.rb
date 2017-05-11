@@ -43,7 +43,7 @@ module Swagger2objc
         parameters.each { |item| parameter_result << item.result }
         hash = {
           method: method,
-          notes: notes.sub('<', '[').sub('>', ']'),
+          notes: notes.gsub('<', '[').gsub('>', ']').gsub('&','&amp;'),
           summary: summary,
           type: type,
           param: parameter_result,
