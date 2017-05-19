@@ -22,7 +22,7 @@ module Swagger2objc
       if @apis
         @apis.each do |dict|
           path = dict[Swagger2objc::PATH]
-          next if @filter && !path.include?(@filter)
+          next if @filter && path.include?(@filter)
           result = @request.object_from_uri(path)
           controller = Swagger2objc::Struct::Controller.new(result)
           @controllers << controller
