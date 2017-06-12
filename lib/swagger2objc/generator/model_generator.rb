@@ -5,15 +5,15 @@ module Swagger2objc
     class ModelGenerator < AbstractGenerator
       def generate
         ignore = Configure.config[Swagger2objc::Config::IGNORE]
-        return if ignore.include?(model.id)
+        return if ignore.include?(model.id) || model.id == 'Null'
         properties = ''
         import = ''
         primary_key = ''
         class_map = {}
         avoid_map = {}
         plan_b = ''
-        model_name = Swagger2objc::Utils.class_name_formatter(model.id)
 
+        model_name = Swagger2objc::Utils.class_name_formatter(model.id)
         return if !model_name
         rename_config = Swagger2objc::Configure.config[Swagger2objc::Config::RENAME]
         if rename_config

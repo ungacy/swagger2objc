@@ -21,13 +21,18 @@ module Swagger2objc
         parameters.map! { |item| Parameter.new(item) }
         responseMessages.select! { |item| item['code'] == '200' }
         # NO responseMessages
-        if responseMessages.count == 0
-          @response_class = type
-        else
-          @response_class = responseMessages.first[responseModel]
-        end
+        # if responseMessages.count == 0
+        #   @response_class = type
+        # else
+        #   @response_class = responseMessages.first[responseModel]
+        # end
+        @response_class = type
         if @response_class == 'integer'
           @response_class = format
+        end
+        if @response_class == 'Null'
+          @response_class = 'string'
+          @type = 'string'
         end
         raise 'No response model' if @response_class.nil?
         oc_type = Swagger2objc::Generator::Type::OC_MAP[@response_class]

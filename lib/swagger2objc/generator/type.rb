@@ -9,7 +9,8 @@ module Swagger2objc
         'string' => 'NSString',
         'object' => 'id',
         'File' => 'UIImage',
-        'Timestamp' => 'float'
+        'Timestamp' => 'float',
+        'Null' => 'NSString'
       }.freeze
     end
   end
