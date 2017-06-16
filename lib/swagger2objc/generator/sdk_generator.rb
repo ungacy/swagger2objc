@@ -27,7 +27,13 @@ module Swagger2objc
         return if model.nil?
         model.each do |controller|
           controller.apis.each do |request|
-            class_name = Swagger2objc::Utils.sdk_name_formatter(request.path.sub(controller.resourcePath, ''), controller.category, Swagger2objc::Config::SDK)
+            sub_path = request.path.sub(controller.resourcePath, '')
+            # puts "---------#{sub_path}-------#{controller.category}-------"
+            if controller.category == 'Chat'
+              sub_path = request.path.sub('/'+controller.category.downcase, '')
+              # puts "---------#{sub_path}-------#{controller.category}-------"
+            end
+            class_name = Swagger2objc::Utils.sdk_name_formatter(sub_path, controller.category, Swagger2objc::Config::SDK)
             sim[class_name] = {
               parameters: request.operation.parameters,
               category: controller.category,
@@ -48,7 +54,8 @@ module Swagger2objc
         sim.each do |class_name, config|
           category = config[:category]
           operation = config[:operation]
-          #puts "---------#{class_name}--------------"
+
+          puts "---------#{class_name}-------#{category}-------"
           param_generate(class_name, config[:parameters], category, operation)
         end
         result = {}
@@ -57,7 +64,11 @@ module Swagger2objc
             hash = request.operation.result
             hash['path'] = request.path
             hash['category'] = controller.category
-            class_name = Swagger2objc::Utils.sdk_name_formatter(request.path.sub(controller.resourcePath, ''), controller.category, Swagger2objc::Config::SDK)
+            sub_path = request.path.sub(controller.resourcePath, '')
+            if controller.category == 'Chat'
+              sub_path = request.path.sub('/'+controller.category.downcase, '')
+            end
+            class_name = Swagger2objc::Utils.sdk_name_formatter(sub_path, controller.category, Swagger2objc::Config::SDK)
             result[class_name] = hash
 
           end
