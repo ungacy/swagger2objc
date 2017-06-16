@@ -30,6 +30,7 @@ module Swagger2objc
       end
 
       def output(import, model, class_map, avoid_map, rename)
+        imported_set = Set.new()
         info = "\n/**\n"
         info << " format      : #{format}\n"
         info << " required    : #{required}\n"
@@ -71,12 +72,18 @@ module Swagger2objc
             info << "@property (nonatomic, strong) NSDictionary *#{format_name};\n"
           else
             class_name = Swagger2objc::Utils.class_name_formatter(format)
-            import << "#import \"#{class_name}.h\"\n" if format != model.id
             if !items.nil?
-              info << "@property (nonatomic, strong) NSArray<#{class_name} *> *#{format_name};\n"
-              class_map[name] = class_name
-              info.sub!("{#{type}}","[#{class_name}]")
+              if class_name.start_with?('SIEntry«')
+                info << "@property (nonatomic, strong) NSDictionary *#{format_name};\n"
+                info.sub!("{#{type}}","[#{class_name}]")
+              else
+                import << "#import \"#{class_name}.h\"\n" if format != model.id
+                info << "@property (nonatomic, strong) NSArray<#{class_name} *> *#{format_name};\n"
+                class_map[name] = class_name
+                info.sub!("{#{type}}","[#{class_name}]")
+              end
             else
+              import << "#import \"#{class_name}.h\"\n" if format != model.id
               info.sub!("{#{type}}",class_name)
               info << "@property (nonatomic, strong) #{class_name} *#{format_name};\n"
             end

@@ -3,7 +3,7 @@ require 'swagger2objc'
 
 base_uri = 'http://192.168.1.100:9855/mk/api-docs'
 base_uri = 'http://192.168.1.124:9855/api-docs'
-filter = ['/default/fund-controller', '/default/order-controller'] # only for test
+filter = ['/default/order-controller'] # only for test
 # filter = nil
 parser = Swagger2objc::Parser.new(base_uri, filter)
 parser.sdk_result

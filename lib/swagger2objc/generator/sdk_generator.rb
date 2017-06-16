@@ -48,7 +48,7 @@ module Swagger2objc
         sim.each do |class_name, config|
           category = config[:category]
           operation = config[:operation]
-          # puts "---------#{class_name}--------------"
+          #puts "---------#{class_name}--------------"
           param_generate(class_name, config[:parameters], category, operation)
         end
         result = {}
