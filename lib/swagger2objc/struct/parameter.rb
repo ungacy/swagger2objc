@@ -12,6 +12,7 @@ module Swagger2objc
       attr_reader :required
       attr_reader :type
       attr_reader :rename
+      attr_reader :items
 
       def setup
         @type = @format if 'integer' == @type || 'number' == @type
@@ -52,7 +53,10 @@ module Swagger2objc
             import << "#import \"#{class_name}.h\"\n"
             info << "@property (nonatomic, strong) #{class_name} *#{format_name};\n"
           end
-
+        elsif oc_type == 'NSArray'
+          element_type = @items['type']
+          oc_element_type = Swagger2objc::Generator::Type::OC_MAP[element_type]
+          info << "@property (nonatomic, strong) NSArray <#{oc_element_type} *> *#{format_name};\n"
         else
           info << "@property (nonatomic, strong) NSNumber /*#{oc_type}*/ *#{format_name};\n"
         end
