@@ -101,9 +101,6 @@ module Swagger2objc
         response_class_body = ''
         avoid_map = {}
         model_name = class_name.clone
-        if class_name == 'SRKNoticeUserId'
-          puts ''
-        end
         response_class = operation.response_class
         class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][Swagger2objc::Config::MODEL]
         if response_class.start_with?(class_prefix)
