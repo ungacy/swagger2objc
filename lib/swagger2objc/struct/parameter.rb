@@ -54,9 +54,9 @@ module Swagger2objc
             info << "@property (nonatomic, strong) #{class_name} *#{format_name};\n"
           end
         elsif oc_type == 'NSArray'
-          element_type = @items['type']
+          element_type = @items['format']
           oc_element_type = Swagger2objc::Generator::Type::OC_MAP[element_type]
-          info << "@property (nonatomic, strong) NSArray <#{oc_element_type} *> *#{format_name};\n"
+          info << "@property (nonatomic, strong) NSArray<NSNumber /*#{oc_element_type}*/ *> *#{format_name};\n"
         else
           info << "@property (nonatomic, strong) NSNumber /*#{oc_type}*/ *#{format_name};\n"
         end

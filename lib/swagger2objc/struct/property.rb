@@ -10,7 +10,7 @@ module Swagger2objc
       attr_accessor :name
 
       def setup
-        if @type == 'List' || @type == 'Array'
+        if @type == 'List' || @type == 'Array' || @type == 'array'
           @format = items['type']
           @format = items['format'] if @format == 'integer'
         elsif 'integer' == @type || 'number' == @type

@@ -4,6 +4,7 @@ module Swagger2objc
       OC_MAP = {
         'int32' => 'int32_t',
         'int64' => 'int64_t',
+        'integer' => 'int64_t',
         'boolean' => 'BOOL',
         'double' => 'double',
         'string' => 'NSString',
