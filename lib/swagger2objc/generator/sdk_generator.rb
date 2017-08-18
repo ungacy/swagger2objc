@@ -4,7 +4,7 @@ require 'nokogiri-plist'
 module Swagger2objc
   module Generator
     class SDKGenerator < AbstractGenerator
-
+      @@extra_method_subfix = {}
       def wrap_response_class_header(response_class)
         template = "\n/**
  The class of response object[s]\n @return [#{response_class} class]*/
@@ -25,19 +25,28 @@ module Swagger2objc
         sim = {}
         module_header = {}
         return if model.nil?
+        subfix_array = Swagger2objc::Configure.config[Swagger2objc::Config::SUBFIX]
         model.each do |controller|
           controller.apis.each do |request|
             sub_path = request.path.sub(controller.resourcePath, '')
-            # puts "---------#{sub_path}-------#{controller.category}-------"
+             # puts "---------#{sub_path}-------#{controller.category}-------"
             if controller.category == 'Chat'
               sub_path = request.path.sub('/'+controller.category.downcase, '')
               # puts "---------#{sub_path}-------#{controller.category}-------"
             end
             class_name = Swagger2objc::Utils.sdk_name_formatter(sub_path, controller.category, Swagger2objc::Config::SDK)
+
+            if subfix_array.include?(class_name)
+              if request.operation.method == 'GET'
+                class_name = class_name + 'Query'
+              else
+                class_name = class_name + 'Submit'
+              end
+            end
             sim[class_name] = {
-              parameters: request.operation.parameters,
-              category: controller.category,
-              operation: request.operation
+                parameters: request.operation.parameters,
+                category: controller.category,
+                operation: request.operation
             }
             header_array = module_header[controller.category]
             if header_array.nil?
@@ -55,20 +64,27 @@ module Swagger2objc
           category = config[:category]
           operation = config[:operation]
 
-          puts "---------#{class_name}-------#{category}-------"
+          #puts "---------#{class_name}-------#{category}-------"
           param_generate(class_name, config[:parameters], category, operation)
         end
         result = {}
         model.each do |controller|
           controller.apis.each do |request|
             hash = request.operation.result
-            hash['path'] = request.path
-            hash['category'] = controller.category
+            hash[:path] = request.path
+            hash[:category] = controller.category
             sub_path = request.path.sub(controller.resourcePath, '')
             if controller.category == 'Chat'
               sub_path = request.path.sub('/'+controller.category.downcase, '')
             end
             class_name = Swagger2objc::Utils.sdk_name_formatter(sub_path, controller.category, Swagger2objc::Config::SDK)
+            if subfix_array.include?(class_name)
+              if request.operation.method == 'GET'
+                class_name = class_name + 'Query'
+              else
+                class_name = class_name + 'Submit'
+              end
+            end
             result[class_name] = hash
 
           end

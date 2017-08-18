@@ -16,6 +16,8 @@ module Swagger2objc
     HATE = 'hate'.freeze
     RENAME = 'rename'.freeze
     PRIMARY = 'primary'.freeze
+    SUBFIX = 'subfix'.freeze
+
   end
 
   class Configure
