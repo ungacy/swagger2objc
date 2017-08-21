@@ -59,15 +59,6 @@ module Swagger2objc
           end
         end
 
-
-        sim.each do |class_name, config|
-          category = config[:category]
-          operation = config[:operation]
-
-          #puts "---------#{class_name}-------#{category}-------"
-          next if @only && !@only.include?(category)
-          param_generate(class_name, config[:parameters], category, operation)
-        end
         result = {}
         model.each do |controller|
           controller.apis.each do |request|
@@ -91,6 +82,17 @@ module Swagger2objc
           end
         end
         Swagger2objc::Generator::TemplateReplacer.replace_plist_content(result.to_plist_xml)
+
+        sim.each do |class_name, hash|
+          category = hash[:category]
+          operation = hash[:operation]
+
+          #puts "---------#{class_name}-------#{category}-------"
+          next if @only && !@only.include?(category)
+          config = result[class_name]
+          param_generate(class_name, hash[:parameters], category, operation, config)
+        end
+
         module_header.each do |key, array|
           replacement = {
               project: project,
@@ -110,8 +112,32 @@ module Swagger2objc
         end
       end
 
-      def param_generate(class_name, parameters, category, operation)
+      def objc_code_from_hash(hash)
+        result= "    return @{\n"
+        hash.each {|key, value|
+          if value.is_a? Array
+            #result << "        \@\"#{key}\": \@\"#{value}\",\n"
+            result << "        \@\"#{key}\": \@[\n"
+            value.each {|sub_hash|
+              result << "            @{\n"
+              sub_hash.each {|key, value|
+                result << "               \@\"#{key}\": \@\"#{value}\",\n"
+              }
+              result << "            }\n"
+            }
+            result << "        ],\n"
+          else
+            result << "        \@\"#{key}\": \@\"#{value}\",\n"
+          end
+
+        }
+        result << "\n    };"
+        result
+      end
+
+      def param_generate(class_name, parameters, category, operation, config)
         comment = operation.output
+        srk_config = objc_code_from_hash(config)
         properties = ''
         import = ''
         response_class_header = ''
@@ -141,7 +167,8 @@ module Swagger2objc
             category: category,
             comment: comment,
             response_class_header: response_class_header,
-            response_class_body: response_class_body
+            response_class_body: response_class_body,
+            srk_config: srk_config
         }
         TemplateReplacer.replace(replacement, Swagger2objc::Config::SDK)
       end

@@ -11,7 +11,7 @@
 @implementation {class_name}
 {container_mapping}{property_mapping}{response_class_body}
 - (NSDictionary *)srk_config {
-    {srk_config}
+{srk_config}
 }
 
 @end
