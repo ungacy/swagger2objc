@@ -123,10 +123,11 @@ module Swagger2objc
               sub_hash.each {|key, value|
                 result << "               \@\"#{key}\": \@\"#{value}\",\n"
               }
-              result << "            }\n"
+              result << "            },\n"
             }
             result << "        ],\n"
           else
+            value.gsub!(/\"/, '\"')
             result << "        \@\"#{key}\": \@\"#{value}\",\n"
           end
 
