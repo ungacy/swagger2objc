@@ -18,12 +18,12 @@ module Swagger2objc
         @category = resourcePath.sub('/', '')
         @category = @category.gsub(/\/.+/, '')
         @category.capitalize!
-        @category.gsub!(/\_\w/) { |match| match[1].upcase }
-        apis.map! { |item|
+        @category.gsub!(/\_\w/) {|match| match[1].upcase}
+        apis.map! {|item|
           Request.new(item)
         }
         if models
-          models.transform_values! { |item| Model.new(item) }
+          models.transform_values! {|item| Model.new(item)}
         end
       end
 

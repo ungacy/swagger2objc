@@ -32,7 +32,7 @@ module Swagger2objc
     end
 
     def sdk_result
-      sdk = Swagger2objc::Generator::SDKGenerator.new(nil ,@only, @controllers)
+      sdk = Swagger2objc::Generator::SDKGenerator.new(nil, @only, @controllers)
       sdk.generate
     end
 

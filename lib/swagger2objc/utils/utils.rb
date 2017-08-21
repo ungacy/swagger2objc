@@ -1,4 +1,3 @@
-
 module Swagger2objc
   class Utils
     def self.class_name_formatter(class_name)
@@ -30,7 +29,7 @@ module Swagger2objc
       hate.each do |key|
         result.sub!('/' + key, '')
       end
-      result.gsub!(/[\/\_]\w/) { |match| match[1].upcase }
+      result.gsub!(/[\/\_]\w/) {|match| match[1].upcase}
       result.gsub!(/\/\{\w+\}/, '')
 
       # if result != class_name

@@ -21,14 +21,14 @@ module Swagger2objc
           rename = rename_config[model_name]
         end
         if rename
-          rename.each {|key, value | avoid_map[value] = key}
+          rename.each {|key, value| avoid_map[value] = key}
         end
         model.properties.each do |_key, property|
           properties << property.output(import, model, class_map, avoid_map, rename)
           if property.name == 'id'
             primary_key = avoid_map.key('id')
           elsif property.name.length > 2 && property.name.downcase.end_with?('id')
-            maybe = property.name.downcase.sub('id','')
+            maybe = property.name.downcase.sub('id', '')
             if model_name.downcase.include?(maybe)
               plan_b = property.name
             end
@@ -47,21 +47,22 @@ module Swagger2objc
         container_mapping = custom_class_map(class_map)
         property_mapping = custom_property_map(avoid_map)
         replacement = {
-          import: import,
-          class_name: model_name,
-          properties: properties,
-          project: project,
-          company: company,
-          author: author,
-          container_mapping: container_mapping,
-          property_mapping: property_mapping,
-          category: category,
-          primary_key: primary_key
+            import: import,
+            class_name: model_name,
+            properties: properties,
+            project: project,
+            company: company,
+            author: author,
+            container_mapping: container_mapping,
+            property_mapping: property_mapping,
+            category: category,
+            primary_key: primary_key
         }
         TemplateReplacer.replace(replacement, Swagger2objc::Config::MODEL)
       end
 
-      def result; end
+      def result;
+      end
     end
   end
 end

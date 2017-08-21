@@ -41,7 +41,7 @@ module Swagger2objc
             File.rename(dir + entry, dir + newfilename)
             File.open(dir + newfilename) do |fr|
               buffer = fr.read.gsub(target, replacement)
-              File.open(dir + newfilename, 'w') { |fw| fw.write(buffer) }
+              File.open(dir + newfilename, 'w') {|fw| fw.write(buffer)}
             end
           end
         end
@@ -59,7 +59,7 @@ module Swagger2objc
           File.rename(file_path, newfilename)
           File.open(file_path) do |fr|
             buffer = fr.read.gsub(target, replacement)
-            File.open(newfilename, 'w') { |fw| fw.write(buffer) }
+            File.open(newfilename, 'w') {|fw| fw.write(buffer)}
           end
         end
       end
@@ -102,14 +102,14 @@ module Swagger2objc
         date = time.strftime('%Y/%m/%d')
         replace_file_content(file_path, '{year}', year)
         replace_file_content(file_path, '{date}', date)
-        replace_file_name(file_path,'{module_name}',module_name)
+        replace_file_name(file_path, '{module_name}', module_name)
 
       end
 
       def self.replace_file_content(file_path, target, replacement)
         File.open(file_path) do |fr|
           buffer = fr.read.gsub(target, replacement)
-          File.open(file_path, 'w') { |fw| fw.write(buffer) }
+          File.open(file_path, 'w') {|fw| fw.write(buffer)}
         end
       end
 

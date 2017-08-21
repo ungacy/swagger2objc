@@ -10,4 +10,6 @@
 {comment}
 @interface {class_name} : NSObject
 {properties}{response_class_header}
+- (NSDictionary *)srk_config;
+
 @end

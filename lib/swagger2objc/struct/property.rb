@@ -16,16 +16,16 @@ module Swagger2objc
         elsif 'integer' == @type || 'number' == @type
 
         else
-           @format = type
+          @format = type
         end
       end
 
       def result
         {
-          format: format,
-          required: required,
-          type: type,
-          name: name
+            format: format,
+            required: required,
+            type: type,
+            name: name
         }
       end
 
@@ -36,7 +36,7 @@ module Swagger2objc
         info << " required    : #{required}\n"
         info << " type        : {#{type}}\n"
         info << " name        : #{name}\n"
-        if description && description.gsub(' ','').length != 0
+        if description && description.gsub(' ', '').length != 0
           info << " description : #{description}\n"
         end
         info << "*/\n"
@@ -58,39 +58,39 @@ module Swagger2objc
         if oc_type == 'NSString'
           if @type == 'List' || @type == 'Array'
             info << "@property (nonatomic, strong) NSArray<#{oc_type} *> *#{format_name};\n"
-            info.sub!("{#{type}}","[#{oc_type}]")
+            info.sub!("{#{type}}", "[#{oc_type}]")
           else
             info << "@property (nonatomic, copy) #{oc_type} *#{format_name};\n"
-            info.sub!("{#{type}}",oc_type)
+            info.sub!("{#{type}}", oc_type)
           end
         elsif oc_type == 'id'
           info << "@property (nonatomic, strong) id #{format_name};\n"
-          info.sub!("{#{type}}",'id')
+          info.sub!("{#{type}}", 'id')
         elsif oc_type.nil? # Custom Model Type
           if type.start_with?('HashMap')
-            info.sub!("{#{type}}",'NSDictionary')
+            info.sub!("{#{type}}", 'NSDictionary')
             info << "@property (nonatomic, strong) NSDictionary *#{format_name};\n"
           else
             class_name = Swagger2objc::Utils.class_name_formatter(format)
             if !items.nil?
               if class_name.start_with?('SIEntry«')
                 info << "@property (nonatomic, strong) NSDictionary *#{format_name};\n"
-                info.sub!("{#{type}}","[#{class_name}]")
+                info.sub!("{#{type}}", "[#{class_name}]")
               else
                 import << "#import \"#{class_name}.h\"\n" if format != model.id
                 info << "@property (nonatomic, strong) NSArray<#{class_name} *> *#{format_name};\n"
                 class_map[name] = class_name
-                info.sub!("{#{type}}","[#{class_name}]")
+                info.sub!("{#{type}}", "[#{class_name}]")
               end
             else
               import << "#import \"#{class_name}.h\"\n" if format != model.id
-              info.sub!("{#{type}}",class_name)
+              info.sub!("{#{type}}", class_name)
               info << "@property (nonatomic, strong) #{class_name} *#{format_name};\n"
             end
           end
 
         else
-          info.sub!("{#{type}}",oc_type)
+          info.sub!("{#{type}}", oc_type)
 
           if @type == 'List' || @type == 'Array' || @type == 'array'
             info << "@property (nonatomic, strong) NSArray<NSNumber /*#{oc_type}*/ *> *#{format_name};\n"

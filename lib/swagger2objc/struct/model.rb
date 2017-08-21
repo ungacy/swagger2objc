@@ -8,7 +8,7 @@ module Swagger2objc
 
       def setup
         # puts '----------Model--------------'
-        properties.transform_values! { |item| Property.new(item) }
+        properties.transform_values! {|item| Property.new(item)}
         properties.each do |key, item|
           item.name = key
           # puts item.result
@@ -17,7 +17,7 @@ module Swagger2objc
 
       def result
         {
-          id: id
+            id: id
         }
       end
     end

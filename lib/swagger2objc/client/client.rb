@@ -3,6 +3,7 @@ require 'json'
 module Swagger2objc
   class Client
     @base_uri
+
     def initialize(base_uri)
       @base_uri = base_uri
     end

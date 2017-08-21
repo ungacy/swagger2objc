@@ -54,7 +54,7 @@ module Swagger2objc
             info << "@property (nonatomic, strong) #{class_name} *#{format_name};\n"
           end
         elsif oc_type == 'NSArray'
-          element_type = @items['format'] ? @items['format'] :  items['type']
+          element_type = @items['format'] ? @items['format'] : items['type']
           oc_element_type = Swagger2objc::Generator::Type::OC_MAP[element_type]
           if !oc_element_type.start_with?('NS') && !oc_element_type.start_with?('UI')
             info << "@property (nonatomic, strong) NSArray<NSNumber /*#{oc_element_type}*/ *> *#{format_name};\n"
@@ -70,10 +70,10 @@ module Swagger2objc
 
       def result
         hash = {
-          paramType: paramType,
-          key: description,
-          type: type,
-          required: required
+            paramType: paramType,
+            key: description,
+            type: type,
+            required: required
         }
 
         hash[:rename] = @rename if @rename

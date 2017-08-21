@@ -18,8 +18,8 @@ module Swagger2objc
       attr_accessor :path
 
       def setup
-        parameters.map! { |item| Parameter.new(item) }
-        responseMessages.select! { |item| item['code'] == '200' }
+        parameters.map! {|item| Parameter.new(item)}
+        responseMessages.select! {|item| item['code'] == '200'}
         # NO responseMessages
         # if responseMessages.count == 0
         #   @response_class = type
@@ -45,13 +45,13 @@ module Swagger2objc
 
       def result
         parameter_result = []
-        parameters.each { |item| parameter_result << item.result }
+        parameters.each {|item| parameter_result << item.result}
         hash = {
-          method: method,
-          notes: notes.gsub('<', '[').gsub('>', ']').gsub('&','&amp;'),
-          summary: summary,
-          type: type,
-          param: parameter_result,
+            method: method,
+            notes: notes.gsub('<', '[').gsub('>', ']').gsub('&', '&amp;'),
+            summary: summary,
+            type: type,
+            param: parameter_result,
         }
         class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][Swagger2objc::Config::MODEL]
         if @response_class.start_with?(class_prefix)

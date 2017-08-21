@@ -22,6 +22,7 @@ module Swagger2objc
 
   class Configure
     @@output = {}
+
     def self.output(type)
       if @@output.count == 0
         @@output = config[Swagger2objc::Config::OUTPUT]
@@ -40,7 +41,9 @@ module Swagger2objc
       @@config = parse_yaml('.s2oconfig') if @@config.count == 0
       @@config
     end
+
     @@config = {}
+
     def self.config
       @@config
     end
@@ -49,6 +52,7 @@ module Swagger2objc
       @@config
     end
 
-    def initialize; end
+    def initialize;
+    end
   end
 end

@@ -5,6 +5,7 @@ module Swagger2objc
   module Generator
     class SDKGenerator < AbstractGenerator
       @@extra_method_subfix = {}
+
       def wrap_response_class_header(response_class)
         template = "\n/**
  The class of response object[s]\n @return [#{response_class} class]*/
@@ -29,7 +30,7 @@ module Swagger2objc
         model.each do |controller|
           controller.apis.each do |request|
             sub_path = request.path.sub(controller.resourcePath, '')
-             # puts "---------#{sub_path}-------#{controller.category}-------"
+            # puts "---------#{sub_path}-------#{controller.category}-------"
             if controller.category == 'Chat'
               sub_path = request.path.sub('/'+controller.category.downcase, '')
               # puts "---------#{sub_path}-------#{controller.category}-------"
@@ -57,7 +58,6 @@ module Swagger2objc
             end
           end
         end
-
 
 
         sim.each do |class_name, config|
@@ -130,18 +130,18 @@ module Swagger2objc
         end
         property_mapping = custom_property_map(avoid_map)
         replacement = {
-          import: import,
-          class_name: model_name,
-          properties: properties,
-          project: project,
-          company: company,
-          author: author,
-          container_mapping: {},
-          property_mapping: property_mapping,
-          category: category,
-          comment: comment,
-          response_class_header: response_class_header,
-          response_class_body: response_class_body
+            import: import,
+            class_name: model_name,
+            properties: properties,
+            project: project,
+            company: company,
+            author: author,
+            container_mapping: {},
+            property_mapping: property_mapping,
+            category: category,
+            comment: comment,
+            response_class_header: response_class_header,
+            response_class_body: response_class_body
         }
         TemplateReplacer.replace(replacement, Swagger2objc::Config::SDK)
       end
