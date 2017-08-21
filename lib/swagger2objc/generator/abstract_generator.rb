@@ -13,6 +13,7 @@ module Swagger2objc
       attr_reader :company
       attr_reader :project
       attr_reader :model
+      attr_reader :only
 
       def custom_class_map(hash)
         return '' if hash.count == 0
@@ -67,18 +68,20 @@ module Swagger2objc
           end
       end
 
-      def self.clear
-        FileGenerator.clear(Swagger2objc::Config::MODEL)
-        FileGenerator.clear(Swagger2objc::Config::SDK)
+      def self.clear(only)
+        FileGenerator.clear(Swagger2objc::Config::MODEL, only)
+        FileGenerator.clear(Swagger2objc::Config::SDK, only)
+
       end
 
-      def initialize(category = nil, model)
+      def initialize(category = nil, only = nil, model)
         config = Configure.config
         @author = config[Swagger2objc::Config::AUTHOR]
         @company = config[Swagger2objc::Config::COMPANY]
         @project = config[Swagger2objc::Config::PROJECT]
         @category = category
         @model = model
+        @only = only
       end
 
       def generate; end

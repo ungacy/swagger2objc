@@ -8,11 +8,12 @@ require 'nokogiri-plist'
 
 module Swagger2objc
   class Parser
-    def initialize(base_uri, filter = nil)
+    def initialize(base_uri, filter = nil, only = nil)
       Swagger2objc::Configure.setup
-      Swagger2objc::Generator::ModelGenerator.clear
+      Swagger2objc::Generator::ModelGenerator.clear(only)
       @request = Swagger2objc::Client.new(base_uri)
       @filter = filter
+      @only = only
       setup
     end
 
@@ -31,7 +32,7 @@ module Swagger2objc
     end
 
     def sdk_result
-      sdk = Swagger2objc::Generator::SDKGenerator.new(@controllers)
+      sdk = Swagger2objc::Generator::SDKGenerator.new(nil ,@only, @controllers)
       sdk.generate
     end
 

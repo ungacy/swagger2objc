@@ -65,6 +65,7 @@ module Swagger2objc
           operation = config[:operation]
 
           #puts "---------#{class_name}-------#{category}-------"
+          next if @only && !@only.include?(category)
           param_generate(class_name, config[:parameters], category, operation)
         end
         result = {}
