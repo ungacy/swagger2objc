@@ -74,14 +74,13 @@ module Swagger2objc
 
       end
 
-      def initialize(category = nil, only = nil, model)
+      def initialize(category = nil, model)
         config = Configure.config
         @author = config[Swagger2objc::Config::AUTHOR]
         @company = config[Swagger2objc::Config::COMPANY]
         @project = config[Swagger2objc::Config::PROJECT]
         @category = category
         @model = model
-        @only = only
       end
 
       def generate;

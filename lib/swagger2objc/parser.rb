@@ -26,13 +26,14 @@ module Swagger2objc
           next if @filter && @filter.include?(path)
           result = @request.object_from_uri(path)
           controller = Swagger2objc::Struct::Controller.new(result)
+          next if @only && !@only.include?(controller.category)
           @controllers << controller
         end
       end
     end
 
     def sdk_result
-      sdk = Swagger2objc::Generator::SDKGenerator.new(nil, @only, @controllers)
+      sdk = Swagger2objc::Generator::SDKGenerator.new(nil, @controllers)
       sdk.generate
     end
 
