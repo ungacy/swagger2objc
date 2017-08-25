@@ -81,7 +81,7 @@ module Swagger2objc
 
           end
         end
-        Swagger2objc::Generator::TemplateReplacer.replace_plist_content(result.to_plist_xml)
+        #Swagger2objc::Generator::TemplateReplacer.replace_plist_content(result.to_plist_xml)
 
         sim.each do |class_name, hash|
           category = hash[:category]

@@ -9,6 +9,7 @@ base_uri = 'http://58.213.85.35:11000/mk/api-docs'
 filter = ['/default/order-controller'] # only for test
 filter = nil
 only = ['Alliance']
+only = nil
 parser = Swagger2objc::Parser.new(base_uri, filter, only)
 parser.sdk_result
 parser.model_result

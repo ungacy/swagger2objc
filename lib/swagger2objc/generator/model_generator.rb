@@ -16,6 +16,7 @@ module Swagger2objc
         model_name = Swagger2objc::Utils.class_name_formatter(model.id)
 
         return if !model_name
+        return if model_name == 'SISimpleResponse' && category != 'Affair'
         rename_config = Swagger2objc::Configure.config[Swagger2objc::Config::RENAME]
         if rename_config
           rename = rename_config[model_name]
