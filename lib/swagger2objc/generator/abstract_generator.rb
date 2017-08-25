@@ -61,9 +61,9 @@ module Swagger2objc
     return @[{primary_key}];
 }\n"
           result = ''
-          primary_key.each {|key|
-            result = result + "@\"#{key}\", "
-          }
+          primary_key.each do |key|
+            result += "@\"#{key}\", "
+          end
           template.sub('{primary_key}', result[0..-3])
         end
       end
@@ -71,7 +71,6 @@ module Swagger2objc
       def self.clear(only)
         FileGenerator.clear(Swagger2objc::Config::MODEL, only)
         FileGenerator.clear(Swagger2objc::Config::SDK, only)
-
       end
 
       def initialize(category = nil, model)
@@ -83,8 +82,7 @@ module Swagger2objc
         @model = model
       end
 
-      def generate;
-      end
+      def generate; end
     end
   end
 end

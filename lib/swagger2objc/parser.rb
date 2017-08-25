@@ -39,19 +39,17 @@ module Swagger2objc
 
     def model_result
       @controllers.each do |controller|
-        unless controller.models.nil?
-          controller.models.each do |_key, model|
-            begin
-              generator = Swagger2objc::Generator::ModelGenerator.new(controller.category, model)
-              generator.generate
-            rescue => err
-              puts err
-              puts model.result
-              puts controller.resourcePath
-            end
+        next if controller.models.nil?
+        controller.models.each do |_key, model|
+          begin
+            generator = Swagger2objc::Generator::ModelGenerator.new(controller.category, model)
+            generator.generate
+          rescue => err
+            puts err
+            puts model.result
+            puts controller.resourcePath
           end
         end
-
       end
     end
   end

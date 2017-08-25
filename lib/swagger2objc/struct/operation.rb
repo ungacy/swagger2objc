@@ -18,8 +18,8 @@ module Swagger2objc
       attr_accessor :path
 
       def setup
-        parameters.map! {|item| Parameter.new(item)}
-        responseMessages.select! {|item| item['code'] == '200'}
+        parameters.map! { |item| Parameter.new(item) }
+        responseMessages.select! { |item| item['code'] == '200' }
         # NO responseMessages
         # if responseMessages.count == 0
         #   @response_class = type
@@ -27,9 +27,7 @@ module Swagger2objc
         #   @response_class = responseMessages.first[responseModel]
         # end
         @response_class = type
-        if @response_class == 'integer'
-          @response_class = format
-        end
+        @response_class = format if @response_class == 'integer'
         if @response_class == 'Null'
           @response_class = 'string'
           @type = 'string'
@@ -45,13 +43,13 @@ module Swagger2objc
 
       def result
         parameter_result = []
-        parameters.each {|item| parameter_result << item.result}
+        parameters.each { |item| parameter_result << item.result }
         hash = {
-            method: method,
-            notes: notes.gsub('<', '[').gsub('>', ']').gsub('&', '&amp;'),
-            summary: summary,
-            type: type,
-            param: parameter_result,
+          method: method,
+          notes: notes.tr('<', '[').tr('>', ']').gsub('&', '&amp;'),
+          summary: summary,
+          type: type,
+          param: parameter_result
         }
         class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][Swagger2objc::Config::MODEL]
         if @response_class.start_with?(class_prefix)
@@ -67,13 +65,10 @@ module Swagger2objc
         info << " notes      : #{notes}\n"
         info << " summary    : #{summary}\n"
         info << " type       : #{type}\n"
-        if format
-          info << " format     : #{format}\n"
-        end
+        info << " format     : #{format}\n" if format
         info << " response   : #{@response_class}\n"
-        info << "*/"
+        info << '*/'
       end
-
     end
   end
 end

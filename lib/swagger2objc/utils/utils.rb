@@ -10,9 +10,7 @@ module Swagger2objc
         result.sub!(key, value)
       end
       mapping = Swagger2objc::Configure.config[Swagger2objc::Config::MAPPING]
-      if mapping[result]
-        result = mapping[result]
-      end
+      result = mapping[result] if mapping[result]
       if result != class_name
         # puts "Rename [#{class_name}] to [#{result}]"
       end
@@ -29,7 +27,7 @@ module Swagger2objc
       hate.each do |key|
         result.sub!('/' + key, '')
       end
-      result.gsub!(/[\/\_]\w/) {|match| match[1].upcase}
+      result.gsub!(/[\/\_]\w/) { |match| match[1].upcase }
       result.gsub!(/\/\{\w+\}/, '')
 
       # if result != class_name

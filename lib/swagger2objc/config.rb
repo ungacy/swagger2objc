@@ -17,7 +17,6 @@ module Swagger2objc
     RENAME = 'rename'.freeze
     PRIMARY = 'primary'.freeze
     SUBFIX = 'subfix'.freeze
-
   end
 
   class Configure
@@ -52,7 +51,6 @@ module Swagger2objc
       @@config
     end
 
-    def initialize;
-    end
+    def initialize; end
   end
 end

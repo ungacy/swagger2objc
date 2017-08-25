@@ -14,17 +14,14 @@ module Swagger2objc
       attr_reader :category
 
       def setup
-
         @category = resourcePath.sub('/', '')
         @category = @category.gsub(/\/.+/, '')
         @category.capitalize!
-        @category.gsub!(/\_\w/) {|match| match[1].upcase}
-        apis.map! {|item|
+        @category.gsub!(/\_\w/) { |match| match[1].upcase }
+        apis.map! do |item|
           Request.new(item)
-        }
-        if models
-          models.transform_values! {|item| Model.new(item)}
         end
+        models.transform_values! { |item| Model.new(item) } if models
       end
 
       def result

@@ -70,10 +70,10 @@ module Swagger2objc
 
       def result
         hash = {
-            paramType: paramType,
-            key: description,
-            type: type,
-            required: required
+          paramType: paramType,
+          key: description,
+          type: type,
+          required: required
         }
 
         hash[:rename] = @rename if @rename

@@ -7,15 +7,14 @@ module Swagger2objc
     class FileGenerator
       def self.clear(type, only)
         if only
-          only.each {|controller|
+          only.each do |controller|
             result_dir = Dir.pwd + Swagger2objc::Configure.output(type) + '/' + controller
             FileUtils.rm_rf(result_dir) if File.directory?(result_dir)
-          }
+          end
         else
           result_dir = Dir.pwd + Swagger2objc::Configure.output(type)
           FileUtils.rm_rf(result_dir) if File.directory?(result_dir)
         end
-
       end
 
       def self.copy_dir(type)

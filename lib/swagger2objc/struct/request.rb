@@ -15,8 +15,8 @@ module Swagger2objc
 
       def result
         hash = {
-            path: path,
-            description: description
+          path: path,
+          description: description
         }
         operation.result.each do |key, value|
           hash[key] = value

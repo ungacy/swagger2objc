@@ -32,22 +32,22 @@ module Swagger2objc
             sub_path = request.path.sub(controller.resourcePath, '')
             # puts "---------#{sub_path}-------#{controller.category}-------"
             if controller.category == 'Chat'
-              sub_path = request.path.sub('/'+controller.category.downcase, '')
+              sub_path = request.path.sub('/' + controller.category.downcase, '')
               # puts "---------#{sub_path}-------#{controller.category}-------"
             end
             class_name = Swagger2objc::Utils.sdk_name_formatter(sub_path, controller.category, Swagger2objc::Config::SDK)
 
             if subfix_array.include?(class_name)
-              if request.operation.method == 'GET'
-                class_name = class_name + 'Query'
-              else
-                class_name = class_name + 'Submit'
-              end
+              class_name = if request.operation.method == 'GET'
+                             class_name + 'Query'
+                           else
+                             class_name + 'Submit'
+                           end
             end
             sim[class_name] = {
-                parameters: request.operation.parameters,
-                category: controller.category,
-                operation: request.operation
+              parameters: request.operation.parameters,
+              category: controller.category,
+              operation: request.operation
             }
             header_array = module_header[controller.category]
             if header_array.nil?
@@ -67,36 +67,35 @@ module Swagger2objc
             hash[:category] = controller.category
             sub_path = request.path.sub(controller.resourcePath, '')
             if controller.category == 'Chat'
-              sub_path = request.path.sub('/'+controller.category.downcase, '')
+              sub_path = request.path.sub('/' + controller.category.downcase, '')
             end
             class_name = Swagger2objc::Utils.sdk_name_formatter(sub_path, controller.category, Swagger2objc::Config::SDK)
             if subfix_array.include?(class_name)
-              if request.operation.method == 'GET'
-                class_name = class_name + 'Query'
-              else
-                class_name = class_name + 'Submit'
-              end
+              class_name = if request.operation.method == 'GET'
+                             class_name + 'Query'
+                           else
+                             class_name + 'Submit'
+                           end
             end
             result[class_name] = hash
-
           end
         end
-        #Swagger2objc::Generator::TemplateReplacer.replace_plist_content(result.to_plist_xml)
+        # Swagger2objc::Generator::TemplateReplacer.replace_plist_content(result.to_plist_xml)
 
         sim.each do |class_name, hash|
           category = hash[:category]
           operation = hash[:operation]
 
-          #puts "---------#{class_name}-------#{category}-------"
+          # puts "---------#{class_name}-------#{category}-------"
           config = result[class_name]
           param_generate(class_name, hash[:parameters], category, operation, config)
         end
 
         module_header.each do |key, array|
           replacement = {
-              project: project,
-              company: company,
-              author: author,
+            project: project,
+            company: company,
+            author: author
           }
           type = Swagger2objc::Config::SDK
           class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][type]
@@ -112,25 +111,24 @@ module Swagger2objc
       end
 
       def objc_code_from_hash(hash)
-        result= "    return @{\n"
-        hash.each {|key, value|
+        result = "    return @{\n"
+        hash.each do |key, value|
           if value.is_a? Array
-            #result << "        \@\"#{key}\": \@\"#{value}\",\n"
+            # result << "        \@\"#{key}\": \@\"#{value}\",\n"
             result << "        \@\"#{key}\": \@[\n"
-            value.each {|sub_hash|
+            value.each do |sub_hash|
               result << "            @{\n"
-              sub_hash.each {|key, value|
+              sub_hash.each do |key, value|
                 result << "               \@\"#{key}\": \@\"#{value}\",\n"
-              }
+              end
               result << "            },\n"
-            }
+            end
             result << "        ],\n"
           else
             value.gsub!(/\"/, '\"')
             result << "        \@\"#{key}\": \@\"#{value}\",\n"
           end
-
-        }
+        end
         result << "\n    };"
         result
       end
@@ -156,19 +154,19 @@ module Swagger2objc
         end
         property_mapping = custom_property_map(avoid_map)
         replacement = {
-            import: import,
-            class_name: model_name,
-            properties: properties,
-            project: project,
-            company: company,
-            author: author,
-            container_mapping: {},
-            property_mapping: property_mapping,
-            category: category,
-            comment: comment,
-            response_class_header: response_class_header,
-            response_class_body: response_class_body,
-            srk_config: srk_config
+          import: import,
+          class_name: model_name,
+          properties: properties,
+          project: project,
+          company: company,
+          author: author,
+          container_mapping: {},
+          property_mapping: property_mapping,
+          category: category,
+          comment: comment,
+          response_class_header: response_class_header,
+          response_class_body: response_class_body,
+          srk_config: srk_config
         }
         TemplateReplacer.replace(replacement, Swagger2objc::Config::SDK)
       end
