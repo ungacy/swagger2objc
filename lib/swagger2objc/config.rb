@@ -17,6 +17,7 @@ module Swagger2objc
     RENAME = 'rename'.freeze
     PRIMARY = 'primary'.freeze
     SUBFIX = 'subfix'.freeze
+    LINK = 'link'.freeze
   end
 
   class Configure

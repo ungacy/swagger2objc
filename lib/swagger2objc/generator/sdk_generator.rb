@@ -60,6 +60,8 @@ module Swagger2objc
         end
 
         result = {}
+        link_map = Swagger2objc::Configure.config[Swagger2objc::Config::LINK]
+        link_map = {} if link_map.nil?
         model.each do |controller|
           controller.apis.each do |request|
             hash = request.operation.result
@@ -73,10 +75,15 @@ module Swagger2objc
             if subfix_array.include?(class_name)
               class_name = if request.operation.method == 'GET'
                              class_name + 'Query'
+                           elsif request.operation.method == 'PUT'
+                             class_name + 'Update'
+                           elsif request.operation.method == 'DELETE'
+                             class_name + 'Remove'
                            else
                              class_name + 'Submit'
                            end
             end
+            hash[:link] = link_map[controller.category] ? link_map[controller.category] : controller.category
             result[class_name] = hash
           end
         end

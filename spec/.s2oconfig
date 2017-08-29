@@ -27,6 +27,8 @@ output:
  sdk: /result/sdk/
 subfix:
   - SRKAffairSearch
+link:
+  Affair: SomeLink
 hate:
  - get
  - Get
