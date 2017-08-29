@@ -7,6 +7,7 @@ task default: :make
 
 desc 'Build and install'
 task :make do
+  `rubocop -a`
   `gem build "swagger2objc.gemspec"`
   `gem install "./swagger2objc-0.1.0.gem"`
 end
