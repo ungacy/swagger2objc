@@ -136,8 +136,12 @@ module Swagger2objc
             end
             result << "        ],\n"
           else
-            value.gsub!(/\"/, '\"')
-            result << "        \@\"#{key}\": \@\"#{value}\",\n"
+            if value
+              puts value
+              value = value.gsub(/\"/, '\"')
+              result << "        \@\"#{key}\": \@\"#{value}\",\n"
+            end
+
           end
         end
         result << "\n    };"

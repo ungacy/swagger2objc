@@ -10,6 +10,10 @@ filter = ['/default/order-controller'] # only for test
 filter = nil
 only = ['Alliance']
 only = nil
-parser = Swagger2objc::Parser.new(base_uri, filter, only)
+# parser = Swagger2objc::Parser.new(base_uri, filter, only)
+# parser.sdk_result
+# parser.model_result
+
+parser = Swagger2objc::Parser.new(nil)
 parser.sdk_result
 parser.model_result

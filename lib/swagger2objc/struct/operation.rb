@@ -12,27 +12,39 @@ module Swagger2objc
       attr_reader :parameters
       attr_reader :produces
       attr_reader :responseMessages
+      attr_reader :responses
       attr_reader :summary
       attr_reader :type
       attr_reader :response_class
       attr_accessor :path
 
       def setup
+        @notes = summary if @notes.nil?
         parameters.map! { |item| Parameter.new(item) }
-        responseMessages.select! { |item| item['code'] == '200' }
-        # NO responseMessages
-        # if responseMessages.count == 0
-        #   @response_class = type
-        # else
-        #   @response_class = responseMessages.first[responseModel]
-        # end
+        if responseMessages
+          responseMessages.select! { |item| item['code'] == '200' }
+        elsif responses
+          # responses.select! { |item| item['code'] == '200' }
+          if responses['200'].nil?
+            puts path
+            puts responses
+          else
+            type = responses['200']['schema']['type']
+            if type.nil?
+              type = responses['200']['schema']['$ref'].sub('#/definitions/', '')
+            end
+          end
+
+        end
+
         @response_class = type
         @response_class = format if @response_class == 'integer'
         if @response_class == 'Null'
           @response_class = 'string'
           @type = 'string'
         end
-        raise 'No response model' if @response_class.nil?
+        @response_class = 'object' if @response_class.nil?
+        return 'No response model' if @response_class.nil?
         oc_type = Swagger2objc::Generator::Type::OC_MAP[@response_class]
         if oc_type.nil?
           @response_class = Swagger2objc::Utils.class_name_formatter(@response_class)
