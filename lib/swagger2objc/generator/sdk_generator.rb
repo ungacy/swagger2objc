@@ -4,6 +4,9 @@ require 'nokogiri-plist'
 module Swagger2objc
   module Generator
     class SDKGenerator < AbstractGenerator
+      def self.clear(only)
+        FileGenerator.clear(Swagger2objc::Config::SDK, only)
+      end
       @@extra_method_subfix = {}
 
       def wrap_response_class_header(response_class)
@@ -61,7 +64,6 @@ module Swagger2objc
 
         result = {}
         link_map = Swagger2objc::Configure.config[Swagger2objc::Config::LINK]
-        link_map = {} if link_map.nil?
         model.each do |controller|
           controller.apis.each do |request|
             hash = request.operation.result
@@ -83,7 +85,9 @@ module Swagger2objc
                              class_name + 'Submit'
                            end
             end
-            hash[:link] = link_map[controller.category] ? link_map[controller.category] : controller.category
+            if link_map
+              hash[:link] = link_map[controller.category] ? link_map[controller.category] : controller.category
+            end
             result[class_name] = hash
           end
         end

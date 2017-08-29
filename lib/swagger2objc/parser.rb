@@ -10,7 +10,6 @@ module Swagger2objc
   class Parser
     def initialize(base_uri, filter = nil, only = nil)
       Swagger2objc::Configure.setup
-      Swagger2objc::Generator::ModelGenerator.clear(only)
       @request = Swagger2objc::Client.new(base_uri)
       @filter = filter
       @only = only
@@ -27,6 +26,8 @@ module Swagger2objc
           result = @request.object_from_uri(path)
           controller = Swagger2objc::Struct::Controller.new(result)
           next if @only && !@only.include?(controller.category)
+          Swagger2objc::Generator::ModelGenerator.clear([controller.category])
+          Swagger2objc::Generator::SDKGenerator.clear([controller.category])
           @controllers << controller
         end
       end

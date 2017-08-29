@@ -3,6 +3,10 @@ require 'swagger2objc/generator/abstract_generator'
 module Swagger2objc
   module Generator
     class ModelGenerator < AbstractGenerator
+      def self.clear(only)
+        FileGenerator.clear(Swagger2objc::Config::MODEL, only)
+      end
+
       def generate
         ignore = Configure.config[Swagger2objc::Config::IGNORE]
         return if ignore.include?(model.id) || model.id == 'Null' || model.id.start_with?('Entry')

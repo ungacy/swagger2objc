@@ -68,11 +68,6 @@ module Swagger2objc
         end
       end
 
-      def self.clear(only)
-        FileGenerator.clear(Swagger2objc::Config::MODEL, only)
-        FileGenerator.clear(Swagger2objc::Config::SDK, only)
-      end
-
       def initialize(category = nil, model)
         config = Configure.config
         @author = config[Swagger2objc::Config::AUTHOR]
