@@ -28,7 +28,7 @@ output:
 subfix:
   - SRKAffairSearch
 link:
-  Affair: SomeLink
+  Link: SomeLink
 hate:
  - get
  - Get
