@@ -8,9 +8,17 @@ module Swagger2objc
       attr_reader :items
       attr_reader :description
       attr_reader :ref
+      attr_reader :additionalProperties
       attr_accessor :name
 
       def setup
+        if @additionalProperties
+          @type = @additionalProperties['type']
+          if @additionalProperties['items']
+            @items = @additionalProperties['items']
+          end
+        end
+
         if @type == 'List' || @type == 'Array' || @type == 'array'
           @format = items['type']
           @format = items['format'] if @format == 'integer'
