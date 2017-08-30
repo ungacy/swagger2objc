@@ -25,7 +25,6 @@ module Swagger2objc
         end
 
         type = 'object'
-        format = 'int64'
         if responses
           if @responses['200']
             type = responses['200']['schema']['type']
@@ -71,7 +70,6 @@ module Swagger2objc
         info = "\n/**\n"
         info << " path       : #{path}\n"
         info << " method     : #{method}\n"
-        # info << " notes      : #{notes}\n"
         info << " summary    : #{summary}\n"
         info << " type       : #{type}\n"
         info << " format     : #{format}\n" if format
