@@ -42,14 +42,6 @@ module Swagger2objc
               end
               controller.apis << operation
             end
-            # path = dict[Swagger2objc::PATH]
-            # next if @filter && @filter.include?(path)
-            # result = @request.object_from_uri(path)
-            # controller = Swagger2objc::Struct::Controller.new(result)
-            # next if @only && !@only.include?(controller.category)
-            # Swagger2objc::Generator::ModelGenerator.clear([controller.category])
-            # Swagger2objc::Generator::SDKGenerator.clear([controller.category])
-            # @controllers << controller
           end
         end
       end
