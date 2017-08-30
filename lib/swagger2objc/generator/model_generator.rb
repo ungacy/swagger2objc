@@ -3,7 +3,7 @@ require 'swagger2objc/generator/abstract_generator'
 module Swagger2objc
   module Generator
     class ModelGenerator < AbstractGenerator
-      def self.clear(only)
+      def self.clear(only = nil)
         FileGenerator.clear(Swagger2objc::Config::MODEL, only)
       end
 

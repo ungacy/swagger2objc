@@ -14,6 +14,10 @@ module Swagger2objc
       @request = Swagger2objc::Client.new(base_uri)
       @filter = filter
       @only = only
+      if !only
+        Swagger2objc::Generator::ModelGenerator.clear()
+        Swagger2objc::Generator::SDKGenerator.clear()
+      end
       setup
     end
 
@@ -21,26 +25,8 @@ module Swagger2objc
       # swagger_hash = @request.object_from_uri()
       json = Swagger2objc::Generator::TemplateReplacer.read_file_content('./swagger.txt')
       swagger_hash = JSON.parse(json)
-
       @root = Swagger2objc::Struct::Root.new(swagger_hash)
 
-      if @paths
-        @paths.each do |path, dict|
-          puts path
-          dict.each do |method, operation_hash|
-            puts method
-            controller_name = operation_hash['tags'].first
-          end
-          # path = dict[Swagger2objc::PATH]
-          # next if @filter && @filter.include?(path)
-          # result = @request.object_from_uri(path)
-          # controller = Swagger2objc::Struct::Controller.new(result)
-          # next if @only && !@only.include?(controller.category)
-          # Swagger2objc::Generator::ModelGenerator.clear([controller.category])
-          # Swagger2objc::Generator::SDKGenerator.clear([controller.category])
-          # @controllers << controller
-        end
-      end
     end
 
     def sdk_result

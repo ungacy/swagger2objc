@@ -1,4 +1,3 @@
-require 'swagger2objc/struct/request'
 require 'swagger2objc/struct/model'
 module Swagger2objc
   module Struct

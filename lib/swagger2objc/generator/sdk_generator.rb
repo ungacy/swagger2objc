@@ -4,7 +4,7 @@ require 'nokogiri-plist'
 module Swagger2objc
   module Generator
     class SDKGenerator < AbstractGenerator
-      def self.clear(only)
+      def self.clear(only = nil)
         FileGenerator.clear(Swagger2objc::Config::SDK, only)
       end
       @@extra_method_subfix = {}
