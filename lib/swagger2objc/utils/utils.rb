@@ -36,12 +36,8 @@ module Swagger2objc
       class_prefix + result
     end
 
-
-    def self.all_ref_of_ref(ref, definitions)
-
+    def self.all_ref_of_ref(ref, _definitions)
       ref
     end
-
-
   end
 end

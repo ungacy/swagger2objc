@@ -44,11 +44,11 @@ module Swagger2objc
 
               all_ref = Swagger2objc::Utils.all_ref_of_ref(operation.all_ref, @common)
               controller.models += all_ref
-              all_ref.each {|ref| @common.delete(ref)}
+              all_ref.each { |ref| @common.delete(ref) }
             end
           end
         end
-        puts @common.count
+        puts "remain #{@common.count} for common"
       end
 
       def result

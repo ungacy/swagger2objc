@@ -24,12 +24,8 @@ module Swagger2objc
         rename_config = Swagger2objc::Configure.config[Swagger2objc::Config::RENAME]
         rename = rename_config[model_name] if rename_config
         rename.each { |key, value| avoid_map[value] = key } if rename
-        if model.id == 'AffairMemberEntity'
-          puts 'AffairMemberEntity'
-          raise 'AffairMemberEntity'
-        end
-        model.properties.each do |_key, property|
-          properties << property.output(import, model, class_map, avoid_map, rename)
+        @model.properties.each do |_key, property|
+          properties << property.output(import, @model, class_map, avoid_map, rename)
           if property.name == 'id'
             primary_key = avoid_map.key('id')
           elsif property.name.length > 2 && property.name.downcase.end_with?('id')

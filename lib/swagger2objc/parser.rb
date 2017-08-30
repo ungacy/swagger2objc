@@ -45,7 +45,7 @@ module Swagger2objc
         end
       end
 
-        # @root.definitions.each do |ref, ref_hash|
+      # @root.definitions.each do |ref, ref_hash|
       #   next if ref == 'Null'
       #   ref_hash['id'] = ref
       #   model = Swagger2objc::Struct::Model.new(ref_hash)

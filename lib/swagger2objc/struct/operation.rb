@@ -22,13 +22,13 @@ module Swagger2objc
       attr_reader :all_ref
 
       def setup
-        @all_ref =[]
+        @all_ref = []
         if @parameters
-          @parameters.map! { |item|
+          @parameters.map! do |item|
             parameter = Parameter.new(item)
             @all_ref += parameter.all_ref
             parameter
-          }
+          end
         else
           @parameters = []
         end

@@ -13,6 +13,8 @@ module Swagger2objc
         @properties.each do |key, item|
           item['ref'] = item['$ref']
           item.delete('$ref')
+          item['type'] = '' if item['type'].nil?
+          item['format'] = '' if item['format'].nil?
           property = Property.new(item)
           property.name = key
           hash[key] = property

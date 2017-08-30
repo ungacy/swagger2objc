@@ -24,6 +24,7 @@ module Swagger2objc
         end
         if @ref
           @format = @ref.sub('#/definitions/', '')
+          @format = 'double' if @format == 'TimeStamp'
           @type = @format.dup
         end
       end
@@ -38,9 +39,6 @@ module Swagger2objc
       end
 
       def output(import, model, class_map, avoid_map, rename)
-        puts model.id
-        puts @type
-        puts @format
         imported_set = Set.new
         info = "\n/**\n"
         info << " format      : #{format}\n"
@@ -55,7 +53,6 @@ module Swagger2objc
         avoid = Swagger2objc::Configure.config[Swagger2objc::Config::AVOID]
 
         if @format.nil?
-
           puts @ref
           puts "format : #{name}"
           raise "format : #{name}"
@@ -67,8 +64,8 @@ module Swagger2objc
           avoid_map[format_name] = name
         end
         format_name = rename[format_name] if rename && rename[format_name]
-        oc_type = Swagger2objc::Generator::Type::OC_MAP[format]
-        raise "unkown format : #{name}" if oc_type.nil? && format == 'object'
+        oc_type = Swagger2objc::Generator::Type::OC_MAP[@format]
+        raise "unkown format : #{name}" if oc_type.nil? && @format == 'object'
 
         if oc_type == 'NSString'
           if @type == 'List' || @type == 'Array'
@@ -86,7 +83,7 @@ module Swagger2objc
             info.sub!("{#{type}}", 'NSDictionary')
             info << "@property (nonatomic, strong) NSDictionary *#{format_name};\n"
           else
-            class_name = Swagger2objc::Utils.class_name_formatter(format)
+            class_name = Swagger2objc::Utils.class_name_formatter(@format)
             if !items.nil?
               if class_name.start_with?('SIEntry«')
                 info << "@property (nonatomic, strong) NSDictionary *#{format_name};\n"
