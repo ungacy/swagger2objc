@@ -27,11 +27,10 @@ module Swagger2objc
       if @paths
         @paths.each do |path, dict|
           puts path
-          dict.each {|method, operation_hash|
+          dict.each do |method, operation_hash|
             puts method
             controller_name = operation_hash['tags'].first
-
-          }
+          end
           # path = dict[Swagger2objc::PATH]
           # next if @filter && @filter.include?(path)
           # result = @request.object_from_uri(path)

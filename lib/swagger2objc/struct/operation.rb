@@ -17,7 +17,6 @@ module Swagger2objc
       attr_accessor :path
       attr_accessor :method
 
-
       def setup
         if @parameters
           @parameters.map! { |item| Parameter.new(item) }
@@ -30,9 +29,7 @@ module Swagger2objc
         if responses
           if @responses['200']
             type = responses['200']['schema']['type']
-            if type == 'integer'
-              type = responses['200']['schema']['format']
-            end
+            type = responses['200']['schema']['format'] if type == 'integer'
             if type.nil?
               type = responses['200']['schema']['$ref'].sub('#/definitions/', '')
             end
@@ -74,7 +71,7 @@ module Swagger2objc
         info = "\n/**\n"
         info << " path       : #{path}\n"
         info << " method     : #{method}\n"
-        #info << " notes      : #{notes}\n"
+        # info << " notes      : #{notes}\n"
         info << " summary    : #{summary}\n"
         info << " type       : #{type}\n"
         info << " format     : #{format}\n" if format
