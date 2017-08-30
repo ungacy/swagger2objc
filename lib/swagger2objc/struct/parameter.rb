@@ -8,6 +8,7 @@ module Swagger2objc
       attr_reader :description
       attr_reader :format
       attr_reader :name
+      attr_reader :in
       attr_reader :paramType
       attr_reader :required
       attr_reader :type
@@ -26,7 +27,9 @@ module Swagger2objc
         info << " required   : #{required}\n"
 
         raise "type : #{description}" if type.nil?
-        format_name = description.clone
+        format_name = name.clone
+        format_name = description.clone if @in.nil?
+
         avoid = Swagger2objc::Configure.config[Swagger2objc::Config::AVOID]
         if avoid[format_name] && !avoid[format_name].empty?
           format_name = avoid[format_name]

@@ -13,10 +13,22 @@ module Swagger2objc
       attr_reader :produces
       attr_reader :responseMessages
       attr_reader :responses
+      attr_reader :operationId
       attr_reader :summary
       attr_reader :type
       attr_reader :response_class
       attr_accessor :path
+
+      def initialize(hash = {}, method = nil)
+        hash.each do |k, v|
+          instance_variable_set("@#{k}", v)
+          self.class.send(:define_method, k, proc { instance_variable_get("@#{k}") })
+          self.class.send(:define_method, "#{k}=", proc { |v| instance_variable_set("@#{k}", v) })
+        end
+        @method = method if method
+
+        setup
+      end
 
       def setup
         @notes = summary if @notes.nil?
@@ -26,8 +38,8 @@ module Swagger2objc
         elsif responses
           # responses.select! { |item| item['code'] == '200' }
           if responses['200'].nil?
-            puts path
-            puts responses
+            # puts path
+            # puts responses
           else
             type = responses['200']['schema']['type']
             if type.nil?

@@ -17,3 +17,5 @@ only = nil
 parser = Swagger2objc::Parser.new(nil)
 parser.sdk_result
 parser.model_result
+msg_uri = 'http://192.168.31.197:9800/api/swagger.json'
+parser = Swagger2objc::Parser.new(msg_uri, nil, nil)

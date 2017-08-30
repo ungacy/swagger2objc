@@ -15,17 +15,19 @@ module Swagger2objc
           self.class.send(:define_method, k, proc { instance_variable_get("@#{k}") })
           self.class.send(:define_method, "#{k}=", proc { |v| instance_variable_set("@#{k}", v) })
         end
-        @path = path
+        @path = path if path
+
         setup
       end
 
       def setup
-        if @operation
+        if @operations
           @operation = Operation.new(operations.first)
           @operation.path = path
         else
-          method_hash.each do |_method, operation|
-            @operation = Operation.new(operation)
+          method_hash.each do |method, operation|
+            @operation = Operation.new(operation, method)
+            @operation.path = path
           end
         end
       end
