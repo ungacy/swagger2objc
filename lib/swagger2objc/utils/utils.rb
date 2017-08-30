@@ -22,10 +22,10 @@ module Swagger2objc
       class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][type]
       result = class_name.clone
       unless result.include?('and') || category == 'Role' || result.end_with?(category.downcase)
-        result.sub!(category.downcase + '_', '')
+        result = result.sub(category.downcase + '_', '')
       end
       hate.each do |key|
-        result.sub!('/' + key, '')
+        result = result.sub('/' + key, '')
       end
       result.gsub!(/[\/\_]\w/) { |match| match[1].upcase }
       result.gsub!(/\/\{\w+\}/, '')
@@ -33,7 +33,7 @@ module Swagger2objc
       # if result != class_name
       #   puts "Rename [#{class_name}] to [#{result}]"
       # end
-      class_prefix + category + result
+      class_prefix + result
     end
   end
 end

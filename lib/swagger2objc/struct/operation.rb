@@ -4,53 +4,42 @@ module Swagger2objc
   module Struct
     class Operation < Base
       attr_reader :consumes
-      attr_reader :deprecated
-      attr_reader :format
-      attr_reader :method
-      attr_reader :nickname
-      attr_reader :notes
+      attr_reader :operationId
       attr_reader :parameters
       attr_reader :produces
-      attr_reader :responseMessages
       attr_reader :responses
-      attr_reader :operationId
       attr_reader :summary
-      attr_reader :type
       attr_reader :response_class
+
+      attr_reader :type
+      attr_reader :format
+
       attr_accessor :path
+      attr_accessor :method
 
-      def initialize(hash = {}, method = nil)
-        hash.each do |k, v|
-          instance_variable_set("@#{k}", v)
-          self.class.send(:define_method, k, proc { instance_variable_get("@#{k}") })
-          self.class.send(:define_method, "#{k}=", proc { |v| instance_variable_set("@#{k}", v) })
-        end
-        @method = method if method
-
-        setup
-      end
 
       def setup
-        @notes = summary if @notes.nil?
-        parameters.map! { |item| Parameter.new(item) }
-        if responseMessages
-          responseMessages.select! { |item| item['code'] == '200' }
-        elsif responses
-          # responses.select! { |item| item['code'] == '200' }
-          if responses['200'].nil?
-            # puts path
-            # puts responses
-          else
+        if @parameters
+          @parameters.map! { |item| Parameter.new(item) }
+        else
+          @parameters = []
+        end
+
+        type = 'object'
+        format = 'int64'
+        if responses
+          if @responses['200']
             type = responses['200']['schema']['type']
+            if type == 'integer'
+              type = responses['200']['schema']['format']
+            end
             if type.nil?
               type = responses['200']['schema']['$ref'].sub('#/definitions/', '')
             end
           end
-
         end
 
         @response_class = type
-        @response_class = format if @response_class == 'integer'
         if @response_class == 'Null'
           @response_class = 'string'
           @type = 'string'
@@ -70,8 +59,7 @@ module Swagger2objc
         parameters.each { |item| parameter_result << item.result }
         hash = {
           method: method,
-          notes: notes.tr('<', '[').tr('>', ']').gsub('&', '&amp;'),
-          summary: summary,
+          summary: summary.tr('<', '[').tr('>', ']').gsub('&', '&amp;'),
           type: type,
           param: parameter_result
         }
@@ -86,7 +74,7 @@ module Swagger2objc
         info = "\n/**\n"
         info << " path       : #{path}\n"
         info << " method     : #{method}\n"
-        info << " notes      : #{notes}\n"
+        #info << " notes      : #{notes}\n"
         info << " summary    : #{summary}\n"
         info << " type       : #{type}\n"
         info << " format     : #{format}\n" if format

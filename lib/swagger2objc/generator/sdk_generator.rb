@@ -31,26 +31,20 @@ module Swagger2objc
         return if model.nil?
         subfix_array = Swagger2objc::Configure.config[Swagger2objc::Config::SUBFIX]
         model.each do |controller|
-          controller.apis.each do |request|
-            sub_path = request.path.sub(controller.resourcePath, '')
-            # puts "---------#{sub_path}-------#{controller.category}-------"
-            if controller.category == 'Chat'
-              sub_path = request.path.sub('/' + controller.category.downcase, '')
-              # puts "---------#{sub_path}-------#{controller.category}-------"
-            end
-            class_name = Swagger2objc::Utils.sdk_name_formatter(sub_path, controller.category, Swagger2objc::Config::SDK)
+          controller.apis.each do |operation|
+            class_name = Swagger2objc::Utils.sdk_name_formatter(operation.path, controller.category, Swagger2objc::Config::SDK)
 
             if subfix_array.include?(class_name)
-              class_name = if request.operation.method == 'GET'
+              class_name = if operation.method == 'GET'
                              class_name + 'Query'
                            else
                              class_name + 'Submit'
                            end
             end
             sim[class_name] = {
-              parameters: request.operation.parameters,
+              parameters: operation.parameters,
               category: controller.category,
-              operation: request.operation
+              operation: operation
             }
             header_array = module_header[controller.category]
             if header_array.nil?
@@ -65,21 +59,17 @@ module Swagger2objc
         result = {}
         link_map = Swagger2objc::Configure.config[Swagger2objc::Config::LINK]
         model.each do |controller|
-          controller.apis.each do |request|
-            hash = request.operation.result
-            hash[:path] = request.path
+          controller.apis.each do |operation|
+            hash = operation.result
+            hash[:path] = operation.path
             hash[:category] = controller.category
-            sub_path = request.path.sub(controller.resourcePath, '')
-            if controller.category == 'Chat'
-              sub_path = request.path.sub('/' + controller.category.downcase, '')
-            end
-            class_name = Swagger2objc::Utils.sdk_name_formatter(sub_path, controller.category, Swagger2objc::Config::SDK)
+            class_name = Swagger2objc::Utils.sdk_name_formatter(operation.path, controller.category, Swagger2objc::Config::SDK)
             if subfix_array.include?(class_name)
-              class_name = if request.operation.method == 'GET'
+              class_name = if operation.method == 'GET'
                              class_name + 'Query'
-                           elsif request.operation.method == 'PUT'
+                           elsif operation.method == 'PUT'
                              class_name + 'Update'
-                           elsif request.operation.method == 'DELETE'
+                           elsif operation.method == 'DELETE'
                              class_name + 'Remove'
                            else
                              class_name + 'Submit'

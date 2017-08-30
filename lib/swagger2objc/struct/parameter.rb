@@ -3,25 +3,25 @@ require 'swagger2objc/utils/utils'
 module Swagger2objc
   module Struct
     class Parameter < Base
-      attr_reader :allowMultiple
-      attr_reader :defaultValue
       attr_reader :description
       attr_reader :format
-      attr_reader :name
       attr_reader :in
-      attr_reader :paramType
+      attr_reader :name
       attr_reader :required
       attr_reader :type
-      attr_reader :rename
-      attr_reader :items
+      attr_reader :schema
 
       def setup
-        @type = @format if 'integer' == @type || 'number' == @type
+        if schema && schema['$ref']
+          @type = schema['$ref'].sub('#/definitions/', '')
+        else
+          @type = @format if 'integer' == @type || 'number' == @type
+        end
       end
 
       def output(import, avoid_map)
         info = "\n/**\n"
-        info << " paramType  : #{paramType}\n"
+        info << " paramType  : #{@in}\n"
         info << " key        : #{description}\n"
         info << " type       : #{type}\n"
         info << " required   : #{required}\n"
@@ -73,7 +73,7 @@ module Swagger2objc
 
       def result
         hash = {
-          paramType: paramType,
+          paramType: @in,
           key: description,
           type: type,
           required: required

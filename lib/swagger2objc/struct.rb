@@ -19,6 +19,6 @@ module Swagger2objc
 end
 
 require 'swagger2objc/struct/controller'
-require 'swagger2objc/struct/controller2'
+require 'swagger2objc/struct/root'
 require 'swagger2objc/struct/parameter'
 require 'swagger2objc/struct/operation'
