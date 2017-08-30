@@ -16,9 +16,7 @@ module Swagger2objc
         @controllers = []
         if @paths
           @paths.each do |path, dict|
-            puts path
             dict.each do |method, operation_hash|
-              puts method
               controller_key = operation_hash['tags'].first
               controller = controller_hash[controller_key]
               category = controller_key.sub('-controller', '')
@@ -28,7 +26,7 @@ module Swagger2objc
               next if @only && !@only.include?(category)
               Swagger2objc::Generator::ModelGenerator.clear([category])
               Swagger2objc::Generator::ModelGenerator.clear([category])
-              operation_hash['method'] = method
+              operation_hash['method'] = method.upcase
               operation_hash['path'] = path
               operation = Swagger2objc::Struct::Operation.new(operation_hash)
               if controller.nil?
