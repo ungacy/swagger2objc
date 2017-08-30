@@ -25,6 +25,9 @@ module Swagger2objc
               category = controller_key.sub('-controller', '')
               category.capitalize!
               category.gsub!(/\-\w/) { |match| match[1].upcase }
+              if category == 'AppFile'
+                category = 'File'
+              end
               next if @only && !@only.include?(category)
               Swagger2objc::Generator::ModelGenerator.clear([category])
               Swagger2objc::Generator::ModelGenerator.clear([category])
