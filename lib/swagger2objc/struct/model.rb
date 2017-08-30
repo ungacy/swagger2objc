@@ -8,11 +8,15 @@ module Swagger2objc
 
       def setup
         # puts '----------Model--------------'
-        properties.transform_values! { |item| Property.new(item) }
-        properties.each do |key, item|
-          item.name = key
-          # puts item.result
+        hash = {}
+        @properties.each do |key, item|
+          item['ref'] = item['$ref']
+          item.delete('$ref')
+          property = Property.new(item)
+          property.name = key
+          hash[key] = property
         end
+        @properties = hash
       end
 
       def result

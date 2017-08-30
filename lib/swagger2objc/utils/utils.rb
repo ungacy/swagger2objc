@@ -7,7 +7,7 @@ module Swagger2objc
       class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][type]
       result = class_name.clone
       trim.each do |key, value|
-        result.sub!(key, value)
+        result = result.sub(key, value)
       end
       mapping = Swagger2objc::Configure.config[Swagger2objc::Config::MAPPING]
       result = mapping[result] if mapping[result]

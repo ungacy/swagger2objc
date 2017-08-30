@@ -7,16 +7,24 @@ module Swagger2objc
       attr_reader :type
       attr_reader :items
       attr_reader :description
+      attr_reader :ref
       attr_accessor :name
 
       def setup
         if @type == 'List' || @type == 'Array' || @type == 'array'
           @format = items['type']
           @format = items['format'] if @format == 'integer'
-        elsif 'integer' == @type || 'number' == @type
-
+          @format = items['$ref'].sub('#/definitions/', '') if @format.nil?
+        elsif 'integer' == @type
+          @format = 'int64' if @format.nil?
+        elsif 'number' == @type
+          @format = 'double' if @format.nil?
         else
           @format = type
+        end
+        if ref
+          @format = ref.sub('#/definitions/', '')
+          @type = @format.dup
         end
       end
 
@@ -44,6 +52,7 @@ module Swagger2objc
         avoid = Swagger2objc::Configure.config[Swagger2objc::Config::AVOID]
 
         raise "format : #{name}" if format.nil?
+
         format_name = name.clone
         if avoid[format_name] && !avoid[format_name].empty?
           format_name = avoid[format_name]

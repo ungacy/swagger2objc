@@ -14,9 +14,9 @@ module Swagger2objc
       @request = Swagger2objc::Client.new(base_uri)
       @filter = filter
       @only = only
-      if !only
-        Swagger2objc::Generator::ModelGenerator.clear()
-        Swagger2objc::Generator::SDKGenerator.clear()
+      unless only
+        Swagger2objc::Generator::ModelGenerator.clear
+        Swagger2objc::Generator::SDKGenerator.clear
       end
       setup
     end
@@ -26,7 +26,6 @@ module Swagger2objc
       json = Swagger2objc::Generator::TemplateReplacer.read_file_content('./swagger.txt')
       swagger_hash = JSON.parse(json)
       @root = Swagger2objc::Struct::Root.new(swagger_hash)
-
     end
 
     def sdk_result
@@ -35,17 +34,12 @@ module Swagger2objc
     end
 
     def model_result
-      @root.controllers.each do |controller|
-        next if controller.models.nil?
-        controller.models.each do |_key, model|
-          begin
-            generator = Swagger2objc::Generator::ModelGenerator.new(controller.category, model)
-            generator.generate
-          rescue => err
-            puts err
-            puts model.result
-          end
-        end
+      @root.definitions.each do |ref, ref_hash|
+        next if ref == 'Null'
+        ref_hash['id'] = ref
+        model = Swagger2objc::Struct::Model.new(ref_hash)
+        generator = Swagger2objc::Generator::ModelGenerator.new('All', model)
+        generator.generate
       end
     end
   end

@@ -12,8 +12,12 @@ module Swagger2objc
       attr_reader :controllers
 
       def setup
+        model_type = Swagger2objc::Config::MODEL
+        model_class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][model_type]
+
         controller_hash = {}
         @controllers = []
+        definitions_copy = definitions.dup
         if @paths
           @paths.each do |path, dict|
             dict.each do |method, operation_hash|
@@ -36,9 +40,14 @@ module Swagger2objc
                 controller_hash[controller_key] = controller
               end
               controller.operations << operation
+              if operation.response_class.start_with?(model_class_prefix) && definitions_copy[operation.ref]
+                controller.models << operation.ref
+                definitions_copy.delete(operation.ref)
+              end
             end
           end
         end
+        puts definitions_copy.count
       end
 
       def result

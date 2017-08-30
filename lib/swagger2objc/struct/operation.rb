@@ -14,6 +14,8 @@ module Swagger2objc
       attr_reader :type
       attr_reader :format
 
+      attr_reader :ref
+
       attr_accessor :path
       attr_accessor :method
 
@@ -30,7 +32,8 @@ module Swagger2objc
             type = responses['200']['schema']['type']
             type = responses['200']['schema']['format'] if type == 'integer'
             if type.nil?
-              type = responses['200']['schema']['$ref'].sub('#/definitions/', '')
+              @ref = responses['200']['schema']['$ref'].sub('#/definitions/', '')
+              type = @ref.dup
             end
           end
         end
