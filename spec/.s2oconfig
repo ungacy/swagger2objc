@@ -17,20 +17,18 @@ avoid:
   id: id_p
   description: desc
   newPwd: password
+  newRoleId: roleId
+  init: start
 rename:
-  SIFileItem:
-    fileName: name
 primary:
   SIFileItem:
     - id_p
     - version
 output:
- model: /result/models/
- sdk: /result/sdk/
+ model: /result/Models/
+ sdk: /result/SDK/
 subfix:
-  - SRKAffairSearch
-link:
-  Link: SomeLink
+- SRKAffairSearch
 hate:
  - get
  - Get
