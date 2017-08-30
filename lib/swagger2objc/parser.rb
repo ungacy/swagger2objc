@@ -44,7 +44,6 @@ module Swagger2objc
           rescue => err
             puts err
             puts model.result
-            puts controller.resourcePath
           end
         end
       end

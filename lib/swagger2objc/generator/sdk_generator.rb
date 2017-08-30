@@ -63,7 +63,9 @@ module Swagger2objc
             hash = operation.result
             hash[:path] = operation.path
             hash[:category] = controller.category
-            class_name = Swagger2objc::Utils.sdk_name_formatter(operation.path, controller.category, Swagger2objc::Config::SDK)
+            class_name = Swagger2objc::Utils.sdk_name_formatter(operation.path,
+                                                                controller.category,
+                                                                Swagger2objc::Config::SDK)
             if subfix_array.include?(class_name)
               class_name = if operation.method == 'GET'
                              class_name + 'Query'
@@ -127,7 +129,6 @@ module Swagger2objc
             result << "        ],\n"
           else
             if value
-              puts value
               value = value.gsub(/\"/, '\"')
               result << "        \@\"#{key}\": \@\"#{value}\",\n"
             end
