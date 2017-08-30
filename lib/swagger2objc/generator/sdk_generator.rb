@@ -31,7 +31,7 @@ module Swagger2objc
         return if model.nil?
         subfix_array = Swagger2objc::Configure.config[Swagger2objc::Config::SUBFIX]
         model.each do |controller|
-          controller.apis.each do |operation|
+          controller.operations.each do |operation|
             class_name = Swagger2objc::Utils.sdk_name_formatter(operation.path, controller.category, Swagger2objc::Config::SDK)
 
             if subfix_array.include?(class_name)
@@ -59,7 +59,7 @@ module Swagger2objc
         result = {}
         link_map = Swagger2objc::Configure.config[Swagger2objc::Config::LINK]
         model.each do |controller|
-          controller.apis.each do |operation|
+          controller.operations.each do |operation|
             hash = operation.result
             hash[:path] = operation.path
             hash[:category] = controller.category

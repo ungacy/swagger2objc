@@ -37,7 +37,7 @@ module Swagger2objc
                 @controllers << controller
                 controller_hash[controller_key] = controller
               end
-              controller.apis << operation
+              controller.operations << operation
             end
           end
         end
