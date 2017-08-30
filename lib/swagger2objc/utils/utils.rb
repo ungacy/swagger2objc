@@ -38,32 +38,25 @@ module Swagger2objc
 
     def self.all_ref_of_ref(refs, definitions)
       all_ref = refs.dup
-      refs.each {|ref|
+      refs.each do |ref|
         model = definitions[ref]
-        if model.nil?
-          #puts ref
-          next
-        end
+        next if model.nil?
         properties = model['properties']
         next if properties.nil?
-        properties.each {|name, property|
+        properties.each do |_name, property|
           result = ''
           definition = property['$ref']
           if definition
-            definition =  definition.sub('#/definitions/', '')
-            if definition != 'Timestamp'
-              result = definition
-            end
+            definition = definition.sub('#/definitions/', '')
+            result = definition if definition != 'Timestamp'
           else
             type = property['type']
             if type == 'List' || type == 'Array' || type == 'array'
-              puts property
+              # puts property
               definition = property['items']['$ref']
               if definition
-                definition =  definition.sub('#/definitions/', '')
-                if definition != 'Timestamp'
-                  result = definition
-                end
+                definition = definition.sub('#/definitions/', '')
+                result = definition if definition != 'Timestamp'
               end
             end
           end
@@ -76,8 +69,8 @@ module Swagger2objc
             end
 
           end
-        }
-      }
+        end
+      end
       all_ref
     end
   end
