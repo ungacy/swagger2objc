@@ -19,9 +19,16 @@ module Swagger2objc
       attr_accessor :path
       attr_accessor :method
 
+      attr_reader :all_ref
+
       def setup
+        @all_ref =[]
         if @parameters
-          @parameters.map! { |item| Parameter.new(item) }
+          @parameters.map! { |item|
+            parameter = Parameter.new(item)
+            @all_ref += parameter.all_ref
+            parameter
+          }
         else
           @parameters = []
         end
@@ -47,6 +54,7 @@ module Swagger2objc
         return 'No response model' if @response_class.nil?
         oc_type = Swagger2objc::Generator::Type::OC_MAP[@response_class]
         if oc_type.nil?
+          all_ref << type
           @response_class = Swagger2objc::Utils.class_name_formatter(@response_class)
         else
           @response_class = oc_type

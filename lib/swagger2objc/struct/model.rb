@@ -8,6 +8,7 @@ module Swagger2objc
 
       def setup
         # puts '----------Model--------------'
+
         hash = {}
         @properties.each do |key, item|
           item['ref'] = item['$ref']

@@ -11,9 +11,13 @@ module Swagger2objc
       attr_reader :type
       attr_reader :schema
 
+      attr_reader :all_ref
+
       def setup
+        @all_ref = []
         if schema && schema['$ref']
           @type = schema['$ref'].sub('#/definitions/', '')
+          @all_ref << @type
         else
           @type = @format if 'integer' == @type || 'number' == @type
         end

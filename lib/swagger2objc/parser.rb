@@ -34,13 +34,24 @@ module Swagger2objc
     end
 
     def model_result
-      @root.definitions.each do |ref, ref_hash|
-        next if ref == 'Null'
-        ref_hash['id'] = ref
-        model = Swagger2objc::Struct::Model.new(ref_hash)
-        generator = Swagger2objc::Generator::ModelGenerator.new('All', model)
-        generator.generate
+      @root.controllers.each do |controller|
+        next if controller.models.nil?
+        controller.models.each do |ref|
+          ref_hash = @root.definitions[ref]
+          ref_hash['id'] = ref
+          model = Swagger2objc::Struct::Model.new(ref_hash)
+          generator = Swagger2objc::Generator::ModelGenerator.new(controller.category, model)
+          generator.generate
+        end
       end
+
+        # @root.definitions.each do |ref, ref_hash|
+      #   next if ref == 'Null'
+      #   ref_hash['id'] = ref
+      #   model = Swagger2objc::Struct::Model.new(ref_hash)
+      #   generator = Swagger2objc::Generator::ModelGenerator.new('All', model)
+      #   generator.generate
+      # end
     end
   end
 end

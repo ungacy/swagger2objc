@@ -4,6 +4,7 @@ module Swagger2objc
     class Root < Base
       attr_reader :basePath
       attr_reader :definitions
+      attr_reader :common
       attr_reader :host
       attr_reader :info
       attr_accessor :paths
@@ -17,7 +18,7 @@ module Swagger2objc
 
         controller_hash = {}
         @controllers = []
-        definitions_copy = definitions.dup
+        @common = definitions.dup
         if @paths
           @paths.each do |path, dict|
             dict.each do |method, operation_hash|
@@ -40,14 +41,14 @@ module Swagger2objc
                 controller_hash[controller_key] = controller
               end
               controller.operations << operation
-              if operation.response_class.start_with?(model_class_prefix) && definitions_copy[operation.ref]
-                controller.models << operation.ref
-                definitions_copy.delete(operation.ref)
-              end
+
+              all_ref = Swagger2objc::Utils.all_ref_of_ref(operation.all_ref, @common)
+              controller.models += all_ref
+              all_ref.each {|ref| @common.delete(ref)}
             end
           end
         end
-        puts definitions_copy.count
+        puts @common.count
       end
 
       def result

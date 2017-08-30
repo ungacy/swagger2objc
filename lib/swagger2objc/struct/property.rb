@@ -20,10 +20,10 @@ module Swagger2objc
         elsif 'number' == @type
           @format = 'double' if @format.nil?
         else
-          @format = type
+          @format = @type
         end
-        if ref
-          @format = ref.sub('#/definitions/', '')
+        if @ref
+          @format = @ref.sub('#/definitions/', '')
           @type = @format.dup
         end
       end
@@ -38,6 +38,9 @@ module Swagger2objc
       end
 
       def output(import, model, class_map, avoid_map, rename)
+        puts model.id
+        puts @type
+        puts @format
         imported_set = Set.new
         info = "\n/**\n"
         info << " format      : #{format}\n"
@@ -51,7 +54,12 @@ module Swagger2objc
 
         avoid = Swagger2objc::Configure.config[Swagger2objc::Config::AVOID]
 
-        raise "format : #{name}" if format.nil?
+        if @format.nil?
+
+          puts @ref
+          puts "format : #{name}"
+          raise "format : #{name}"
+        end
 
         format_name = name.clone
         if avoid[format_name] && !avoid[format_name].empty?
