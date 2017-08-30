@@ -10,7 +10,9 @@ ignore:
 trim:
  VO: Item
 mapping:
-  ListAffairItem: AffairListItem
+  ViewedAffairItem: AffairHistoryItem
+  AllianceUserMItem: AllianceUserItem
+  Pair«string,string»: PairItem
 avoid:
   id: id_p
   description: desc
