@@ -32,12 +32,14 @@ module Swagger2objc
         else
           @parameters = []
         end
-
         type = 'object'
         if responses
           if @responses['200']
             type = responses['200']['schema']['type']
             type = responses['200']['schema']['format'] if type == 'integer'
+            if type == 'array'
+              type = responses['200']['schema']['items']['$ref'].sub('#/definitions/', '')
+            end
             if type.nil?
               @ref = responses['200']['schema']['$ref'].sub('#/definitions/', '')
               type = @ref.dup

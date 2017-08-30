@@ -36,8 +36,49 @@ module Swagger2objc
       class_prefix + result
     end
 
-    def self.all_ref_of_ref(ref, _definitions)
-      ref
+    def self.all_ref_of_ref(refs, definitions)
+      all_ref = refs.dup
+      refs.each {|ref|
+        model = definitions[ref]
+        if model.nil?
+          #puts ref
+          next
+        end
+        properties = model['properties']
+        next if properties.nil?
+        properties.each {|name, property|
+          result = ''
+          definition = property['$ref']
+          if definition
+            definition =  definition.sub('#/definitions/', '')
+            if definition != 'Timestamp'
+              result = definition
+            end
+          else
+            type = property['type']
+            if type == 'List' || type == 'Array' || type == 'array'
+              puts property
+              definition = property['items']['$ref']
+              if definition
+                definition =  definition.sub('#/definitions/', '')
+                if definition != 'Timestamp'
+                  result = definition
+                end
+              end
+            end
+          end
+
+          if result != ''
+            if !all_ref.include?(result)
+              all_ref += all_ref_of_ref([result], definitions)
+            else
+              all_ref << result
+            end
+
+          end
+        }
+      }
+      all_ref
     end
   end
 end
