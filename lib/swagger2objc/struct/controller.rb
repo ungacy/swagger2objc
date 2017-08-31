@@ -9,13 +9,9 @@ module Swagger2objc
       attr_accessor :models
       attr_accessor :category
 
-      def initialize
-        setup
-      end
-
       def setup
-        @operations = [] if @operations.nil?
-        @models = [] if @models.nil?
+        @operations = []
+        @models = []
       end
 
       def result

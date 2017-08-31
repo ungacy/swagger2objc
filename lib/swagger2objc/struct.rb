@@ -1,7 +1,14 @@
 module Swagger2objc
   module Struct
     class Base
-      def self.init_with_hash(_hash = {}); end
+      def initialize(hash = {})
+        hash.each do |k, v|
+          instance_variable_set("@#{k}", v)
+          self.class.send(:define_method, k, proc { instance_variable_get("@#{k}") })
+          self.class.send(:define_method, "#{k}=", proc { |v| instance_variable_set("@#{k}", v) })
+        end
+        setup
+      end
 
       def setup; end
 

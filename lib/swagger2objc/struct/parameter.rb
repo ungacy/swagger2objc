@@ -14,19 +14,6 @@ module Swagger2objc
 
       attr_reader :all_ref
 
-      def init_with_hash(hash = {})
-        @description = hash['description']
-        @format = hash['format']
-        @in = hash['in']
-        @name = hash['name']
-        @required = hash['required']
-        @type = hash['type']
-        @schema = hash['schema']
-        @items = hash['items']
-        @type = 'File' if @in == 'formData'
-        setup
-      end
-
       def setup
         @all_ref = []
         if schema && schema['$ref']
@@ -35,6 +22,7 @@ module Swagger2objc
         else
           @type = @format if 'integer' == @type || 'number' == @type
         end
+        @type = 'File' if @in == 'formData'
       end
 
       def output(import, avoid_map)
