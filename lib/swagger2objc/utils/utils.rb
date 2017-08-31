@@ -60,7 +60,11 @@ module Swagger2objc
               end
             end
           end
-
+          additionalProperties = property['additionalProperties']
+          if additionalProperties && additionalProperties['items'] && additionalProperties['items']['$ref']
+            some = additionalProperties['items']['$ref']
+            result = some.sub('#/definitions/', '') if some
+          end
           if result != ''
             if !all_ref.include?(result)
               all_ref += all_ref_of_ref([result], definitions)

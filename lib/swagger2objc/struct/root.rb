@@ -15,7 +15,8 @@ module Swagger2objc
       def setup
         model_type = Swagger2objc::Config::MODEL
         model_class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][model_type]
-
+        definitions.delete('Null')
+        definitions.delete('Timestamp')
         controller_hash = {}
         @controllers = []
         @common = definitions.dup
@@ -48,7 +49,7 @@ module Swagger2objc
             end
           end
         end
-        puts "remain #{@common.count} for common"
+        raise "remain #{@common.count} for common" if @common.count != 0
       end
 
       def result

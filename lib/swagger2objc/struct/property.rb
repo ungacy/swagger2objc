@@ -11,12 +11,21 @@ module Swagger2objc
       attr_reader :additionalProperties
       attr_accessor :name
 
+      attr_reader :all_ref
+
       def setup
+        @all_ref = []
+        # it's a hash
         if @additionalProperties
-          @type = @additionalProperties['type']
           if @additionalProperties['items']
-            @items = @additionalProperties['items']
+            some = @additionalProperties['items']['$ref']
+            if some
+              some = some.sub('#/definitions/', '')
+              @all_ref << some
+            end
           end
+          @type = 'HashMap'
+          @format = @type
         end
 
         if @type == 'List' || @type == 'Array' || @type == 'array'
