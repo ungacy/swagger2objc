@@ -11,19 +11,16 @@ module Swagger2objc
       attr_reader :additionalProperties
       attr_accessor :name
 
-      attr_reader :all_ref
-
       def setup
-        @all_ref = []
         # it's a hash
         if @additionalProperties
-          if @additionalProperties['items']
-            some = @additionalProperties['items']['$ref']
-            if some
-              some = some.sub('#/definitions/', '')
-              @all_ref << some
-            end
-          end
+          # if @additionalProperties['items']
+          #   some = @additionalProperties['items']['$ref']
+          #   if some
+          #     some = some.sub('#/definitions/', '')
+          #     @all_ref << some
+          #   end
+          # end
           @type = 'HashMap'
           @format = @type
         end
@@ -43,6 +40,9 @@ module Swagger2objc
           @format = @ref.sub('#/definitions/', '')
           @format = 'double' if @format == 'TimeStamp'
           @type = @format.dup
+        end
+        if @type == 'number'
+          puts @format
         end
       end
 
@@ -69,7 +69,7 @@ module Swagger2objc
 
         avoid = Swagger2objc::Configure.config[Swagger2objc::Config::AVOID]
 
-        if @format.nil?
+        if @format.nil? || format == ''
           puts @ref
           puts "format : #{name}"
           raise "format : #{name}"
