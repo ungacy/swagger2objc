@@ -22,9 +22,9 @@ module Swagger2objc
     end
 
     def setup
-      # swagger_hash = @request.object_from_uri()
-      json = Swagger2objc::Generator::TemplateReplacer.read_file_content('./swagger.txt')
-      swagger_hash = JSON.parse(json)
+      swagger_hash = @request.object_from_uri
+      # json = Swagger2objc::Generator::TemplateReplacer.read_file_content('./swagger.txt')
+      # swagger_hash = JSON.parse(json)
       @root = Swagger2objc::Struct::Root.new(swagger_hash)
     end
 
