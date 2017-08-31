@@ -22,7 +22,7 @@ module Swagger2objc
     end
 
     def setup
-      #swagger_hash = @request.object_from_uri
+      # swagger_hash = @request.object_from_uri
 
       # DEBUG for server
       json = Swagger2objc::Generator::TemplateReplacer.read_file_content('./swagger.txt')
@@ -32,7 +32,6 @@ module Swagger2objc
       # json = Swagger2objc::Generator::TemplateReplacer.read_file_content('./swagger_message.txt')
       # swagger_hash = JSON.parse(json)
       @root = Swagger2objc::Struct::Root.new(swagger_hash)
-
     end
 
     def sdk_result
