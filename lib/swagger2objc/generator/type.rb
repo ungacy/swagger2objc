@@ -7,10 +7,11 @@ module Swagger2objc
         'integer' => 'int64_t',
         'boolean' => 'BOOL',
         'double' => 'double',
+        'float' => 'float',
         'string' => 'NSString',
         'object' => 'id',
         'File' => 'UIImage',
-        'Timestamp' => 'float',
+        'Timestamp' => 'double',
         'Null' => 'NSString',
         'array' => 'NSArray'
       }.freeze

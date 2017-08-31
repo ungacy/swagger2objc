@@ -21,11 +21,24 @@ module Swagger2objc
 
       attr_reader :all_ref
 
+      def init_with_hash(hash = {})
+        @consumes = hash['consumes']
+        @operationId = hash['operationId']
+        @parameters = hash['parameters']
+        @produces = hash['produces']
+        @responses = hash['responses']
+        @summary = hash['summary']
+        @path = hash['path']
+        @method = hash['method']
+        setup
+      end
+
       def setup
         @all_ref = []
         if @parameters
           @parameters.map! do |item|
-            parameter = Parameter.new(item)
+            parameter = Parameter.new
+            parameter.init_with_hash(item)
             @all_ref += parameter.all_ref
             parameter
           end
@@ -61,6 +74,7 @@ module Swagger2objc
         else
           @response_class = oc_type
         end
+        @type = type
       end
 
       def result

@@ -7,19 +7,33 @@ module Swagger2objc
       attr_reader :common
       attr_reader :host
       attr_reader :info
-      attr_accessor :paths
+      attr_reader :paths
       attr_reader :swagger
 
       attr_reader :controllers
 
+      def init_with_hash(hash = {})
+        @basePath = hash['basePath'].freeze
+        definitions = hash['definitions']
+        definitions.delete('Null')
+        definitions.delete('Timestamp')
+        @definitions = definitions.freeze
+        @common = hash['common']
+        @host = hash['host'].freeze
+        @info = hash['info'].freeze
+        @paths = hash['paths'].freeze
+        @swagger = hash['swagger'].freeze
+        @controllers = []
+        @common = definitions.dup
+        freeze
+        setup
+      end
+
       def setup
         model_type = Swagger2objc::Config::MODEL
         model_class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][model_type]
-        definitions.delete('Null')
-        definitions.delete('Timestamp')
         controller_hash = {}
-        @controllers = []
-        @common = definitions.dup
+
         if @paths
           @paths.each do |path, dict|
             dict.each do |method, operation_hash|
@@ -34,7 +48,8 @@ module Swagger2objc
               Swagger2objc::Generator::ModelGenerator.clear([category])
               operation_hash['method'] = method.upcase
               operation_hash['path'] = path
-              operation = Swagger2objc::Struct::Operation.new(operation_hash)
+              operation = Swagger2objc::Struct::Operation.new
+              operation.init_with_hash(operation_hash)
               if controller.nil?
                 controller = Swagger2objc::Struct::Controller.new
                 controller.category = category

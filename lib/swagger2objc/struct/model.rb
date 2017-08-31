@@ -6,17 +6,21 @@ module Swagger2objc
       attr_reader :id
       attr_reader :properties
 
+      def init_with_hash(hash = {})
+        @description = hash['description']
+        @id = hash['id']
+        @properties = hash['properties']
+        setup
+      end
+
       def setup
         # puts '----------Model--------------'
 
         hash = {}
         @properties.each do |key, item|
-          item['ref'] = item['$ref']
-          item.delete('$ref')
-          item['type'] = '' if item['type'].nil?
-          item['format'] = '' if item['format'].nil?
-          property = Property.new(item)
-          property.name = key
+          property = Property.new
+          item['name'] = key
+          property.init_with_hash(item)
           hash[key] = property
         end
         @properties = hash

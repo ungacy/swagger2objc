@@ -5705,7 +5705,7 @@
 			"type": "object"
 		}
 	},
-	"host": "192.168.1.250:9855",
+	"host": "192.168.31.222:9855",
 	"info": {
 		"contact": {
 			"email": "zhaoming0018@126.com",
@@ -5773,7 +5773,7 @@
 					"application/json"
 				],
 				"description": "拥有同意申请的权限",
-				"operationId": "agreeAffairMemberApplicationUsingPOST",
+				"operationId": "agreeAffairMemberApplicationUsingPOST_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -5978,7 +5978,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getDirectorCardUsingGET",
+				"operationId": "getDirectorCardUsingGET_1",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -6063,7 +6063,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "editPermissionUsingPOST",
+				"operationId": "editPermissionUsingPOST_1",
 				"parameters": [
 					{
 						"description": "affairMemberId",
@@ -6118,7 +6118,7 @@
 					"application/json"
 				],
 				"description": "为移动端使用",
-				"operationId": "getAffairHistoryUsersUsingGET",
+				"operationId": "getAffairHistoryUsersUsingGET_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -6168,7 +6168,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "inviteToEnterAffairUsingPOST_1",
+				"operationId": "inviteToEnterAffairUsingPOST",
 				"parameters": [
 					{
 						"description": "affairMemberId",
@@ -6222,7 +6222,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "mainRolesUsingGET",
+				"operationId": "mainRolesUsingGET_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -6273,7 +6273,7 @@
 					"application/json"
 				],
 				"description": "不在事务内的其他角色,用来邀请事务内角色",
-				"operationId": "searchOtherRolesUsingPOST_1",
+				"operationId": "searchOtherRolesUsingPOST",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -6335,7 +6335,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "quitAffairUsingPOST_1",
+				"operationId": "quitAffairUsingPOST",
 				"parameters": [
 					{
 						"description": "affairMemberId",
@@ -6381,7 +6381,7 @@
 					"application/json"
 				],
 				"description": "拥有权限",
-				"operationId": "disagreeAffairMemberApplicationUsingPOST_1",
+				"operationId": "disagreeAffairMemberApplicationUsingPOST",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -6511,7 +6511,7 @@
 					"application/json"
 				],
 				"description": "获取的是一个list<GetRoleCardsMap>",
-				"operationId": "getAffairRoleCardsUsingPOST_1",
+				"operationId": "getAffairRoleCardsUsingPOST",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -6746,7 +6746,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getAvatarUsingGET",
+				"operationId": "getAvatarUsingGET_1",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -6788,7 +6788,7 @@
 					"application/json"
 				],
 				"description": "拥有权限",
-				"operationId": "checkDisableAffairUsingPOST_1",
+				"operationId": "checkDisableAffairUsingPOST",
 				"parameters": [
 					{
 						"description": "affairMemberId",
@@ -6889,7 +6889,7 @@
 					"application/json"
 				],
 				"description": "返回该类的一个列表",
-				"operationId": "getAllDirectChildAffairUsingGET",
+				"operationId": "getAllDirectChildAffairUsingGET_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -6940,7 +6940,7 @@
 					"application/json"
 				],
 				"description": "拥有权限",
-				"operationId": "disableAffairUsingPOST_1",
+				"operationId": "disableAffairUsingPOST",
 				"parameters": [
 					{
 						"description": "affairMemberId",
@@ -6986,7 +6986,7 @@
 					"application/json"
 				],
 				"description": "拥有权限",
-				"operationId": "getRootAndFirstFloorUsingGET",
+				"operationId": "getRootAndFirstFloorUsingGET_1",
 				"produces": [
 					"*/*"
 				],
@@ -7051,7 +7051,7 @@
 					"application/json"
 				],
 				"description": "拥有权限",
-				"operationId": "handleMoveAffairUsingPOST",
+				"operationId": "handleMoveAffairUsingPOST_1",
 				"parameters": [
 					{
 						"description": "allianceId",
@@ -7215,7 +7215,7 @@
 					"application/json"
 				],
 				"description": "拥有权限",
-				"operationId": "getAffairListUsingGET_1",
+				"operationId": "getAffairListUsingGET",
 				"produces": [
 					"*/*"
 				],
@@ -7306,7 +7306,7 @@
 					"application/json"
 				],
 				"description": "拥有权限,返回值中,0表示失败,1表示正在等待审核,2表示成功",
-				"operationId": "moveAffairUsingPOST_1",
+				"operationId": "moveAffairUsingPOST",
 				"parameters": [
 					{
 						"description": "affairMemberId",
@@ -7361,7 +7361,7 @@
 					"application/json"
 				],
 				"description": "拥有权限",
-				"operationId": "overviewAffairUsingGET_1",
+				"operationId": "overviewAffairUsingGET",
 				"parameters": [
 					{
 						"description": "affairMemberId",
@@ -7556,7 +7556,7 @@
 					"application/json"
 				],
 				"description": "拥有权限",
-				"operationId": "getSimpleTreeUsingGET",
+				"operationId": "getSimpleTreeUsingGET_1",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -7703,7 +7703,7 @@
 					"application/json"
 				],
 				"description": "coverList的格式[{\"url\":\"\",\"name\":\"\",\"type\":1},...]，type 0：video，1:image",
-				"operationId": "updateCoversUsingPOST_1",
+				"operationId": "updateCoversUsingPOST",
 				"parameters": [
 					{
 						"description": "affairMemberId",
@@ -7756,7 +7756,7 @@
 					"application/json"
 				],
 				"description": "tags 格式：cdd1/cdd2",
-				"operationId": "updateTagsUsingPOST",
+				"operationId": "updateTagsUsingPOST_1",
 				"parameters": [
 					{
 						"description": "affairMemberId",
@@ -7809,7 +7809,7 @@
 					"application/json"
 				],
 				"description": "用在添加成员模块",
-				"operationId": "getInvalidRolesUsingGET_1",
+				"operationId": "getInvalidRolesUsingGET",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -7851,7 +7851,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "addAllianceUserUsingPOST_1",
+				"operationId": "addAllianceUserUsingPOST",
 				"parameters": [
 					{
 						"description": "users",
@@ -7906,7 +7906,7 @@
 					"application/json"
 				],
 				"description": "在盟内需要权限的接口都要传入roleId",
-				"operationId": "removeAllianceMemberUsingGET",
+				"operationId": "removeAllianceMemberUsingGET_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -8128,7 +8128,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "changeAlliancePublicnessUsingPOST",
+				"operationId": "changeAlliancePublicnessUsingPOST_1",
 				"parameters": [
 					{
 						"description": "alliancePublicForm",
@@ -8174,7 +8174,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getAvatarUsingGET_3",
+				"operationId": "getAvatarUsingGET_2",
 				"parameters": [
 					{
 						"description": "allianceId",
@@ -8216,7 +8216,7 @@
 					"application/json"
 				],
 				"description": "code为盟代码,affairs选择的事务,逗号分开",
-				"operationId": "createAllianceUsingPOST",
+				"operationId": "createAllianceUsingPOST_1",
 				"parameters": [
 					{
 						"description": "name",
@@ -8274,7 +8274,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getDefaultRoleIdInAllianceUsingPOST",
+				"operationId": "getDefaultRoleIdInAllianceUsingPOST_1",
 				"parameters": [
 					{
 						"description": "allianceId",
@@ -8375,7 +8375,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getPermissionsMapUsingGET_2",
+				"operationId": "getPermissionsMapUsingGET_3",
 				"produces": [
 					"*/*"
 				],
@@ -8407,7 +8407,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getAllianceListUsingGET",
+				"operationId": "getAllianceListUsingGET_1",
 				"produces": [
 					"*/*"
 				],
@@ -8440,7 +8440,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "editAllianceNameUsingPOST_1",
+				"operationId": "editAllianceNameUsingPOST",
 				"parameters": [
 					{
 						"description": "allianceId",
@@ -8538,7 +8538,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "validCodeUsingGET",
+				"operationId": "validCodeUsingGET_1",
 				"parameters": [
 					{
 						"description": "code",
@@ -8622,7 +8622,7 @@
 					"application/json"
 				],
 				"description": "必须是发布的官方",
-				"operationId": "addAuthorityUsingPOST_1",
+				"operationId": "addAuthorityUsingPOST",
 				"parameters": [
 					{
 						"description": "form",
@@ -8669,7 +8669,7 @@
 					"application/json"
 				],
 				"description": "必须是发布的官方",
-				"operationId": "addGuestAffUsingPOST",
+				"operationId": "addGuestAffUsingPOST_1",
 				"parameters": [
 					{
 						"description": "form",
@@ -8716,7 +8716,7 @@
 					"application/json"
 				],
 				"description": "必须是发布的官方",
-				"operationId": "addGuestRoleUsingPOST_1",
+				"operationId": "addGuestRoleUsingPOST",
 				"parameters": [
 					{
 						"description": "form",
@@ -9141,7 +9141,7 @@
 					"application/json"
 				],
 				"description": "官方无法关注公告",
-				"operationId": "followAnnouncementUsingPOST",
+				"operationId": "followAnnouncementUsingPOST_1",
 				"parameters": [
 					{
 						"description": "announcementId",
@@ -9203,7 +9203,7 @@
 					"application/json"
 				],
 				"description": "目前所有人可以查看",
-				"operationId": "getFollowerUsingGET",
+				"operationId": "getFollowerUsingGET_1",
 				"parameters": [
 					{
 						"description": "announcementId",
@@ -9254,7 +9254,7 @@
 					"application/json"
 				],
 				"description": "必须是发布的官方",
-				"operationId": "getGuestUsingGET_1",
+				"operationId": "getGuestUsingGET",
 				"parameters": [
 					{
 						"description": "announcementId",
@@ -9305,7 +9305,7 @@
 					"application/json"
 				],
 				"description": "noticeId为该条通知id",
-				"operationId": "handleApplyJoinUsingPOST",
+				"operationId": "handleApplyJoinUsingPOST_1",
 				"parameters": [
 					{
 						"description": "noticeId",
@@ -9366,7 +9366,7 @@
 					"application/json"
 				],
 				"description": "在事务中拥有对外权限",
-				"operationId": "inviteUsingPOST_1",
+				"operationId": "inviteUsingPOST",
 				"parameters": [
 					{
 						"description": "form",
@@ -9527,7 +9527,7 @@
 					"application/json"
 				],
 				"description": "在事务中拥有对外权限",
-				"operationId": "rejectUsingPOST_1",
+				"operationId": "rejectUsingPOST",
 				"parameters": [
 					{
 						"description": "form",
@@ -9582,7 +9582,7 @@
 					"application/json"
 				],
 				"description": "必须是发布的官方",
-				"operationId": "removeMemberUsingPOST",
+				"operationId": "removeMemberUsingPOST_1",
 				"parameters": [
 					{
 						"description": "announcementId",
@@ -9715,7 +9715,7 @@
 					"application/json"
 				],
 				"description": "要求公告是公开的",
-				"operationId": "addCommentUsingPOST",
+				"operationId": "addCommentUsingPOST_1",
 				"parameters": [
 					{
 						"description": "form",
@@ -9931,7 +9931,7 @@
 					"application/json"
 				],
 				"description": "是公告官方",
-				"operationId": "getChatGroupMessageUsingGET",
+				"operationId": "getChatGroupMessageUsingGET_1",
 				"parameters": [
 					{
 						"description": "announcementId",
@@ -9998,7 +9998,7 @@
 					"application/json"
 				],
 				"description": "返回评论实体对象",
-				"operationId": "getCommentListUsingGET",
+				"operationId": "getCommentListUsingGET_1",
 				"parameters": [
 					{
 						"description": "announcementId",
@@ -10105,7 +10105,7 @@
 					"application/json"
 				],
 				"description": "拥有失效公告权限",
-				"operationId": "deleteDraftUsingPOST",
+				"operationId": "deleteDraftUsingPOST_1",
 				"parameters": [
 					{
 						"description": "draftId",
@@ -10159,7 +10159,7 @@
 					"application/json"
 				],
 				"description": "拥有查看公告权限",
-				"operationId": "getDetailUsingGET",
+				"operationId": "getDetailUsingGET_1",
 				"parameters": [
 					{
 						"description": "announcementId",
@@ -10293,7 +10293,7 @@
 					"application/json"
 				],
 				"description": "需要添加公告权限",
-				"operationId": "getDraftByAffairUsingGET",
+				"operationId": "getDraftByAffairUsingGET_1",
 				"parameters": [
 					{
 						"description": "affairMemberId",
@@ -10383,7 +10383,7 @@
 					"application/json"
 				],
 				"description": "拥有修改公告权限",
-				"operationId": "modifyPublicTypeUsingPOST",
+				"operationId": "modifyPublicTypeUsingPOST_1",
 				"parameters": [
 					{
 						"description": "announcementId",
@@ -10492,7 +10492,7 @@
 					"application/json"
 				],
 				"description": "拥有修改公告权限",
-				"operationId": "modifyStuckUsingPOST",
+				"operationId": "modifyStuckUsingPOST_1",
 				"parameters": [
 					{
 						"description": "announcementId",
@@ -10554,7 +10554,7 @@
 					"application/json"
 				],
 				"description": "拥有管理公告权限,只需要修改单个时间的话,另一个就不要传",
-				"operationId": "modifyTimeUsingPOST_1",
+				"operationId": "modifyTimeUsingPOST",
 				"parameters": [
 					{
 						"description": "affairMemberId",
@@ -10695,7 +10695,7 @@
 					"application/json"
 				],
 				"description": "需要查看公告权限",
-				"operationId": "getOverviewUsingPOST",
+				"operationId": "getOverviewUsingPOST_1",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -10758,7 +10758,7 @@
 					"application/json"
 				],
 				"description": "不需要查看公告权限",
-				"operationId": "getPersonalAnnouncementUsingPOST",
+				"operationId": "getPersonalAnnouncementUsingPOST_1",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -10820,7 +10820,7 @@
 					"application/json"
 				],
 				"description": "需要传对相应的type",
-				"operationId": "getQuizListUsingGET_1",
+				"operationId": "getQuizListUsingGET",
 				"parameters": [
 					{
 						"description": "type",
@@ -10895,7 +10895,7 @@
 					"application/json"
 				],
 				"description": "客方",
-				"operationId": "getChatGroupIdUsingGET",
+				"operationId": "getChatGroupIdUsingGET_1",
 				"parameters": [
 					{
 						"description": "announcementId",
@@ -11086,7 +11086,7 @@
 					"application/json"
 				],
 				"description": "是公告官方",
-				"operationId": "removeQuizUsingPOST",
+				"operationId": "removeQuizUsingPOST_1",
 				"parameters": [
 					{
 						"description": "quizId",
@@ -11232,7 +11232,7 @@
 					"application/json"
 				],
 				"description": "拥有添加公告权限",
-				"operationId": "saveDraftUsingPOST",
+				"operationId": "saveDraftUsingPOST_1",
 				"parameters": [
 					{
 						"description": "affairMemberId",
@@ -11420,7 +11420,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "createAnnouncementChatGroupUsingPOST",
+				"operationId": "createAnnouncementChatGroupUsingPOST_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -11537,7 +11537,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "exitFromGroupUsingPOST",
+				"operationId": "exitFromGroupUsingPOST_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -11754,7 +11754,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "addFileUsingPOST",
+				"operationId": "addFileUsingPOST_1",
 				"parameters": [
 					{
 						"description": "form",
@@ -11884,7 +11884,7 @@
 				"consumes": [
 					"multipart/form-data"
 				],
-				"operationId": "condenseAffairPictureUsingPOST",
+				"operationId": "condenseAffairPictureUsingPOST_1",
 				"parameters": [
 					{
 						"description": "picture",
@@ -12045,7 +12045,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "announcementAuthUsingPOST",
+				"operationId": "announcementAuthUsingPOST_1",
 				"parameters": [
 					{
 						"description": "info",
@@ -12170,7 +12170,7 @@
 					"application/json"
 				],
 				"description": "格式正确而且没有被注册",
-				"operationId": "getChatFileTokenUsingPOST",
+				"operationId": "getChatFileTokenUsingPOST_1",
 				"parameters": [
 					{
 						"description": "fileOperation",
@@ -12232,7 +12232,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "checkFileNameUsingPOST",
+				"operationId": "checkFileNameUsingPOST_1",
 				"parameters": [
 					{
 						"description": "names",
@@ -12278,7 +12278,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getChildUsingGET",
+				"operationId": "getChildUsingGET_1",
 				"parameters": [
 					{
 						"description": "folderId",
@@ -12450,7 +12450,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "geDirUsingGET",
+				"operationId": "geDirUsingGET_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -12500,7 +12500,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "setPublicTypeUsingPOST",
+				"operationId": "setPublicTypeUsingPOST_1",
 				"parameters": [
 					{
 						"description": "form",
@@ -12671,7 +12671,7 @@
 					"application/json"
 				],
 				"description": "url: host/urlEncode(path)?OSSAccessKeyId=xxx&Signature=urlEncode(xxx)&Expires=xxx",
-				"operationId": "getFileTokenUsingPOST_1",
+				"operationId": "getFileTokenUsingPOST",
 				"parameters": [
 					{
 						"description": "fileOperation",
@@ -12725,7 +12725,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getHistoryFilesUsingGET",
+				"operationId": "getHistoryFilesUsingGET_1",
 				"parameters": [
 					{
 						"description": "fileId",
@@ -12949,7 +12949,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "geDirUsingGET_3",
+				"operationId": "geDirUsingGET_2",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -13057,7 +13057,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "removeFolderUsingPOST",
+				"operationId": "removeFolderUsingPOST_1",
 				"parameters": [
 					{
 						"description": "folderId",
@@ -13110,7 +13110,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "fileRenameUsingPOST",
+				"operationId": "fileRenameUsingPOST_1",
 				"parameters": [
 					{
 						"description": "id",
@@ -13248,7 +13248,7 @@
 					"application/json"
 				],
 				"description": "url: host/urlEncode(path)?OSSAccessKeyId=xxx&Signature=urlEncode(xxx)&Expires=xxx",
-				"operationId": "fileDownloadUsingPOST_1",
+				"operationId": "fileDownloadUsingPOST",
 				"parameters": [
 					{
 						"description": "fileOperation",
@@ -13478,7 +13478,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "addRealAccountUsingPOST_1",
+				"operationId": "addRealAccountUsingPOST",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -13548,7 +13548,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getAffairFundPoolUsingGET",
+				"operationId": "getAffairFundPoolUsingGET_1",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -13598,7 +13598,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getAffairFundPoolTreeUsingGET",
+				"operationId": "getAffairFundPoolTreeUsingGET_1",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -13865,7 +13865,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getRealAccountListUsingGET",
+				"operationId": "getRealAccountListUsingGET_1",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -13931,7 +13931,7 @@
 					"application/json"
 				],
 				"description": "ownerId仓库主管id(如果公共库 传0),roleId是查看者,这两个不一定相同",
-				"operationId": "getFundTransferUsingGET",
+				"operationId": "getFundTransferUsingGET_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -14101,7 +14101,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getCanManageWarehouseUsingGET_3",
+				"operationId": "getCanManageWarehouseUsingGET_2",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -14152,7 +14152,7 @@
 					"application/json"
 				],
 				"description": "warehouseId 不传则为当前仓库的,传则问新仓库的",
-				"operationId": "create_templateUsingPOST",
+				"operationId": "create_templateUsingPOST_1",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -14347,7 +14347,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "registerMaterialUsingGET_1",
+				"operationId": "registerMaterialUsingGET",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -14467,7 +14467,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "modifyMaterialDescriptionUsingPOST_3",
+				"operationId": "modifyMaterialDescriptionUsingPOST_2",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -14527,7 +14527,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "modifyMaterialImageUsingPOST",
+				"operationId": "modifyMaterialImageUsingPOST_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -14587,7 +14587,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "modifyMaterialTagUsingPOST_1",
+				"operationId": "modifyMaterialTagUsingPOST",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -14651,7 +14651,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "modify_templateUsingPOST",
+				"operationId": "modify_templateUsingPOST_1",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -14714,7 +14714,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "registerMaterialUsingPOST_1",
+				"operationId": "registerMaterialUsingPOST",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -14777,7 +14777,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "searchMaterialUsingGET_1",
+				"operationId": "searchMaterialUsingGET",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -14842,7 +14842,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getSendRecordUsingGET",
+				"operationId": "getSendRecordUsingGET_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -14892,7 +14892,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getOrdersUsingGET",
+				"operationId": "getOrdersUsingGET_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -14942,7 +14942,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getTemplateDetailUsingGET",
+				"operationId": "getTemplateDetailUsingGET_1",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -15058,7 +15058,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getMaterialTypesUsingGET_1",
+				"operationId": "getMaterialTypesUsingGET",
 				"produces": [
 					"*/*"
 				],
@@ -15090,7 +15090,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getWarehouseDetailUsingGET",
+				"operationId": "getWarehouseDetailUsingGET_1",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -15148,7 +15148,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getWarehouseListUsingGET_1",
+				"operationId": "getWarehouseListUsingGET",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -15198,7 +15198,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getWarehouseMaterialsUsingGET",
+				"operationId": "getWarehouseMaterialsUsingGET_1",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -15306,7 +15306,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "agreeInvitationUsingPOST",
+				"operationId": "agreeInvitationUsingPOST_1",
 				"parameters": [
 					{
 						"description": "messageId",
@@ -15367,7 +15367,7 @@
 					"application/json"
 				],
 				"description": "接受邀请",
-				"operationId": "agreeAllianceInvitationUsingPOST",
+				"operationId": "agreeAllianceInvitationUsingPOST_1",
 				"parameters": [
 					{
 						"description": "messageId",
@@ -15427,7 +15427,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getInvitationUsingGET",
+				"operationId": "getInvitationUsingGET_1",
 				"parameters": [
 					{
 						"description": "invitationId",
@@ -15538,7 +15538,7 @@
 					"application/json"
 				],
 				"description": "拒绝邀请",
-				"operationId": "rejectAllianceInvitationUsingPOST_1",
+				"operationId": "rejectAllianceInvitationUsingPOST",
 				"parameters": [
 					{
 						"description": "reason",
@@ -15645,7 +15645,7 @@
 					"application/json"
 				],
 				"description": "如果角色当前没有账户,传-1系统默认",
-				"operationId": "acceptFundOrderUsingPOST",
+				"operationId": "acceptFundOrderUsingPOST_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -15714,7 +15714,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getAllianceDealsUsingGET",
+				"operationId": "getAllianceDealsUsingGET_1",
 				"parameters": [
 					{
 						"description": "end",
@@ -15795,7 +15795,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "receiveMaterialUsingPOST",
+				"operationId": "receiveMaterialUsingPOST_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -15966,7 +15966,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getFirstDealTimeUsingGET",
+				"operationId": "getFirstDealTimeUsingGET_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -16025,7 +16025,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getFlowReportUsingPOST",
+				"operationId": "getFlowReportUsingPOST_1",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -16087,7 +16087,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "flowsUsingPOST_1",
+				"operationId": "flowsUsingPOST",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -16201,7 +16201,7 @@
 					"application/json"
 				],
 				"description": "0 未处理 1已接收 2拒绝",
-				"operationId": "getDetailFundOrderUsingGET",
+				"operationId": "getDetailFundOrderUsingGET_1",
 				"parameters": [
 					{
 						"description": "orderId",
@@ -16344,7 +16344,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getMaterialDealUsingGET_1",
+				"operationId": "getMaterialDealUsingGET",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -16403,7 +16403,7 @@
 					"application/json"
 				],
 				"description": "0 未处理 1已接收 2拒绝",
-				"operationId": "getMaterialOrderUsingGET_1",
+				"operationId": "getMaterialOrderUsingGET",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -16454,7 +16454,7 @@
 					"application/json"
 				],
 				"description": "0 未处理 1已接收 2拒绝",
-				"operationId": "getMaterialOrderRecordUsingGET",
+				"operationId": "getMaterialOrderRecordUsingGET_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -16512,7 +16512,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "startFundOrderUsingPOST_1",
+				"operationId": "startFundOrderUsingPOST",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -16899,7 +16899,7 @@
 					"application/json"
 				],
 				"description": "0 未处理 1已接收 2拒绝",
-				"operationId": "getSummaryUsingGET_1",
+				"operationId": "getSummaryUsingGET",
 				"parameters": [
 					{
 						"description": "end",
@@ -17019,7 +17019,7 @@
 					"application/json"
 				],
 				"description": "userId是被查用户的",
-				"operationId": "getRoleCardsUsingGET",
+				"operationId": "getRoleCardsUsingGET_1",
 				"parameters": [
 					{
 						"description": "userId",
@@ -17077,7 +17077,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "checkBeforeInvalidRoleUsingGET",
+				"operationId": "checkBeforeInvalidRoleUsingGET_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -17127,7 +17127,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "invalidRoleUsingGET",
+				"operationId": "invalidRoleUsingGET_1",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -17231,7 +17231,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "enableRoleUsingGET_1",
+				"operationId": "enableRoleUsingGET",
 				"parameters": [
 					{
 						"description": "roleId",
@@ -17281,7 +17281,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getUserRolesUsingGET",
+				"operationId": "getUserRolesUsingGET_1",
 				"parameters": [
 					{
 						"description": "userId",
@@ -17323,7 +17323,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "editPublicTypeUsingPOST_1",
+				"operationId": "editPublicTypeUsingPOST",
 				"parameters": [
 					{
 						"description": "roles",
@@ -17370,7 +17370,7 @@
 					"application/json"
 				],
 				"description": "如果不传userId,返回所有角色,用于维护,如果传userId表示其他人查看,只返回公开角色,0公开,其他不公开",
-				"operationId": "getUserRolePublicInfoUsingGET_1",
+				"operationId": "getUserRolePublicInfoUsingGET",
 				"parameters": [
 					{
 						"description": "userId",
@@ -17474,7 +17474,7 @@
 					"application/json"
 				],
 				"description": "生成一个供前端合成链接的短链接标识符,affairId为分享事务id,roleId为分享人角色id,effectiveHour为分享有效时间",
-				"operationId": "generateUsingGET_1",
+				"operationId": "generateUsingGET",
 				"parameters": [
 					{
 						"description": "affairId",
@@ -17533,7 +17533,7 @@
 					"application/json"
 				],
 				"description": "返回分享类型和目标id,如果链接失效,则返回错误码",
-				"operationId": "analysisUsingGET",
+				"operationId": "analysisUsingGET_1",
 				"parameters": [
 					{
 						"description": "shortLink",
@@ -17733,7 +17733,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "createUsingPOST",
+				"operationId": "createUsingPOST_1",
 				"parameters": [
 					{
 						"description": "affairMemberId",
@@ -17787,7 +17787,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "createUsingPOST_2",
+				"operationId": "createUsingPOST_3",
 				"parameters": [
 					{
 						"description": "affairMemberId",
@@ -17841,7 +17841,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getTaskDetailUsingGET",
+				"operationId": "getTaskDetailUsingGET_1",
 				"parameters": [
 					{
 						"description": "taskId",
@@ -17891,7 +17891,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "editUsingPOST_1",
+				"operationId": "editUsingPOST",
 				"parameters": [
 					{
 						"description": "affairMemberId",
@@ -18071,7 +18071,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getFundTimelineUsingGET",
+				"operationId": "getFundTimelineUsingGET_1",
 				"parameters": [
 					{
 						"description": "taskId",
@@ -18355,7 +18355,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "getAvatarUsingGET_5",
+				"operationId": "getAvatarUsingGET_4",
 				"parameters": [
 					{
 						"description": "userId",
@@ -18449,7 +18449,7 @@
 					"application/json"
 				],
 				"description": "表单传参",
-				"operationId": "changePwdUsingPOST_1",
+				"operationId": "changePwdUsingPOST",
 				"parameters": [
 					{
 						"description": "oldPwd",
@@ -18553,7 +18553,7 @@
 					"application/json"
 				],
 				"description": "忘记密码,表单传参",
-				"operationId": "forgetPwdUsingPOST",
+				"operationId": "forgetPwdUsingPOST_1",
 				"parameters": [
 					{
 						"description": "verifyCode",
@@ -18605,7 +18605,7 @@
 					"application/json"
 				],
 				"description": "如果获取本人信息,则不需要传userId,表单传参",
-				"operationId": "getUserInfoUsingGET",
+				"operationId": "getUserInfoUsingGET_1",
 				"produces": [
 					"*/*"
 				],
@@ -18697,7 +18697,7 @@
 					"application/json"
 				],
 				"description": "获取登录验证码",
-				"operationId": "getLoginVerifyCodeUsingGET_1",
+				"operationId": "getLoginVerifyCodeUsingGET",
 				"parameters": [
 					{
 						"description": "token",
@@ -18739,7 +18739,7 @@
 					"application/json"
 				],
 				"description": "登出",
-				"operationId": "logoutUsingPOST_1",
+				"operationId": "logoutUsingPOST",
 				"produces": [
 					"*/*"
 				],
@@ -18821,7 +18821,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "changePublicTypeUsingPOST_1",
+				"operationId": "changePublicTypeUsingPOST",
 				"parameters": [
 					{
 						"description": "publicType",
@@ -18867,7 +18867,7 @@
 				"consumes": [
 					"application/json"
 				],
-				"operationId": "modifySuperIdUsingPOST_1",
+				"operationId": "modifySuperIdUsingPOST",
 				"parameters": [
 					{
 						"description": "superId",
@@ -19042,7 +19042,7 @@
 					"application/json"
 				],
 				"description": "不允许同一个IP地址频繁访问,若是手机,格式为+86 15***",
-				"operationId": "getRegisterVerifyCodeUsingGET_1",
+				"operationId": "getRegisterVerifyCodeUsingGET",
 				"parameters": [
 					{
 						"description": "token",
@@ -19126,7 +19126,7 @@
 					"application/json"
 				],
 				"description": "获取修改账号验证码",
-				"operationId": "getTokenChangeVerifyCodeUsingGET",
+				"operationId": "getTokenChangeVerifyCodeUsingGET_1",
 				"parameters": [
 					{
 						"description": "token",
@@ -19168,7 +19168,7 @@
 					"application/json"
 				],
 				"description": "格式正确而且没有被注册,表单传参",
-				"operationId": "validTokenUsingPOST_1",
+				"operationId": "validTokenUsingPOST",
 				"parameters": [
 					{
 						"description": "token",
@@ -19213,7 +19213,7 @@
 					"application/json"
 				],
 				"description": "验证用户名,表单传参",
-				"operationId": "validUsernameUsingPOST_1",
+				"operationId": "validUsernameUsingPOST",
 				"parameters": [
 					{
 						"description": "username",

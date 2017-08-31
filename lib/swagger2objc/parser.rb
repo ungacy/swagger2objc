@@ -25,7 +25,8 @@ module Swagger2objc
       swagger_hash = @request.object_from_uri
       # json = Swagger2objc::Generator::TemplateReplacer.read_file_content('./swagger.txt')
       # swagger_hash = JSON.parse(json)
-      @root = Swagger2objc::Struct::Root.new(swagger_hash)
+      @root = Swagger2objc::Struct::Root.new
+      @root.init_with_hash(swagger_hash)
     end
 
     def sdk_result
@@ -37,9 +38,10 @@ module Swagger2objc
       @root.controllers.each do |controller|
         next if controller.models.nil?
         controller.models.each do |ref|
-          ref_hash = @root.definitions[ref]
+          ref_hash = @root.definitions[ref].dup
           ref_hash['id'] = ref
-          model = Swagger2objc::Struct::Model.new(ref_hash)
+          model = Swagger2objc::Struct::Model.new
+          model.init_with_hash(ref_hash)
           generator = Swagger2objc::Generator::ModelGenerator.new(controller.category, model)
           generator.generate
         end

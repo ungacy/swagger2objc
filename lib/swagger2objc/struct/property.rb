@@ -1,4 +1,5 @@
 require 'swagger2objc/utils/utils'
+require 'ostruct'
 module Swagger2objc
   module Struct
     class Property < Base
@@ -10,6 +11,20 @@ module Swagger2objc
       attr_reader :ref
       attr_reader :additionalProperties
       attr_accessor :name
+      attr_accessor :origin
+
+      def init_with_hash(hash = {})
+        @format = hash['format']
+        @required = hash['required']
+        @type = hash['type']
+        @items = hash['items']
+        @description = hash['description']
+        @ref = hash['$ref']
+        @additionalProperties = hash['additionalProperties']
+        @name = hash['name']
+        @origin = OpenStruct.new(hash)
+        setup
+      end
 
       def setup
         # it's a hash
@@ -38,11 +53,11 @@ module Swagger2objc
         end
         if @ref
           @format = @ref.sub('#/definitions/', '')
-          @format = 'double' if @format == 'TimeStamp'
-          @type = @format.dup
-        end
-        if @type == 'number'
-          puts @format
+          if @format == 'Timestamp'
+            @format = 'double'
+            @type = 'number'
+          end
+          @type = @format.dup if @type.nil?
         end
       end
 
@@ -69,7 +84,7 @@ module Swagger2objc
 
         avoid = Swagger2objc::Configure.config[Swagger2objc::Config::AVOID]
 
-        if @format.nil? || format == ''
+        if @format.nil?
           puts @ref
           puts "format : #{name}"
           raise "format : #{name}"
@@ -83,9 +98,9 @@ module Swagger2objc
         format_name = rename[format_name] if rename && rename[format_name]
         oc_type = Swagger2objc::Generator::Type::OC_MAP[@format]
         raise "unkown format : #{name}" if oc_type.nil? && @format == 'object'
-
+        puts 'ssss' if @name == 'currencyType'
         if oc_type == 'NSString'
-          if @type == 'List' || @type == 'Array'
+          if @type == 'List' || @type == 'Array' || @type == 'array'
             info << "@property (nonatomic, strong) NSArray<#{oc_type} *> *#{format_name};\n"
             info.sub!("{#{type}}", "[#{oc_type}]")
           else

@@ -10,8 +10,21 @@ module Swagger2objc
       attr_reader :required
       attr_reader :type
       attr_reader :schema
+      attr_reader :items
 
       attr_reader :all_ref
+
+      def init_with_hash(hash = {})
+        @description = hash['description']
+        @format = hash['format']
+        @in = hash['in']
+        @name = hash['name']
+        @required = hash['required']
+        @type = hash['type']
+        @schema = hash['schema']
+        @items = hash['items']
+        setup
+      end
 
       def setup
         @all_ref = []
