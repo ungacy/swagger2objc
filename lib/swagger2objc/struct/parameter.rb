@@ -23,6 +23,7 @@ module Swagger2objc
         @type = hash['type']
         @schema = hash['schema']
         @items = hash['items']
+        @type = 'File' if @in == 'formData'
         setup
       end
 
