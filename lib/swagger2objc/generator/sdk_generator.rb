@@ -32,11 +32,16 @@ module Swagger2objc
         subfix_array = Swagger2objc::Configure.config[Swagger2objc::Config::SUBFIX]
         model.each do |controller|
           controller.operations.each do |operation|
-            class_name = Swagger2objc::Utils.sdk_name_formatter(operation.path, controller.category, Swagger2objc::Config::SDK)
+            class_name = Swagger2objc::Utils.sdk_name_formatter(operation.path,
+                                                                controller.category,
+                                                                Swagger2objc::Config::SDK,
+                                                                operation.operationId)
 
             if subfix_array.include?(class_name)
               class_name = if operation.method == 'GET'
                              class_name + 'Query'
+                           elsif operation.method == 'PUT'
+                             class_name + 'Update'
                            else
                              class_name + 'Submit'
                            end
@@ -65,7 +70,8 @@ module Swagger2objc
             hash[:category] = controller.category
             class_name = Swagger2objc::Utils.sdk_name_formatter(operation.path,
                                                                 controller.category,
-                                                                Swagger2objc::Config::SDK)
+                                                                Swagger2objc::Config::SDK,
+                                                                operation.operationId)
             if subfix_array.include?(class_name)
               class_name = if operation.method == 'GET'
                              class_name + 'Query'

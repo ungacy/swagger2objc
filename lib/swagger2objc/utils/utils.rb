@@ -17,7 +17,7 @@ module Swagger2objc
       class_prefix + result
     end
 
-    def self.sdk_name_formatter(class_name, category, type)
+    def self.sdk_name_formatter(class_name, category, type, operationid = nil)
       hate = Swagger2objc::Configure.config[Swagger2objc::Config::HATE]
       class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][type]
       result = class_name.clone
@@ -33,6 +33,11 @@ module Swagger2objc
       # if result != class_name
       #   puts "Rename [#{class_name}] to [#{result}]"
       # end
+      if category == 'Message'
+        short_name = operationid[0].capitalize + operationid[1..-1]
+        short_name.gsub!(/By.*/, '')
+        return class_prefix + category + short_name
+      end
       class_prefix + result
     end
 

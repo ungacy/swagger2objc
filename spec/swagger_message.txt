@@ -1,0 +1,619 @@
+{
+	"basePath": "/",
+	"definitions": {
+		"Link": {
+			"properties": {
+				"begin": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"end": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"id": {
+					"format": "int64",
+					"type": "integer"
+				},
+				"type": {
+					"format": "int32",
+					"type": "integer"
+				}
+			},
+			"type": "object"
+		},
+		"MessageResultVO": {
+			"properties": {
+				"hasMore": {
+					"default": false,
+					"type": "boolean"
+				},
+				"notices": {
+					"items": {
+						"$ref": "#/definitions/Notice"
+					},
+					"type": "array"
+				}
+			},
+			"type": "object"
+		},
+		"Notice": {
+			"properties": {
+				"allowForward": {
+					"default": false,
+					"description": "是否运行转发",
+					"type": "boolean"
+				},
+				"content": {
+					"description": "消息内容",
+					"type": "string"
+				},
+				"delay": {
+					"description": "消息延迟发送时间",
+					"format": "int64",
+					"type": "integer"
+				},
+				"fromAffairId": {
+					"description": "发送方事务id",
+					"format": "int64",
+					"type": "integer"
+				},
+				"msgType": {
+					"description": "消息类型，目前类型为消息，邀请，物资，资金",
+					"format": "int32",
+					"type": "integer"
+				},
+				"noticeId": {
+					"description": "消息id",
+					"format": "int64",
+					"type": "integer"
+				},
+				"optional": {
+					"description": "是否可选",
+					"type": "string"
+				},
+				"publishType": {
+					"description": "发布类型",
+					"format": "int32",
+					"type": "integer"
+				},
+				"readState": {
+					"description": "消息状态，可以为已读或者未读",
+					"format": "int32",
+					"type": "integer"
+				},
+				"receiverId": {
+					"description": "接收者userId",
+					"format": "int64",
+					"type": "integer"
+				},
+				"receiverRoleId": {
+					"description": "接收者roleId",
+					"format": "int64",
+					"type": "integer"
+				},
+				"receiverType": {
+					"description": "接收者类型，盟或者角色",
+					"format": "int32",
+					"type": "integer"
+				},
+				"related": {
+					"default": false,
+					"description": "消息是否关联",
+					"type": "boolean"
+				},
+				"resourceId": {
+					"description": "消息相关的资源id",
+					"format": "int64",
+					"type": "integer"
+				},
+				"resourceType": {
+					"description": "消息相关的资源类型",
+					"format": "int32",
+					"type": "integer"
+				},
+				"senderId": {
+					"description": "发送者userId",
+					"format": "int64",
+					"type": "integer"
+				},
+				"senderRoleId": {
+					"description": "发送者roleId",
+					"format": "int64",
+					"type": "integer"
+				},
+				"senderType": {
+					"description": "发送者类型，盟或者角色",
+					"format": "int32",
+					"type": "integer"
+				},
+				"sendTime": {
+					"description": "消息发送时间",
+					"format": "int64",
+					"type": "integer"
+				},
+				"state": {
+					"description": "消息的状态:处理、未处理等",
+					"format": "int32",
+					"type": "integer"
+				},
+				"toAffairId": {
+					"description": "接收者事务id",
+					"format": "int64",
+					"type": "integer"
+				},
+				"urls": {
+					"description": "消息内容中需要特殊处理的字段信息",
+					"items": {
+						"$ref": "#/definitions/Link"
+					},
+					"type": "array"
+				}
+			},
+			"type": "object"
+		},
+		"RoleMessageCountDTO": {
+			"properties": {
+				"count": {
+					"format": "int64",
+					"type": "integer"
+				},
+				"roleId": {
+					"format": "int64",
+					"type": "integer"
+				}
+			},
+			"type": "object"
+		},
+		"TypeMessageCountDTO": {
+			"properties": {
+				"count": {
+					"description": "对应消息类型的消息数量",
+					"format": "int64",
+					"type": "integer"
+				},
+				"messageType": {
+					"description": "消息类型,目前类型为消息，邀请，物资，资金",
+					"format": "int32",
+					"type": "integer"
+				}
+			},
+			"type": "object"
+		}
+	},
+	"info": {
+		"contact": {
+			"name": "zt"
+		},
+		"title": "MsgCenter",
+		"version": "v1"
+	},
+	"paths": {
+		"/msg/{msgType}/{noticeId}/{roleId}": {
+			"get": {
+				"description": "",
+				"operationId": "getTypeMessageByNoticeIdAndRoleId",
+				"parameters": [
+					{
+						"description": "消息类型",
+						"enum": [
+							"0:ALL",
+							"1:NOTICE",
+							"2:INVITATION",
+							"3:MATERIAL",
+							"4:FUNDS"
+						],
+						"format": "int32",
+						"in": "path",
+						"name": "msgType",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"format": "int64",
+						"in": "path",
+						"name": "noticeId",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"format": "int64",
+						"in": "path",
+						"name": "roleId",
+						"required": true,
+						"type": "integer"
+					}
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/Notice"
+						}
+					}
+				},
+				"summary": "根据消息ID和角色ID获取某一种类型的某一条消息",
+				"tags": [
+					"MessageResource"
+				]
+			}
+		},
+		"/msg/{msgType}/{resourceId}": {
+			"get": {
+				"description": "",
+				"operationId": "getUnhandleMessageByResourceId",
+				"parameters": [
+					{
+						"description": "消息类型",
+						"enum": [
+							"0:ALL",
+							"1:NOTICE",
+							"2:INVITATION",
+							"3:MATERIAL",
+							"4:FUNDS"
+						],
+						"format": "int32",
+						"in": "path",
+						"name": "msgType",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"format": "int64",
+						"in": "path",
+						"name": "resourceId",
+						"required": true,
+						"type": "integer"
+					}
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/Notice"
+						}
+					}
+				},
+				"summary": "根据resourceId获取状态为UNHANDLE的消息",
+				"tags": [
+					"MessageResource"
+				]
+			}
+		},
+		"/msg/{msgType}/{roleId}/all": {
+			"get": {
+				"description": "",
+				"operationId": "msgTypeMessageReadable",
+				"parameters": [
+					{
+						"description": "消息类型",
+						"enum": [
+							"0:ALL",
+							"1:NOTICE",
+							"2:INVITATION",
+							"3:MATERIAL",
+							"4:FUNDS"
+						],
+						"format": "int32",
+						"in": "path",
+						"name": "msgType",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"format": "int64",
+						"in": "path",
+						"name": "roleId",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"default": 0,
+						"description": "消息状态",
+						"enum": [
+							"0:ALL",
+							"1:READ",
+							"2:UNREAD"
+						],
+						"format": "int32",
+						"in": "query",
+						"name": "readState",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"default": 0,
+						"description": "请求发送时间",
+						"format": "int64",
+						"in": "query",
+						"name": "sendTime",
+						"required": false,
+						"type": "integer"
+					},
+					{
+						"default": 30,
+						"description": "消息条数",
+						"format": "int32",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"type": "integer"
+					}
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/MessageResultVO"
+						}
+					}
+				},
+				"summary": "获取某一角色某一类型的消息",
+				"tags": [
+					"MessageResource"
+				]
+			}
+		},
+		"/msg/{msgType}/{roleId}/updates": {
+			"put": {
+				"description": "",
+				"operationId": "batchUpdateRead",
+				"parameters": [
+					{
+						"description": "消息类型",
+						"enum": [
+							"0:ALL",
+							"1:NOTICE",
+							"2:INVITATION",
+							"3:MATERIAL",
+							"4:FUNDS"
+						],
+						"format": "int32",
+						"in": "path",
+						"name": "msgType",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"format": "int64",
+						"in": "path",
+						"name": "roleId",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"default": 0,
+						"format": "int64",
+						"in": "query",
+						"name": "sendTime",
+						"required": false,
+						"type": "integer"
+					}
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"summary": "根据角色ID批量更新某种类型的消息",
+				"tags": [
+					"MessageResource"
+				]
+			}
+		},
+		"/msg/{noticeId}": {
+			"put": {
+				"description": "",
+				"operationId": "updateRead",
+				"parameters": [
+					{
+						"format": "int64",
+						"in": "path",
+						"name": "noticeId",
+						"required": true,
+						"type": "integer"
+					}
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"summary": "根据消息ID更新单个消息",
+				"tags": [
+					"MessageResource"
+				]
+			}
+		},
+		"/msg/{roleId}/count": {
+			"get": {
+				"description": "",
+				"operationId": "roleMsgTypeUnreadCount",
+				"parameters": [
+					{
+						"format": "int64",
+						"in": "path",
+						"name": "roleId",
+						"required": true,
+						"type": "integer"
+					}
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"items": {
+								"$ref": "#/definitions/TypeMessageCountDTO"
+							},
+							"type": "array"
+						}
+					}
+				},
+				"summary": "获取某个角色各种类型未读消息的数量",
+				"tags": [
+					"MessageResource"
+				]
+			}
+		},
+		"/msg/{userId}/notify": {
+			"get": {
+				"description": "",
+				"operationId": "hasUnreadMessage",
+				"parameters": [
+					{
+						"description": "用户id",
+						"format": "int64",
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"type": "integer"
+					}
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"summary": "判断某一用户是否有未读消息",
+				"tags": [
+					"MessageResource"
+				]
+			}
+		},
+		"/msg/{userId}/roles/count": {
+			"get": {
+				"description": "",
+				"operationId": "rolesMessageCount",
+				"parameters": [
+					{
+						"description": "用户id",
+						"format": "int64",
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"type": "integer"
+					}
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"items": {
+								"$ref": "#/definitions/RoleMessageCountDTO"
+							},
+							"type": "array"
+						}
+					}
+				},
+				"summary": "获取某一用户各个角色的未读消息数量",
+				"tags": [
+					"MessageResource"
+				]
+			}
+		},
+		"/msg/sender/{msgType}/{roleId}/all": {
+			"get": {
+				"description": "",
+				"operationId": "getSenderMessage",
+				"parameters": [
+					{
+						"format": "int32",
+						"in": "path",
+						"name": "msgType",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"format": "int64",
+						"in": "path",
+						"name": "roleId",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"default": 0,
+						"format": "int32",
+						"in": "query",
+						"name": "readState",
+						"required": false,
+						"type": "integer"
+					},
+					{
+						"default": 0,
+						"format": "int64",
+						"in": "query",
+						"name": "sendTime",
+						"required": false,
+						"type": "integer"
+					},
+					{
+						"default": 30,
+						"format": "int32",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"type": "integer"
+					}
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"default": {
+						"description": "successful operation"
+					}
+				},
+				"summary": "发送方的消息接口,仍在开发,暂时不用",
+				"tags": [
+					"Sender"
+				]
+			}
+		}
+	},
+	"schemes": [
+		"http",
+		"https"
+	],
+	"swagger": "2.0",
+	"tags": [
+		{
+			"name": "MessageResource"
+		},
+		{
+			"name": "Sender"
+		}
+	]
+}

@@ -9,6 +9,7 @@ ignore:
  - Null
 trim:
  VO: Item
+ DTO: Item
 mapping:
   ViewedAffairItem: AffairHistoryItem
   AllianceUserMItem: AllianceUserItem

@@ -37,15 +37,21 @@ module Swagger2objc
         if @paths
           @paths.each do |path, dict|
             dict.each do |method, operation_hash|
-              controller_key = operation_hash['tags'].first
+              if operation_hash['tags']
+                controller_key = operation_hash['tags'].first
+                next if controller_key == 'Sender'
+              else
+                next
+              end
+
               controller = controller_hash[controller_key]
-              category = controller_key.sub('-controller', '')
+              category = controller_key.sub('-controller', '').sub('Resource', '')
               category.capitalize!
               category.gsub!(/\-\w/) { |match| match[1].upcase }
               category = 'File' if category == 'AppFile'
               next if @only && !@only.include?(category)
               Swagger2objc::Generator::ModelGenerator.clear([category])
-              Swagger2objc::Generator::ModelGenerator.clear([category])
+              Swagger2objc::Generator::SDKGenerator.clear([category])
               operation_hash['method'] = method.upcase
               operation_hash['path'] = path
               operation = Swagger2objc::Struct::Operation.new
