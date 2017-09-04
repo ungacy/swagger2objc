@@ -14,6 +14,8 @@ mapping:
   ViewedAffairItem: AffairHistoryItem
   AllianceUserMItem: AllianceUserItem
   Pair«string,string»: PairItem
+  Link: MessageLink
+  Notice: MessageNotice
 avoid:
   id: id_p
   description: desc
