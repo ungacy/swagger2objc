@@ -40,7 +40,7 @@ module Swagger2objc
         info = "\n/**\n"
         info << " paramType  : #{@in}\n"
         info << " description: #{description}\n"
-        info << " key        : #{description}\n"
+        info << " key        : #{name}\n"
         info << " type       : #{type}\n"
         info << " required   : #{required}\n"
 
@@ -93,7 +93,7 @@ module Swagger2objc
       def result
         hash = {
           paramType: @in,
-          key: description,
+          key: name,
           type: type,
           required: required
         }
