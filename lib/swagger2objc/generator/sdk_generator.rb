@@ -83,8 +83,8 @@ module Swagger2objc
                              class_name + 'Submit'
                            end
             end
-            if link_map
-              hash[:link] = link_map[controller.category] ? link_map[controller.category] : controller.category
+            if link_map && link_map[controller.category]
+              hash[:link] = link_map[controller.category]
             end
             result[class_name] = hash
           end

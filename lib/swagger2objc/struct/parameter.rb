@@ -11,6 +11,7 @@ module Swagger2objc
       attr_reader :type
       attr_reader :schema
       attr_reader :items
+      attr_reader :rename
 
       attr_reader :all_ref
 
@@ -22,12 +23,23 @@ module Swagger2objc
         else
           @type = @format if 'integer' == @type || 'number' == @type
         end
-        @type = 'File' if @in == 'formData'
+        if @in == 'formData'
+          @type = 'File'
+          @in = 'form'
+        end
+        format_name = name.clone
+        format_name = description.clone if @in.nil?
+        avoid = Swagger2objc::Configure.config[Swagger2objc::Config::AVOID]
+        if avoid[format_name] && !avoid[format_name].empty?
+          format_name = avoid[format_name]
+          @rename = format_name.dup
+        end
       end
 
       def output(import, avoid_map)
         info = "\n/**\n"
         info << " paramType  : #{@in}\n"
+        info << " description: #{description}\n"
         info << " key        : #{description}\n"
         info << " type       : #{type}\n"
         info << " required   : #{required}\n"
@@ -40,7 +52,8 @@ module Swagger2objc
         if avoid[format_name] && !avoid[format_name].empty?
           format_name = avoid[format_name]
           avoid_map[format_name] = description
-          @rename = format_name
+          @rename = format_name.dup
+          # puts @rename
           info << " rename     : #{format_name}\n"
         end
         info << "*/\n"
@@ -85,7 +98,10 @@ module Swagger2objc
           required: required
         }
 
-        hash[:rename] = @rename if @rename
+        if @rename
+          # puts @rename
+          hash[:rename] = @rename
+        end
         hash
       end
     end

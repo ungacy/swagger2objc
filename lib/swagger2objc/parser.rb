@@ -14,10 +14,10 @@ module Swagger2objc
       @request = Swagger2objc::Client.new(base_uri)
       @filter = filter
       @only = only
-      unless only
-        Swagger2objc::Generator::ModelGenerator.clear
-        Swagger2objc::Generator::SDKGenerator.clear
-      end
+      # unless only
+      #   Swagger2objc::Generator::ModelGenerator.clear
+      #   Swagger2objc::Generator::SDKGenerator.clear
+      # end
       setup
     end
 
