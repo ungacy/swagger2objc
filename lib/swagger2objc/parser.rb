@@ -43,7 +43,7 @@ module Swagger2objc
       @root.controllers.each do |controller|
         next if controller.models.nil?
         controller.models.each do |ref|
-          ref_hash = @root.definitions[ref]
+          ref_hash = @root.definitions[ref].dup
           ref_hash['id'] = ref
           model = Swagger2objc::Struct::Model.new(ref_hash)
           generator = Swagger2objc::Generator::ModelGenerator.new(controller.category, model)

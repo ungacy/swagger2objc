@@ -3,9 +3,10 @@ module Swagger2objc
     class Base
       def initialize(hash = {})
         hash.each do |k, v|
-          instance_variable_set("@#{k}", v)
-          self.class.send(:define_method, k, proc { instance_variable_get("@#{k}") })
-          self.class.send(:define_method, "#{k}=", proc { |v| instance_variable_set("@#{k}", v) })
+          key = k.sub('$', '')
+          instance_variable_set("@#{key}", v)
+          self.class.send(:define_method, key, proc { instance_variable_get("@#{key}") })
+          self.class.send(:define_method, "#{key}=", proc { |v| instance_variable_set("@#{key}", v) })
         end
         setup
       end

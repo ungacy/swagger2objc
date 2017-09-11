@@ -11,8 +11,6 @@ module Swagger2objc
 
         hash = {}
         @properties.each do |key, item|
-          item['ref'] = item['$ref'] if item['$ref']
-          item.delete('$ref')
           property = Property.new(item)
           property.name = key
           hash[key] = property
