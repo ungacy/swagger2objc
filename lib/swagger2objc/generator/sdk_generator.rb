@@ -138,10 +138,9 @@ module Swagger2objc
               value = value.gsub(/\"/, '\"')
               result << "        \@\"#{key}\": \@\"#{value}\",\n"
             end
-
           end
         end
-        result << "\n    };"
+        result << '    };'
         result
       end
 
