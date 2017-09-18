@@ -17,9 +17,14 @@ module Swagger2objc
 
       def setup
         @all_ref = []
-        if schema && schema['$ref']
-          @type = schema['$ref'].sub('#/definitions/', '')
-          @all_ref << @type
+        if schema
+          if schema['$ref']
+            @type = schema['$ref'].sub('#/definitions/', '')
+            @all_ref << @type
+          else
+            @type = schema['type']
+            @items = schema['items']
+          end
         else
           @type = @format if 'integer' == @type || 'number' == @type
         end
@@ -27,6 +32,7 @@ module Swagger2objc
           @type = 'File'
           @in = 'form'
         end
+
         format_name = name.clone
         format_name = description.clone if @in.nil?
         avoid = Swagger2objc::Configure.config[Swagger2objc::Config::AVOID]
@@ -44,7 +50,10 @@ module Swagger2objc
         info << " type       : #{type}\n"
         info << " required   : #{required}\n"
 
-        raise "type : #{description}" if type.nil?
+        if type.nil?
+          puts "type : #{description}"
+          raise "type : #{description}"
+        end
         format_name = name.clone
         format_name = description.clone if @in.nil?
 

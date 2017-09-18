@@ -26,6 +26,7 @@ module Swagger2objc
               if operation_hash['tags']
                 controller_key = operation_hash['tags'].first
                 next if controller_key == 'Sender'
+                next if controller_key == 'Inner'
               else
                 next
               end
@@ -55,7 +56,7 @@ module Swagger2objc
             end
           end
         end
-        raise "remain #{@common.count} for common" if @common.count != 0
+        # raise "remain #{@common.count} for common" if @common.count != 0
       end
 
       def result
