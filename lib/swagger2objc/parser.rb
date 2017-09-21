@@ -4,7 +4,6 @@ require 'swagger2objc/constants'
 require 'swagger2objc/generator/model_generator'
 require 'swagger2objc/generator/sdk_generator'
 require 'swagger2objc/config'
-require 'nokogiri-plist'
 require 'swagger2objc/generator/template_replacer'
 
 module Swagger2objc
@@ -31,7 +30,7 @@ module Swagger2objc
       # DEBUG for message
       # json = Swagger2objc::Generator::TemplateReplacer.read_file_content('./swagger_message.txt')
       # swagger_hash = JSON.parse(json)
-      @root = Swagger2objc::Struct::Root.new(swagger_hash)
+      @root = Swagger2objc::Struct::Root.new(swagger_hash, @only)
     end
 
     def sdk_result

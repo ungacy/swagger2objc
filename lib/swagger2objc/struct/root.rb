@@ -9,8 +9,19 @@ module Swagger2objc
       attr_reader :info
       attr_accessor :paths
       attr_reader :swagger
-
+      attr_accessor :only
       attr_reader :controllers
+
+      def initialize(hash = {}, only)
+        hash.each do |k, v|
+          key = k.sub('$', '')
+          instance_variable_set("@#{key}", v)
+          self.class.send(:define_method, key, proc { instance_variable_get("@#{key}") })
+          self.class.send(:define_method, "#{key}=", proc { |v| instance_variable_set("@#{key}", v) })
+        end
+        @only = only
+        setup
+      end
 
       def setup
         model_type = Swagger2objc::Config::MODEL

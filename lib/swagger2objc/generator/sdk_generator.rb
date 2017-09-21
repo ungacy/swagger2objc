@@ -1,5 +1,4 @@
 require 'swagger2objc/generator/abstract_generator'
-require 'nokogiri-plist'
 
 module Swagger2objc
   module Generator
