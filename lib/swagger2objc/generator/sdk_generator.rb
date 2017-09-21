@@ -96,7 +96,6 @@ module Swagger2objc
 
           puts "---------#{class_name}-------#{category}-------"
           config = result[class_name]
-          puts 'DFXXX' if class_name == 'SRKRoleModifyPublic'
           param_generate(class_name, hash[:parameters], category, operation, config)
         end
 
