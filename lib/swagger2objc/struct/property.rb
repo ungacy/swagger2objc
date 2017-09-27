@@ -29,9 +29,9 @@ module Swagger2objc
           @format = items['type']
           @format = items['format'] if @format == 'integer'
           @format = items['$ref'].sub('#/definitions/', '') if @format.nil?
-        elsif 'integer' == @type
+        elsif @type == 'integer'
           @format = 'int64' if @format.nil?
-        elsif 'number' == @type
+        elsif @type == 'number'
           @format = 'double' if @format.nil?
         else
           @format = @type

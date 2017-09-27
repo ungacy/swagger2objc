@@ -8,10 +8,9 @@ require 'swagger2objc/generator/template_replacer'
 
 module Swagger2objc
   class Parser
-    def initialize(base_uri, filter = nil, only = nil)
+    def initialize(base_uri, only = nil)
       Swagger2objc::Configure.setup
       @request = Swagger2objc::Client.new(base_uri)
-      @filter = filter
       @only = only
       # unless only
       #   Swagger2objc::Generator::ModelGenerator.clear

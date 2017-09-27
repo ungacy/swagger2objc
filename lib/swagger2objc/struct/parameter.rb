@@ -26,7 +26,7 @@ module Swagger2objc
             @items = schema['items']
           end
         else
-          @type = @format if 'integer' == @type || 'number' == @type
+          @type = @format if @type == 'integer' || @type == 'number'
         end
         if @in == 'formData'
           @type = 'File'
