@@ -18,6 +18,7 @@ module Swagger2objc
     PRIMARY = 'primary'.freeze
     SUBFIX = 'subfix'.freeze
     LINK = 'link'.freeze
+    FILTER = 'filter'.freeze
   end
 
   class Configure

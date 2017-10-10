@@ -26,6 +26,8 @@ module Swagger2objc
       def setup
         model_type = Swagger2objc::Config::MODEL
         model_class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][model_type]
+        filter_array = Swagger2objc::Configure.config[Swagger2objc::Config::FILTER]
+        filter_array = [] if filter_array.nil?
         definitions.delete('Null')
         definitions.delete('Timestamp')
         controller_hash = {}
@@ -36,8 +38,7 @@ module Swagger2objc
             dict.each do |method, operation_hash|
               if operation_hash['tags']
                 controller_key = operation_hash['tags'].first
-                next if controller_key == 'Sender'
-                next if controller_key == 'Inner'
+                next if filter_array.include?(controller_key)
               else
                 next
               end
@@ -46,6 +47,7 @@ module Swagger2objc
               category = controller_key.sub('-controller', '').sub('Resource', '')
               category.capitalize!
               category.gsub!(/\-\w/) { |match| match[1].upcase }
+              next if filter_array.include?(category)
               category = 'File' if category == 'AppFile'
               next if @only && !@only.include?(category)
               Swagger2objc::Generator::ModelGenerator.clear([category])

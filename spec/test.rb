@@ -6,7 +6,7 @@ base_uri = 'http://192.168.31.222:9855/v2/api-docs'
 filter = ['/default/order-controller'] # only for test
 filter = nil
 only = ['Alliance']
-# only = nil
+only = nil
 parser = Swagger2objc::Parser.new(base_uri, only)
 parser.sdk_result
 parser.model_result

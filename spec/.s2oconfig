@@ -4,6 +4,10 @@ project: Super Id
 class_prefix:
  model: SI
  sdk: SRK
+filter:
+ - Sender
+ - Inner
+ - Backend
 ignore:
  - Timestamp
  - Null
@@ -32,6 +36,8 @@ output:
  sdk: /result/SDK/
 subfix:
 - SRKAffairSearch
+- SRKMsg
+- SRKPersonnelExistence
 hate:
  - get
  - Get
