@@ -24,6 +24,19 @@ module Swagger2objc
         template
       end
 
+      def add_subfix(class_name, method)
+        result = if method == 'GET'
+                   class_name + 'Query'
+                 elsif method == 'PUT'
+                   class_name + 'Update'
+                 elsif method == 'DELETE'
+                   class_name + 'Remove'
+                 elsif method == 'POST'
+                   class_name + 'Submit'
+                     end
+        result
+      end
+
       def generate
         sim = {}
         module_header = {}
@@ -37,13 +50,7 @@ module Swagger2objc
                                                                 operation.operationId)
 
             if subfix_array.include?(class_name)
-              class_name = if operation.method == 'GET'
-                             class_name + 'Query'
-                           elsif operation.method == 'PUT'
-                             class_name + 'Update'
-                           else
-                             class_name + 'Submit'
-                           end
+              class_name = add_subfix(class_name, operation.method)
             end
             sim[class_name] = {
               parameters: operation.parameters,
@@ -72,15 +79,7 @@ module Swagger2objc
                                                                 Swagger2objc::Config::SDK,
                                                                 operation.operationId)
             if subfix_array.include?(class_name)
-              class_name = if operation.method == 'GET'
-                             class_name + 'Query'
-                           elsif operation.method == 'PUT'
-                             class_name + 'Update'
-                           elsif operation.method == 'DELETE'
-                             class_name + 'Remove'
-                           else
-                             class_name + 'Submit'
-                           end
+              class_name = add_subfix(class_name, operation.method)
             end
             if link_map && link_map[controller.category]
               hash[:link] = link_map[controller.category]
@@ -94,7 +93,7 @@ module Swagger2objc
           category = hash[:category]
           operation = hash[:operation]
 
-          puts "---------#{class_name}-------#{category}-------"
+          # puts "---------#{class_name}-------#{category}-------"
           config = result[class_name]
           param_generate(class_name, hash[:parameters], category, operation, config)
         end
