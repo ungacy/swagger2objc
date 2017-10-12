@@ -18,6 +18,7 @@ module Swagger2objc
 
       attr_accessor :path
       attr_accessor :method
+      attr_accessor :add_subfix
 
       attr_reader :all_ref
 

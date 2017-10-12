@@ -34,10 +34,6 @@ primary:
 output:
  model: /result/Models/
  sdk: /result/SDK/
-subfix:
-- SRKAffairSearch
-- SRKMsg
-- SRKPersonnelExistence
 hate:
  - get
  - Get

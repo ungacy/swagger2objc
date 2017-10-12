@@ -41,7 +41,6 @@ module Swagger2objc
         sim = {}
         module_header = {}
         return if model.nil?
-        subfix_array = Swagger2objc::Configure.config[Swagger2objc::Config::SUBFIX]
         model.each do |controller|
           controller.operations.each do |operation|
             class_name = Swagger2objc::Utils.sdk_name_formatter(operation.path,
@@ -49,7 +48,7 @@ module Swagger2objc
                                                                 Swagger2objc::Config::SDK,
                                                                 operation.operationId)
 
-            if subfix_array.include?(class_name)
+            if operation.add_subfix
               class_name = add_subfix(class_name, operation.method)
             end
             sim[class_name] = {
@@ -78,7 +77,7 @@ module Swagger2objc
                                                                 controller.category,
                                                                 Swagger2objc::Config::SDK,
                                                                 operation.operationId)
-            if subfix_array.include?(class_name)
+            if operation.add_subfix
               class_name = add_subfix(class_name, operation.method)
             end
             if link_map && link_map[controller.category]

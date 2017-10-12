@@ -35,6 +35,7 @@ module Swagger2objc
         @common = definitions.dup
         if @paths
           @paths.each do |path, dict|
+            add_subfix = dict.keys.count > 1
             dict.each do |method, operation_hash|
               if operation_hash['tags']
                 controller_key = operation_hash['tags'].first
@@ -55,6 +56,7 @@ module Swagger2objc
               operation_hash['method'] = method.upcase
               operation_hash['path'] = path
               operation = Swagger2objc::Struct::Operation.new(operation_hash)
+              operation.add_subfix = add_subfix
               if controller.nil?
                 controller = Swagger2objc::Struct::Controller.new
                 controller.category = category
