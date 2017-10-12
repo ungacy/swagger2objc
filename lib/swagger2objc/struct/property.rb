@@ -3,7 +3,7 @@ module Swagger2objc
   module Struct
     class Property < Base
       attr_reader :format
-      attr_reader :required
+      attr_accessor :required
       attr_reader :type
       attr_reader :items
       attr_reader :description

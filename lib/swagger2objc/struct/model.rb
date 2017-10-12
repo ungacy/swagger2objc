@@ -5,6 +5,7 @@ module Swagger2objc
       attr_reader :description
       attr_reader :id
       attr_reader :properties
+      attr_reader :required
 
       def setup
         # puts '----------Model--------------'
@@ -13,6 +14,9 @@ module Swagger2objc
         @properties.each do |key, item|
           property = Property.new(item)
           property.name = key
+          property.required = false
+          property.required = true if @required && @required.include?(key)
+
           hash[key] = property
         end
         @properties = hash
