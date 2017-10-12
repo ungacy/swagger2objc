@@ -45,11 +45,10 @@ module Swagger2objc
       def output(import, avoid_map)
         info = "\n/**\n"
         info << " paramType  : #{@in}\n"
-        info << " description: #{description}\n"
         info << " key        : #{name}\n"
         info << " type       : #{type}\n"
         info << " required   : #{required}\n"
-
+        info << " notes      : #{description}\n"
         if type.nil?
           puts "type : #{description}"
           raise "type : #{description}"

@@ -63,7 +63,7 @@ module Swagger2objc
         info << " type        : {#{type}}\n"
         info << " name        : #{name}\n"
         if description && !description.delete(' ').empty?
-          info << " description : #{description}\n"
+          info << " notes       : #{description}\n"
         end
         info << "*/\n"
 
