@@ -59,7 +59,7 @@ module Swagger2objc
         imported_set = Set.new
         info = "\n/**\n"
         info << " format      : #{format}\n"
-        info << " required    : #{required}\n"
+        info << " required    : #{required}\n" unless required.nil?
         info << " type        : {#{type}}\n"
         info << " name        : #{name}\n"
         if description && !description.delete(' ').empty?

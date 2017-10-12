@@ -14,9 +14,7 @@ module Swagger2objc
         @properties.each do |key, item|
           property = Property.new(item)
           property.name = key
-          property.required = false
-          property.required = true if @required && @required.include?(key)
-
+          property.required = @required.include?(key) if @required
           hash[key] = property
         end
         @properties = hash
