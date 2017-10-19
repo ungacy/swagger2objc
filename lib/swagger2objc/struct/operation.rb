@@ -68,6 +68,7 @@ module Swagger2objc
       def result
         parameter_result = []
         parameters.each { |item| parameter_result << item.result }
+        summary = '' if summary.nil?
         hash = {
           method: method,
           summary: summary.tr('<', '[').tr('>', ']').gsub('&', '&amp;'),

@@ -46,6 +46,7 @@ module Swagger2objc
 
               controller = controller_hash[controller_key]
               category = controller_key.sub('-controller', '').sub('Resource', '')
+              category = 'Audit' if category == 'AffairAudit' || category == 'AuditConfig'
               category.capitalize!
               category.gsub!(/\-\w/) { |match| match[1].upcase }
               next if filter_array.include?(category)
