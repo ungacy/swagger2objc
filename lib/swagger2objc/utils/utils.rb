@@ -33,7 +33,7 @@ module Swagger2objc
       # if result != class_name
       #   puts "Rename [#{class_name}] to [#{result}]"
       # end
-      if category == 'Message'
+      if category == 'Message' || category == 'Permission'
         short_name = operationid[0].capitalize + operationid[1..-1]
         short_name.gsub!(/By.*/, '')
         return class_prefix + category + short_name

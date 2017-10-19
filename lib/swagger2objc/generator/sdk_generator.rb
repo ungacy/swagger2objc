@@ -48,9 +48,12 @@ module Swagger2objc
                                                                 Swagger2objc::Config::SDK,
                                                                 operation.operationId)
 
-            if operation.add_subfix
-              class_name = add_subfix(class_name, operation.method)
+            if controller.category != 'Message' && controller.category != 'Permission'
+              if operation.add_subfix
+                class_name = add_subfix(class_name, operation.method)
+              end
             end
+
             sim[class_name] = {
               parameters: operation.parameters,
               category: controller.category,
@@ -77,8 +80,10 @@ module Swagger2objc
                                                                 controller.category,
                                                                 Swagger2objc::Config::SDK,
                                                                 operation.operationId)
-            if operation.add_subfix
-              class_name = add_subfix(class_name, operation.method)
+            if controller.category != 'Message' && controller.category != 'Permission'
+              if operation.add_subfix
+                class_name = add_subfix(class_name, operation.method)
+              end
             end
             if link_map && link_map[controller.category]
               hash[:link] = link_map[controller.category]
