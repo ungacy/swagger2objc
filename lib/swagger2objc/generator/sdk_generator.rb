@@ -130,7 +130,7 @@ module Swagger2objc
             value.each do |sub_hash|
               result << "            @{\n"
               sub_hash.each do |key, value|
-                result << "               \@\"#{key}\": \@\"#{value}\",\n"
+                result << "                \@\"#{key}\": \@\"#{value}\",\n"
               end
               result << "            },\n"
             end
