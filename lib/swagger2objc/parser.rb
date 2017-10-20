@@ -21,7 +21,6 @@ module Swagger2objc
     end
 
     def setup
-
       swagger_hash = @request.object_from_uri
 
       # DEBUG for server
