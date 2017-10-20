@@ -26,7 +26,7 @@ module Swagger2objc
     def self.output(type)
       if @@output.count == 0
         @@output = config[Swagger2objc::Config::OUTPUT]
-        puts "Current config is #{config}"
+        # puts "Current config is #{config}"
       end
       result = @@output[type]
       result << '/' unless result.end_with?('/')

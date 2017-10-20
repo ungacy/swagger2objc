@@ -63,12 +63,12 @@ module Swagger2objc
           @response_class = oc_type
         end
         @type = type
+        @summary = '' if @summary.nil?
       end
 
       def result
         parameter_result = []
         parameters.each { |item| parameter_result << item.result }
-        summary = '' if summary.nil?
         hash = {
           method: method,
           summary: summary.tr('<', '[').tr('>', ']').gsub('&', '&amp;'),
