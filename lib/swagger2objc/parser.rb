@@ -10,6 +10,7 @@ module Swagger2objc
   class Parser
     def initialize(base_uri, only = nil)
       Swagger2objc::Configure.setup
+      puts 'Parsing : ' + base_uri
       @request = Swagger2objc::Client.new(base_uri)
       @only = only
       # unless only
@@ -20,6 +21,7 @@ module Swagger2objc
     end
 
     def setup
+
       swagger_hash = @request.object_from_uri
 
       # DEBUG for server
