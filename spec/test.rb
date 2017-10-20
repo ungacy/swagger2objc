@@ -1,11 +1,12 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'swagger2objc'
 
+#Permission
 only = ['Permission']
-base_uri = 'http://192.168.1.142:9000/api/swagger.json'
-parser = Swagger2objc::Parser.new(base_uri, only)
-parser.sdk_result
-parser.model_result
+  base_uri = 'http://192.168.1.142:9000/api/swagger.json'
+  parser = Swagger2objc::Parser.new(base_uri, only)
+  parser.sdk_result
+  parser.model_result
 
 #Message
 only = ['Message']
@@ -14,14 +15,14 @@ parser = Swagger2objc::Parser.new(base_uri, only)
 parser.sdk_result
 parser.model_result
 
-#Message
+#Audit
 only = ['Audit']
 base_uri = 'http://192.168.1.233:9900/api/swagger.json'
 parser = Swagger2objc::Parser.new(base_uri, only)
 parser.sdk_result
 parser.model_result
 
-#Base
+#Default
 base_uri = 'http://192.168.1.192:9855/v2/api-docs'
 only = ['Affair']
 only = nil
