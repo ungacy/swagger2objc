@@ -19,6 +19,7 @@ module Swagger2objc
 
     def self.sdk_name_formatter(class_name, category, type, operationid = nil)
       hate = Swagger2objc::Configure.config[Swagger2objc::Config::HATE]
+      router_map = Swagger2objc::Configure.config[Swagger2objc::Config::ROUTER]
       class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][type]
       result = class_name.clone
       unless result.include?('and') || category == 'Role' || result.end_with?(category.downcase)
@@ -27,7 +28,21 @@ module Swagger2objc
       hate.each do |key|
         result = result.sub('/' + key, '')
       end
+
+      router_prefix = router_map[category]
+      router_prefix = if router_prefix.nil?
+                        '/web'
+                      else
+                        '/' + router_prefix
+                      end
+
+      some = category[0].downcase + category[1..-1]
+      result.sub!(router_prefix, '')
+      result.sub!('api/external', some)
+      result.sub!('api', some)
+
       result.gsub!(/[\/\_]\w/) { |match| match[1].upcase }
+      result.gsub!(/[\/[\_\-]]\w/) { |match| match[1].upcase }
       result.gsub!(/\/\{\w+\}/, '')
 
       # if result != class_name
@@ -38,6 +53,7 @@ module Swagger2objc
         short_name.gsub!(/By.*/, '')
         return class_prefix + category + short_name
       end
+      # puts 'result : ' + result
       class_prefix + result
     end
 

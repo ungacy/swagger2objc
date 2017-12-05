@@ -35,7 +35,7 @@ module Swagger2objc
         end
         type = 'object'
         if responses
-          if @responses['200']
+          if @responses['200'] && responses['200']['schema']
             type = responses['200']['schema']['type']
             type = responses['200']['schema']['format'] if type == 'integer'
             if type == 'array'

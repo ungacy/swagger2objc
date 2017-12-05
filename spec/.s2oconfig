@@ -39,3 +39,12 @@ hate:
  - Get
  - set
  - Set
+router:
+  User: user
+  Login: user
+  VerifyCode: user
+  IdentityAudit: user
+  Notice: notice
+  Audit: audit
+  Permission: permission
+  Msg: msg

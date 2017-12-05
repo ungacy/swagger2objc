@@ -18,6 +18,7 @@ module Swagger2objc
     PRIMARY = 'primary'.freeze
     LINK = 'link'.freeze
     FILTER = 'filter'.freeze
+    ROUTER = 'router'.freeze
   end
 
   class Configure

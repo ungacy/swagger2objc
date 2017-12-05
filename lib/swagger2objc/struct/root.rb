@@ -26,6 +26,7 @@ module Swagger2objc
       def setup
         model_type = Swagger2objc::Config::MODEL
         model_class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][model_type]
+        router_map = Swagger2objc::Configure.config[Swagger2objc::Config::ROUTER]
         filter_array = Swagger2objc::Configure.config[Swagger2objc::Config::FILTER]
         filter_array = [] if filter_array.nil?
         definitions.delete('Null')
@@ -56,7 +57,14 @@ module Swagger2objc
               Swagger2objc::Generator::SDKGenerator.clear([category])
               operation_hash['method'] = method.upcase
               operation_hash['path'] = path
+              router_prefix = router_map[category]
+              router_prefix = if router_prefix.nil?
+                                '/web'
+                              else
+                                '/' + router_prefix
+                              end
               operation = Swagger2objc::Struct::Operation.new(operation_hash)
+              operation.path = router_prefix + operation.path
               operation.add_subfix = add_subfix
               if controller.nil?
                 controller = Swagger2objc::Struct::Controller.new
