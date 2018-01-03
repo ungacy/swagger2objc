@@ -8,41 +8,42 @@ require 'swagger2objc/generator/template_replacer'
 
 module Swagger2objc
   class Parser
-    def initialize(base_uri, only = nil)
+    def initialize(base_uri, path, only = nil)
       Swagger2objc::Configure.setup
       puts 'Parsing : ' + base_uri
-      @request = Swagger2objc::Client.new(base_uri)
+      @request = Swagger2objc::Client.new(base_uri + path)
       @only = only
-      # unless only
-      #   Swagger2objc::Generator::ModelGenerator.clear
-      #   Swagger2objc::Generator::SDKGenerator.clear
-      # end
+      @base_uri = base_uri
+      unless only
+        Swagger2objc::Generator::ModelGenerator.clear
+        Swagger2objc::Generator::SDKGenerator.clear
+      end
       setup
     end
 
     def setup
-      swagger_hash = @request.object_from_uri
-
-      # DEBUG for server
-      # json = Swagger2objc::Generator::TemplateReplacer.read_file_content('./swagger.txt')
-      # swagger_hash = JSON.parse(json)
-
-      # DEBUG for message
-      # json = Swagger2objc::Generator::TemplateReplacer.read_file_content('./swagger_message.txt')
-      # swagger_hash = JSON.parse(json)
-      @root = Swagger2objc::Struct::Root.new(swagger_hash, @only)
+      services = @request.object_from_uri
+      services.each do |service_hash|
+        next if service_hash['name'].start_with?('tss')
+        location = service_hash['location']
+        request = Swagger2objc::Client.new(@base_uri + location)
+        swagger_hash = request.object_from_uri
+        root = Swagger2objc::Struct::Root.new(swagger_hash, nil)
+        sdk_result(root)
+        model_result(root)
+      end
     end
 
-    def sdk_result
-      sdk = Swagger2objc::Generator::SDKGenerator.new(nil, @root.controllers)
+    def sdk_result(root)
+      sdk = Swagger2objc::Generator::SDKGenerator.new(nil, root.controllers)
       sdk.generate
     end
 
-    def model_result
-      @root.controllers.each do |controller|
+    def model_result(root)
+      root.controllers.each do |controller|
         next if controller.models.nil?
         controller.models.each do |ref|
-          ref_hash = @root.definitions[ref].dup
+          ref_hash = root.definitions[ref].dup
           ref_hash['id'] = ref
           model = Swagger2objc::Struct::Model.new(ref_hash)
           generator = Swagger2objc::Generator::ModelGenerator.new(controller.category, model)

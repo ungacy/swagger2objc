@@ -86,7 +86,9 @@ module Swagger2objc
         elsif oc_type == 'NSArray'
           element_type = @items['format'] ? @items['format'] : items['type']
           oc_element_type = Swagger2objc::Generator::Type::OC_MAP[element_type]
-          if !oc_element_type.start_with?('NS') && !oc_element_type.start_with?('UI')
+          if oc_element_type.nil?
+            info << "@property (nonatomic, strong) NSArray *#{format_name};\n"
+          elsif !oc_element_type.start_with?('NS') && !oc_element_type.start_with?('UI')
             info << "@property (nonatomic, strong) NSArray<NSNumber /*#{oc_element_type}*/ *> *#{format_name};\n"
           else
             info << "@property (nonatomic, strong) NSArray<#{oc_element_type} *> *#{format_name};\n"

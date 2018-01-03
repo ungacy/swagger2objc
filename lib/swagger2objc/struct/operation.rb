@@ -39,7 +39,8 @@ module Swagger2objc
             type = responses['200']['schema']['type']
             type = responses['200']['schema']['format'] if type == 'integer'
             if type == 'array'
-              type = responses['200']['schema']['items']['$ref'].sub('#/definitions/', '')
+              ref = responses['200']['schema']['items']['$ref']
+              type = ref.sub('#/definitions/', '') if ref
             end
             if type.nil?
               @ref = responses['200']['schema']['$ref'].sub('#/definitions/', '')

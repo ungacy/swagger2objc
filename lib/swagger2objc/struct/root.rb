@@ -6,6 +6,7 @@ module Swagger2objc
       attr_reader :definitions
       attr_reader :common
       attr_reader :host
+      attr_reader :tags
       attr_reader :info
       attr_accessor :paths
       attr_reader :swagger
@@ -46,15 +47,15 @@ module Swagger2objc
               end
 
               controller = controller_hash[controller_key]
-              category = controller_key.sub('-controller', '').sub('Resource', '')
+              category = controller_key.sub('-controller', '').sub(' resource', '').sub('Resource', '')
               category = 'Audit' if category == 'AffairAudit' || category == 'AuditConfig'
-              category.capitalize!
+              category = category[0].upcase + category[1..-1]
               category.gsub!(/\-\w/) { |match| match[1].upcase }
               next if filter_array.include?(category)
               category = 'File' if category == 'AppFile'
               next if @only && !@only.include?(category)
-              Swagger2objc::Generator::ModelGenerator.clear([category])
-              Swagger2objc::Generator::SDKGenerator.clear([category])
+              # Swagger2objc::Generator::ModelGenerator.clear([category])
+              # Swagger2objc::Generator::SDKGenerator.clear([category])
               operation_hash['method'] = method.upcase
               operation_hash['path'] = path
               router_prefix = router_map[category]
