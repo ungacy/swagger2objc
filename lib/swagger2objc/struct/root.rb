@@ -30,8 +30,10 @@ module Swagger2objc
         router_map = Swagger2objc::Configure.config[Swagger2objc::Config::ROUTER]
         filter_array = Swagger2objc::Configure.config[Swagger2objc::Config::FILTER]
         filter_array = [] if filter_array.nil?
-        definitions.delete('Null')
-        definitions.delete('Timestamp')
+        if definitions
+          definitions.delete('Null')
+          definitions.delete('Timestamp')
+        end
         controller_hash = {}
         @controllers = []
         @common = definitions.dup

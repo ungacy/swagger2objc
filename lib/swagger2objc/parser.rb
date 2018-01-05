@@ -24,11 +24,14 @@ module Swagger2objc
     def setup
       services = @request.object_from_uri
       services.each do |service_hash|
-        next if service_hash['name'].start_with?('tss')
+        next if service_hash['name'] == 'tss' || service_hash == 'test'
         location = service_hash['location']
+        puts 'Fetching swagger from ' + @base_uri + location
         request = Swagger2objc::Client.new(@base_uri + location)
         swagger_hash = request.object_from_uri
+        raise swagger_hash.to_s if swagger_hash['code'] == 500
         root = Swagger2objc::Struct::Root.new(swagger_hash, nil)
+        puts 'Generating code'
         sdk_result(root)
         model_result(root)
       end
