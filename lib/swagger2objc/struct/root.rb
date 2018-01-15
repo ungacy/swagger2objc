@@ -63,6 +63,8 @@ module Swagger2objc
               router_prefix = router_map[category]
               router_prefix = if router_prefix.nil?
                                 '/web'
+                              elsif router_prefix == 'ignore'
+                                ''
                               else
                                 '/' + router_prefix
                               end
