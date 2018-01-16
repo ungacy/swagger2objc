@@ -17,7 +17,10 @@ module Swagger2objc
       class_prefix + result
     end
 
-    def self.sdk_name_formatter(class_name, category, type, operationid = nil)
+    def self.sdk_name_formatter(operation, controller, type)
+      class_name = operation.path
+      operationid = operation.operationId
+      category =  controller.category
       hate = Swagger2objc::Configure.config[Swagger2objc::Config::HATE]
       router_map = Swagger2objc::Configure.config[Swagger2objc::Config::ROUTER]
       class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][type]
@@ -29,17 +32,12 @@ module Swagger2objc
         result = result.sub('/' + key, '')
       end
 
-      router_prefix = router_map[category]
-      router_prefix = if router_prefix.nil?
-                        '/web'
-                      else
-                        '/' + router_prefix
-                      end
-
+      root_path = controller.root_path
       some = category[0].downcase + category[1..-1]
-      result.sub!(router_prefix, '')
+      result.sub!(root_path, '')
       result.sub!('api/external', some)
       result.sub!('api', some)
+      result.sub!('external/notification', 'notification')
 
       result.gsub!(/[\/\_]\w/) { |match| match[1].upcase }
       result.gsub!(/[\/[\_\-]]\w/) { |match| match[1].upcase }

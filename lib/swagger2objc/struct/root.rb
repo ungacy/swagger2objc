@@ -12,8 +12,9 @@ module Swagger2objc
       attr_reader :swagger
       attr_accessor :only
       attr_reader :controllers
+      attr_reader :name
 
-      def initialize(hash = {}, only)
+      def initialize(hash = {}, only, name)
         hash.each do |k, v|
           key = k.sub('$', '')
           instance_variable_set("@#{key}", v)
@@ -21,6 +22,7 @@ module Swagger2objc
           self.class.send(:define_method, "#{key}=", proc { |v| instance_variable_set("@#{key}", v) })
         end
         @only = only
+        @name = name
         setup
       end
 
@@ -49,27 +51,26 @@ module Swagger2objc
               end
 
               controller = controller_hash[controller_key]
+
               category = controller_key.sub('-controller', '').sub(' resource', '').sub('Resource', '')
-              category = 'Audit' if category == 'AffairAudit' || category == 'AuditConfig'
+              category = 'Audit' if category.include?('Audit')
               category = category[0].upcase + category[1..-1]
               category.gsub!(/\-\w/) { |match| match[1].upcase }
               next if filter_array.include?(category)
+              next if category == 'Test'
+              category = 'Notification' if category == 'ExternalChannel' || category == 'PushNotification'
               category = 'File' if category == 'AppFile'
+              category = 'Login' if category == 'IdentityAudit' || category == 'VerifyCode'
               next if @only && !@only.include?(category)
               # Swagger2objc::Generator::ModelGenerator.clear([category])
               # Swagger2objc::Generator::SDKGenerator.clear([category])
               operation_hash['method'] = method.upcase
               operation_hash['path'] = path
-              router_prefix = router_map[category]
-              router_prefix = if router_prefix.nil?
-                                '/web'
-                              elsif router_prefix == 'ignore'
-                                ''
-                              else
-                                '/' + router_prefix
-                              end
+              root_path = router_map[name]
+              root_path = '/' + name if root_path.nil?
+
               operation = Swagger2objc::Struct::Operation.new(operation_hash)
-              operation.path = router_prefix + operation.path
+              operation.path = root_path + operation.path
               operation.add_subfix = add_subfix
               if controller.nil?
                 controller = Swagger2objc::Struct::Controller.new
@@ -77,8 +78,9 @@ module Swagger2objc
                 @controllers << controller
                 controller_hash[controller_key] = controller
               end
+              puts category.center(20, '-') + ' : ' + operation.path
               controller.operations << operation
-
+              controller.root_path = root_path
               all_ref = Swagger2objc::Utils.all_ref_of_ref(operation.all_ref, @common)
               controller.models += all_ref
               all_ref.each { |ref| @common.delete(ref) }

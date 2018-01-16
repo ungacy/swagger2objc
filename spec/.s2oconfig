@@ -40,11 +40,5 @@ hate:
  - set
  - Set
 router:
-  User: user
-  Login: user
-  VerifyCode: user
-  IdentityAudit: user
-  Notice: notice
-  Audit: audit
-  Permission: permission
-  Msg: msg
+  auth: permission/api
+  msg: msg/api

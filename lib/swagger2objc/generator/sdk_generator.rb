@@ -43,10 +43,9 @@ module Swagger2objc
         return if model.nil?
         model.each do |controller|
           controller.operations.each do |operation|
-            class_name = Swagger2objc::Utils.sdk_name_formatter(operation.path,
-                                                                controller.category,
-                                                                Swagger2objc::Config::SDK,
-                                                                operation.operationId)
+            class_name = Swagger2objc::Utils.sdk_name_formatter(operation,
+                                                                controller,
+                                                                Swagger2objc::Config::SDK)
 
             if controller.category != 'Message' && controller.category != 'Permission'
               if operation.add_subfix
@@ -76,10 +75,9 @@ module Swagger2objc
             hash = operation.result
             hash[:path] = operation.path
             hash[:category] = controller.category
-            class_name = Swagger2objc::Utils.sdk_name_formatter(operation.path,
-                                                                controller.category,
-                                                                Swagger2objc::Config::SDK,
-                                                                operation.operationId)
+            class_name = Swagger2objc::Utils.sdk_name_formatter(operation,
+                                                                controller,
+                                                                Swagger2objc::Config::SDK)
             if controller.category != 'Message' && controller.category != 'Permission'
               if operation.add_subfix
                 class_name = add_subfix(class_name, operation.method)
