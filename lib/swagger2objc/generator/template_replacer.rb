@@ -25,8 +25,8 @@ module Swagger2objc
         replacement.each do |key, value|
           replace_file_array_content(file_path_array, "{#{key}}", value)
         end
-        # time = Time.now
-        year = '2017' # + '年'
+        time = Time.now
+        year = time.year.to_s # + '年'
         # date = time.strftime('%Y/%m/%d')
         replace_file_array_content(file_path_array, '{year}', year)
         # replace_file_array_content(file_path_array, '{date}', date)
@@ -98,10 +98,10 @@ module Swagger2objc
           replace_file_content(file_path, "{#{key}}", value)
         end
         time = Time.now
-        year = '2017' # + '年'
-        date = time.strftime('%Y/%m/%d')
+        year = time.year.to_s # + '年'
+        # date = time.strftime('%Y/%m/%d')
         replace_file_content(file_path, '{year}', year)
-        replace_file_content(file_path, '{date}', date)
+        # replace_file_content(file_path, '{date}', date)
         replace_file_name(file_path, '{module_name}', module_name)
       end
 
