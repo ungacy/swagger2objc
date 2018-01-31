@@ -16,6 +16,10 @@ module Swagger2objc
       attr_reader :model
       attr_reader :only
 
+      def self.clear(only = nil)
+        FileGenerator.clear(only)
+      end
+
       def custom_class_map(hash)
         return '' if hash.count == 0
         template = "\n/**

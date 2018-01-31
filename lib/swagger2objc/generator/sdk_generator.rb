@@ -3,9 +3,6 @@ require 'swagger2objc/generator/abstract_generator'
 module Swagger2objc
   module Generator
     class SDKGenerator < AbstractGenerator
-      def self.clear(only = nil)
-        FileGenerator.clear(Swagger2objc::Config::SDK, only)
-      end
       @@extra_method_subfix = {}
 
       def wrap_response_class_header(response_class)

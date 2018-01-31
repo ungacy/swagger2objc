@@ -5,14 +5,15 @@ require 'swagger2objc/config'
 module Swagger2objc
   module Generator
     class FileGenerator
-      def self.clear(type, only)
+      def self.clear(only)
+        directory = Swagger2objc::Configure.config[Swagger2objc::Config::DIRECTORY]
         if only
           only.each do |controller|
-            result_dir = Dir.pwd + Swagger2objc::Configure.output(type) + '/' + controller
+            result_dir = Dir.pwd + directory + + '/' + controller
             FileUtils.rm_rf(result_dir) if File.directory?(result_dir)
           end
         else
-          result_dir = Dir.pwd + Swagger2objc::Configure.output(type)
+          result_dir = Dir.pwd + directory
           FileUtils.rm_rf(result_dir) if File.directory?(result_dir)
         end
       end

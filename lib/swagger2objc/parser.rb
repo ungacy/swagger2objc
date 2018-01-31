@@ -14,10 +14,7 @@ module Swagger2objc
       @request = Swagger2objc::Client.new(base_uri + path)
       @only = only
       @base_uri = base_uri
-      unless only
-        Swagger2objc::Generator::ModelGenerator.clear
-        Swagger2objc::Generator::SDKGenerator.clear
-      end
+      Swagger2objc::Generator::AbstractGenerator.clear(nil) unless only
       setup
     end
 
