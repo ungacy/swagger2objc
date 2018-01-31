@@ -12,46 +12,14 @@ Swagger2objc::Parser.new(base_uri, path)
 
 =begin
 [
-  {
-    "location": "/web/v2/api-docs",
-    "name": "web",
-    "swaggerVersion": "2.0"
-  },
-  {
-    "location": "/user/v2/api-docs",
-    "name": "user",
-    "swaggerVersion": "2.0"
-  },
-  {
-    "location": "/file/v2/api-docs",
-    "name": "file",
-    "swaggerVersion": "2.0"
-  },
-  {
-    "location": "/tss/v2/api-docs",
-    "name": "tss",
-    "swaggerVersion": "2.0"
-  },
-  {
-    "location": "/notice/api/swagger.json",
-    "name": "notice",
-    "swaggerVersion": "2.0"
-  },
-  {
-    "location": "/msg/api/swagger.json",
-    "name": "msg",
-    "swaggerVersion": "2.0"
-  },
-  {
-    "location": "/permission/api/swagger.json",
-    "name": "auth",
-    "swaggerVersion": "2.0"
-  },
-  {
-    "location": "/audit/swagger.json",
-    "name": "audit",
-    "swaggerVersion": "2.0"
-  }
+{"name":"web","location":"/web/v2/api-docs","swaggerVersion":"2.0"},
+{"name":"user","location":"/user/v2/api-docs","swaggerVersion":"2.0"},
+{"name":"file","location":"/file/v2/api-docs","swaggerVersion":"2.0"},
+{"name":"tss","location":"/tss/v2/api-docs","swaggerVersion":"2.0"},
+{"name":"notice","location":"/notice/api/swagger.json","swaggerVersion":"2.0"},
+{"name":"msg","location":"/msg/api/swagger.json","swaggerVersion":"2.0"},
+{"name":"auth","location":"/permission/api/swagger.json","swaggerVersion":"2.0"},
+{"name":"audit","location":"/audit/swagger.json","swaggerVersion":"2.0"}
 ]
 =end
 
