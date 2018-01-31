@@ -9,49 +9,51 @@ Swagger2objc::Parser.new(base_uri, path)
 
 # 单服务更新
 #
-# [
-#   {
-#     "location": "/web/v2/api-docs",
-#     "name": "web",
-#     "swaggerVersion": "2.0"
-#   },
-#   {
-#     "location": "/user/v2/api-docs",
-#     "name": "user",
-#     "swaggerVersion": "2.0"
-#   },
-#   {
-#     "location": "/file/v2/api-docs",
-#     "name": "file",
-#     "swaggerVersion": "2.0"
-#   },
-#   {
-#     "location": "/tss/v2/api-docs",
-#     "name": "tss",
-#     "swaggerVersion": "2.0"
-#   },
-#   {
-#     "location": "/notice/api/swagger.json",
-#     "name": "notice",
-#     "swaggerVersion": "2.0"
-#   },
-#   {
-#     "location": "/msg/api/swagger.json",
-#     "name": "msg",
-#     "swaggerVersion": "2.0"
-#   },
-#   {
-#     "location": "/permission/api/swagger.json",
-#     "name": "auth",
-#     "swaggerVersion": "2.0"
-#   },
-#   {
-#     "location": "/audit/swagger.json",
-#     "name": "audit",
-#     "swaggerVersion": "2.0"
-#   }
-# ]
-#
+
+=begin
+[
+  {
+    "location": "/web/v2/api-docs",
+    "name": "web",
+    "swaggerVersion": "2.0"
+  },
+  {
+    "location": "/user/v2/api-docs",
+    "name": "user",
+    "swaggerVersion": "2.0"
+  },
+  {
+    "location": "/file/v2/api-docs",
+    "name": "file",
+    "swaggerVersion": "2.0"
+  },
+  {
+    "location": "/tss/v2/api-docs",
+    "name": "tss",
+    "swaggerVersion": "2.0"
+  },
+  {
+    "location": "/notice/api/swagger.json",
+    "name": "notice",
+    "swaggerVersion": "2.0"
+  },
+  {
+    "location": "/msg/api/swagger.json",
+    "name": "msg",
+    "swaggerVersion": "2.0"
+  },
+  {
+    "location": "/permission/api/swagger.json",
+    "name": "auth",
+    "swaggerVersion": "2.0"
+  },
+  {
+    "location": "/audit/swagger.json",
+    "name": "audit",
+    "swaggerVersion": "2.0"
+  }
+]
+=end
 
 # name = 'web'
 # only = [name]
