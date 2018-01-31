@@ -40,6 +40,7 @@ module Swagger2objc
       def generate
         sim = {}
         module_header = {}
+        service_module = {}
         return if model.nil?
         model.each do |controller|
           controller.operations.each do |operation|
@@ -56,12 +57,14 @@ module Swagger2objc
             sim[class_name] = {
               parameters: operation.parameters,
               category: controller.category,
+              service: controller.service,
               operation: operation
             }
             header_array = module_header[controller.category]
             if header_array.nil?
               header_array = [class_name]
               module_header[controller.category] = header_array
+              service_module[controller.category] = controller.service
             else
               header_array << class_name
             end
@@ -97,11 +100,12 @@ module Swagger2objc
 
           # puts "---------#{class_name}-------#{category}-------"
           config = result[class_name]
-          param_generate(class_name, hash[:parameters], category, operation, config)
+          param_generate(class_name, hash[:parameters], category, operation, config, hash[:service])
         end
 
         module_header.each do |key, array|
           replacement = {
+            service: service_module[key],
             project: project,
             company: company,
             author: author
@@ -144,7 +148,7 @@ module Swagger2objc
         result
       end
 
-      def param_generate(class_name, parameters, category, operation, config)
+      def param_generate(class_name, parameters, category, operation, config, service)
         comment = operation.output
         srk_config = objc_code_from_hash(config)
         properties = ''
@@ -165,6 +169,7 @@ module Swagger2objc
         end
         property_mapping = custom_property_map(avoid_map)
         replacement = {
+          service: service,
           import: import,
           class_name: model_name,
           properties: properties,

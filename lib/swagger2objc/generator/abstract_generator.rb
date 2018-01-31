@@ -8,6 +8,7 @@ require 'swagger2objc/config'
 module Swagger2objc
   module Generator
     class AbstractGenerator
+      attr_accessor :service
       attr_reader :category
       attr_reader :author
       attr_reader :company

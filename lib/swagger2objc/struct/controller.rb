@@ -8,7 +8,7 @@ module Swagger2objc
       attr_accessor :consumes
       attr_accessor :models
       attr_accessor :category
-      attr_accessor :root_path
+      attr_accessor :service
 
       def setup
         @operations = []

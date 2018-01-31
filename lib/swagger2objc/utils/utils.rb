@@ -32,7 +32,7 @@ module Swagger2objc
         result = result.sub('/' + key, '')
       end
 
-      root_path = controller.root_path
+      root_path = controller.service
       some = category[0].downcase + category[1..-1]
       result.sub!(root_path, '')
       result.sub!('api/external', some)

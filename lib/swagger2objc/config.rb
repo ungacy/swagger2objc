@@ -11,6 +11,7 @@ module Swagger2objc
     TRIM = 'trim'.freeze
     AVOID = 'avoid'.freeze
     OUTPUT = 'output'.freeze
+    DIRECTORY = 'directory'.freeze
     MODEL = 'model'.freeze
     SDK = 'sdk'.freeze
     HATE = 'hate'.freeze

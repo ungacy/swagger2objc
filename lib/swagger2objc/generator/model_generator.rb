@@ -42,6 +42,7 @@ module Swagger2objc
         container_mapping = custom_class_map(class_map)
         property_mapping = custom_property_map(avoid_map)
         replacement = {
+          service: service,
           import: import,
           class_name: model_name,
           properties: properties,

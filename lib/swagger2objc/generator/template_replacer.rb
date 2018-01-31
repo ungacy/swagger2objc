@@ -16,11 +16,18 @@ module Swagger2objc
       def self.replace(replacement, type)
         # path length = 0时是返回.不重生成
         category = replacement[:category]
+        service = replacement[:service]
+        service = service.sub('/api', '')
+        service = if service.start_with?('/')
+                    service[0] + service[1].upcase + service[2..-1]
+                  else
+                    service[0].upcase + service[1..-1]
+                  end
 
         class_name = replacement[:class_name]
         return if @@generated_set.include?(class_name)
         @@generated_set << class_name
-        file_path_array = FileGenerator.copy_class_files(category, type)
+        file_path_array = FileGenerator.copy_class_files(service + '/' + category, type)
         file_path_array = replace_file_array_name(file_path_array, '{class_name}', class_name)
         replacement.each do |key, value|
           replace_file_array_content(file_path_array, "{#{key}}", value)
@@ -32,6 +39,28 @@ module Swagger2objc
         # replace_file_array_content(file_path_array, '{date}', date)
 
         # set_file_array_read_only(file_path_array)
+      end
+
+      def self.replace_module_header_content(replacement)
+        category = replacement[:category]
+        service = replacement[:service]
+        service = service.sub('/api', '')
+        service = if service.start_with?('/')
+                    service[0] + service[1].upcase + service[2..-1]
+                  else
+                    service[0].upcase + service[1..-1]
+                  end
+        module_name = replacement[:module_name]
+        file_path = FileGenerator.copy_module_header_files(service + '/' + category, Swagger2objc::Config::SDK)
+        replacement.each do |key, value|
+          replace_file_content(file_path, "{#{key}}", value)
+        end
+        time = Time.now
+        year = time.year.to_s # + '年'
+        # date = time.strftime('%Y/%m/%d')
+        replace_file_content(file_path, '{year}', year)
+        # replace_file_content(file_path, '{date}', date)
+        replace_file_name(file_path, '{module_name}', module_name)
       end
 
       def self.replace_dir(dir, target, replacement)
@@ -88,21 +117,6 @@ module Swagger2objc
         target = '{content}'
         file_path = FileGenerator.copy_plist_file(Swagger2objc::Config::SDK)
         replace_file_content(file_path, target, replacement)
-      end
-
-      def self.replace_module_header_content(replacement)
-        category = replacement[:category]
-        module_name = replacement[:module_name]
-        file_path = FileGenerator.copy_module_header_files(category, Swagger2objc::Config::SDK)
-        replacement.each do |key, value|
-          replace_file_content(file_path, "{#{key}}", value)
-        end
-        time = Time.now
-        year = time.year.to_s # + '年'
-        # date = time.strftime('%Y/%m/%d')
-        replace_file_content(file_path, '{year}', year)
-        # replace_file_content(file_path, '{date}', date)
-        replace_file_name(file_path, '{module_name}', module_name)
       end
 
       def self.replace_file_content(file_path, target, replacement)

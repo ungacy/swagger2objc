@@ -62,15 +62,16 @@ module Swagger2objc
               category = 'File' if category == 'AppFile'
               category = 'Login' if category == 'IdentityAudit' || category == 'VerifyCode'
               next if @only && !@only.include?(category)
+              next if category == 'File' && name == 'web'
               # Swagger2objc::Generator::ModelGenerator.clear([category])
               # Swagger2objc::Generator::SDKGenerator.clear([category])
               operation_hash['method'] = method.upcase
               operation_hash['path'] = path
-              root_path = router_map[name]
-              root_path = '/' + name if root_path.nil?
+              service = router_map[name]
+              service = '/' + name if service.nil?
 
               operation = Swagger2objc::Struct::Operation.new(operation_hash)
-              operation.path = root_path + operation.path
+              operation.path = service + operation.path
               operation.add_subfix = add_subfix
               if controller.nil?
                 controller = Swagger2objc::Struct::Controller.new
@@ -80,7 +81,7 @@ module Swagger2objc
               end
               puts category.center(20, '-') + ' : ' + operation.path
               controller.operations << operation
-              controller.root_path = root_path
+              controller.service = service
               all_ref = Swagger2objc::Utils.all_ref_of_ref(operation.all_ref, @common)
               controller.models += all_ref
               all_ref.each { |ref| @common.delete(ref) }

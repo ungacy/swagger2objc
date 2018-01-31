@@ -28,7 +28,8 @@ module Swagger2objc
 
       def self.copy_template_file(source_file, target_dir, type)
         template_dir = File.dirname(__FILE__) + '/template/' + type + '/'
-        result_dir = Dir.pwd + Swagger2objc::Configure.output(type) + target_dir + '/'
+        directory = Swagger2objc::Configure.config[Swagger2objc::Config::DIRECTORY]
+        result_dir = Dir.pwd + directory + target_dir + Swagger2objc::Configure.output(type) + '/'
         FileUtils.mkdir_p(result_dir) unless File.directory?(result_dir)
         FileUtils.cp(template_dir + source_file, result_dir + source_file)
         result_dir + source_file
@@ -45,7 +46,10 @@ module Swagger2objc
 
       def self.copy_module_header_files(category, type)
         template_dir = File.dirname(__FILE__) + '/template/' + type + '/'
-        result_dir = Dir.pwd + Swagger2objc::Configure.output(type) + '/' + category + '/'
+        directory = Swagger2objc::Configure.config[Swagger2objc::Config::DIRECTORY]
+        result_dir = Dir.pwd + directory + '/' + category + Swagger2objc::Configure.output(type) + '/'
+
+        # result_dir = Dir.pwd + directory + target_dir + Swagger2objc::Configure.output(type) + '/'
         header = '{module_name}.h'
         FileUtils.mkdir_p(result_dir) unless File.directory?(result_dir)
         FileUtils.cp(template_dir + header, result_dir + header)

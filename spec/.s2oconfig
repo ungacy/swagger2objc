@@ -31,9 +31,10 @@ primary:
   SIFileItem:
     - id_p
     - version
+directory: /result/
 output:
- model: /result/Models/
- sdk: /result/SDK/
+ model: /Models/
+ sdk: /SDK/
 hate:
  - get
  - Get
