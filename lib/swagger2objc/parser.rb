@@ -8,13 +8,14 @@ require 'swagger2objc/generator/template_replacer'
 
 module Swagger2objc
   class Parser
-    def initialize(base_uri, _path, only = nil, name = nil, location = nil)
+    def initialize(base_uri, path, only = nil, name = nil)
       Swagger2objc::Configure.setup
       @only = only
+      @path = path
       @base_uri = base_uri
       Swagger2objc::Generator::AbstractGenerator.clear(only)
       if only
-        single_service(name, location)
+        single_service(name, path)
       else
         puts 'Parsing : ' + base_uri
         setup
