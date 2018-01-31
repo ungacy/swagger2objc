@@ -12,7 +12,7 @@ module Swagger2objc
       attr_reader :schema
       attr_reader :items
       attr_reader :rename
-
+      attr_accessor :service
       attr_reader :all_ref
 
       def setup
@@ -79,7 +79,7 @@ module Swagger2objc
           if type.start_with?('HashMap')
             info << "@property (nonatomic, strong) NSDictionary *#{format_name};\n"
           else
-            class_name = Swagger2objc::Utils.class_name_formatter(type)
+            class_name = Swagger2objc::Utils.class_name_formatter(type, service)
             import << "#import \"#{class_name}.h\"\n"
             info << "@property (nonatomic, strong) #{class_name} *#{format_name};\n"
           end

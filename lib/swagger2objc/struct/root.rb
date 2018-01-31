@@ -65,15 +65,17 @@ module Swagger2objc
               next if category == 'File' && name == 'web'
               operation_hash['method'] = method.upcase
               operation_hash['path'] = path
+
               service = router_map[name]
               service = '/' + name if service.nil?
-
+              operation_hash['service'] = service
               operation = Swagger2objc::Struct::Operation.new(operation_hash)
               operation.path = service + operation.path
               operation.add_subfix = add_subfix
               if controller.nil?
                 controller = Swagger2objc::Struct::Controller.new
                 controller.category = category
+                controller.service = service
                 @controllers << controller
                 controller_hash[controller_key] = controller
               end

@@ -20,6 +20,7 @@ module Swagger2objc
     LINK = 'link'.freeze
     FILTER = 'filter'.freeze
     ROUTER = 'router'.freeze
+    DUPICATED_MODEL = 'Dupicated_Model'.freeze
   end
 
   class Configure

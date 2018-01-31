@@ -20,6 +20,10 @@ mapping:
   Pair«string,string»: PairItem
   Link: MessageLink
   Notice: MessageNotice
+Dupicated_Model:
+  /web:
+    MessageLink: AffairMessageLink
+    MessageNotice: AffairMessageNotice
 avoid:
   id: id_p
   description: desc

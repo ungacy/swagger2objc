@@ -10,7 +10,7 @@ module Swagger2objc
       attr_reader :ref
       attr_reader :additionalProperties
       attr_accessor :name
-
+      attr_accessor :service
       def setup
         # it's a hash
         if @additionalProperties
@@ -100,7 +100,7 @@ module Swagger2objc
             info.sub!("{#{type}}", 'NSDictionary')
             info << "@property (nonatomic, strong) NSDictionary *#{format_name};\n"
           else
-            class_name = Swagger2objc::Utils.class_name_formatter(@format)
+            class_name = Swagger2objc::Utils.class_name_formatter(@format, service)
             if !items.nil?
               if class_name.start_with?('SIEntry«')
                 info << "@property (nonatomic, strong) NSDictionary *#{format_name};\n"

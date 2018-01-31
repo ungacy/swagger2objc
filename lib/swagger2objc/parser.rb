@@ -55,6 +55,7 @@ module Swagger2objc
         controller.models.each do |ref|
           ref_hash = root.definitions[ref].dup
           ref_hash['id'] = ref
+          ref_hash['service'] = controller.service
           model = Swagger2objc::Struct::Model.new(ref_hash)
           generator = Swagger2objc::Generator::ModelGenerator.new(controller.category, model)
           generator.service = controller.service

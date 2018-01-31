@@ -1,6 +1,6 @@
 module Swagger2objc
   class Utils
-    def self.class_name_formatter(class_name)
+    def self.class_name_formatter(class_name, service)
       return if class_name.start_with?('HashMap')
       type = Swagger2objc::Config::MODEL
       trim = Swagger2objc::Configure.config[Swagger2objc::Config::TRIM]
@@ -10,9 +10,16 @@ module Swagger2objc
         result = result.sub(key, value)
       end
       mapping = Swagger2objc::Configure.config[Swagger2objc::Config::MAPPING]
+
       result = mapping[result] if mapping[result]
       if result != class_name
         # puts "Rename [#{class_name}] to [#{result}]"
+      end
+      dupicated_model_config = Swagger2objc::Configure.config[Swagger2objc::Config::DUPICATED_MODEL]
+      dupicated_model = dupicated_model_config[service]
+      if dupicated_model
+        some = dupicated_model[result]
+        result = some if some
       end
       class_prefix + result
     end

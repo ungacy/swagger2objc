@@ -13,8 +13,7 @@ module Swagger2objc
         avoid_map = {}
         plan_b = ''
 
-        model_name = Swagger2objc::Utils.class_name_formatter(model.id)
-
+        model_name = Swagger2objc::Utils.class_name_formatter(model.id, service)
         return unless model_name
         return if model_name == 'SISimpleResponse'
         rename_config = Swagger2objc::Configure.config[Swagger2objc::Config::RENAME]
@@ -37,6 +36,7 @@ module Swagger2objc
         end
         container_mapping = custom_class_map(class_map)
         property_mapping = custom_property_map(avoid_map)
+
         replacement = {
           service: service,
           import: import,

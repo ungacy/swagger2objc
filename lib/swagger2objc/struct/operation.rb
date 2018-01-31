@@ -19,7 +19,7 @@ module Swagger2objc
       attr_accessor :path
       attr_accessor :method
       attr_accessor :add_subfix
-
+      attr_accessor :service
       attr_reader :all_ref
 
       def setup
@@ -27,6 +27,7 @@ module Swagger2objc
         if @parameters
           @parameters.map! do |item|
             parameter = Parameter.new(item)
+            parameter.service = service
             @all_ref += parameter.all_ref
             parameter
           end
@@ -59,7 +60,7 @@ module Swagger2objc
         oc_type = Swagger2objc::Generator::Type::OC_MAP[@response_class]
         if oc_type.nil?
           all_ref << type
-          @response_class = Swagger2objc::Utils.class_name_formatter(@response_class)
+          @response_class = Swagger2objc::Utils.class_name_formatter(@response_class, service)
         else
           @response_class = oc_type
         end

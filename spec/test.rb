@@ -3,9 +3,9 @@ require 'swagger2objc'
 
 # 全服务更新
 
-# base_uri = 'http://superid.org:18000'
-# path = '/services'
-# Swagger2objc::Parser.new(base_uri, path)
+base_uri = 'http://superid.org:18000'
+path = '/services'
+Swagger2objc::Parser.new(base_uri, path)
 
 # 单服务更新
 #
@@ -21,8 +21,8 @@ require 'swagger2objc'
 # {"name":"audit","location":"/audit/swagger.json","swaggerVersion":"2.0"}
 # ]
 
-name = 'web'
-only = [name]
-base_uri = 'http://192.168.1.63:19999'
-path = '/v2/api-docs'
-Swagger2objc::Parser.new(base_uri, path, only, name)
+# name = 'web'
+# only = [name]
+# base_uri = 'http://192.168.1.63:19999'
+# path = '/v2/api-docs'
+# Swagger2objc::Parser.new(base_uri, path, only, name)
