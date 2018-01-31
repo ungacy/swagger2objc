@@ -63,8 +63,6 @@ module Swagger2objc
               category = 'Login' if category == 'IdentityAudit' || category == 'VerifyCode'
               next if @only && !@only.include?(category)
               next if category == 'File' && name == 'web'
-              # Swagger2objc::Generator::ModelGenerator.clear([category])
-              # Swagger2objc::Generator::SDKGenerator.clear([category])
               operation_hash['method'] = method.upcase
               operation_hash['path'] = path
               service = router_map[name]

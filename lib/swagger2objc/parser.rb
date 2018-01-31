@@ -8,31 +8,39 @@ require 'swagger2objc/generator/template_replacer'
 
 module Swagger2objc
   class Parser
-    def initialize(base_uri, path, only = nil)
+    def initialize(base_uri, _path, only = nil, name = nil, location = nil)
       Swagger2objc::Configure.setup
-      puts 'Parsing : ' + base_uri
-      @request = Swagger2objc::Client.new(base_uri + path)
       @only = only
       @base_uri = base_uri
-      Swagger2objc::Generator::AbstractGenerator.clear(nil) unless only
-      setup
+      Swagger2objc::Generator::AbstractGenerator.clear(only)
+      if only
+        single_service(name, location)
+      else
+        puts 'Parsing : ' + base_uri
+        setup
+      end
     end
 
     def setup
-      services = @request.object_from_uri
+      request = Swagger2objc::Client.new(@base_uri + @path)
+      services = request.object_from_uri
       services.each do |service_hash|
         name = service_hash['name']
         next if name == 'tss' || name == 'test'
         location = service_hash['location']
-        puts 'Fetching swagger from ' + @base_uri + location
-        request = Swagger2objc::Client.new(@base_uri + location)
-        swagger_hash = request.object_from_uri
-        raise swagger_hash.to_s if swagger_hash['code'] == 500
-        puts 'Generating code from : [' + name + ']'
-        root = Swagger2objc::Struct::Root.new(swagger_hash, nil, name)
-        sdk_result(root)
-        model_result(root)
+        single_service(name, location)
       end
+    end
+
+    def single_service(name, location)
+      puts 'Fetching swagger from ' + @base_uri + location
+      request = Swagger2objc::Client.new(@base_uri + location)
+      swagger_hash = request.object_from_uri
+      raise swagger_hash.to_s if swagger_hash['code'] == 500
+      puts 'Generating code from : [' + name + ']'
+      root = Swagger2objc::Struct::Root.new(swagger_hash, nil, name)
+      sdk_result(root)
+      model_result(root)
     end
 
     def sdk_result(root)
