@@ -2,7 +2,6 @@ require 'swagger2objc/generator/template_replacer'
 require 'swagger2objc/generator/file_generator'
 require 'swagger2objc/struct/model'
 require 'swagger2objc/generator/type'
-require 'swagger2objc/constants'
 require 'swagger2objc/config'
 
 module Swagger2objc

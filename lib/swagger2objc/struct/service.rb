@@ -7,7 +7,7 @@ module Swagger2objc
       attr_reader :definitions
       attr_reader :host
       attr_reader :info
-      attr_reader :paths
+      attr_reader :paths#每个path会生成一个Operation,存在下面的controllers中
       attr_reader :swagger
       attr_reader :tags
 
@@ -40,6 +40,7 @@ module Swagger2objc
         @common = definitions.dup
         if @paths
           @paths.each do |path, dict|
+            # 同一个path有多个请求,POST/GET.需要加前缀Submit/Query
             add_subfix = dict.keys.count > 1
             dict.each do |method, operation_hash|
               if operation_hash['tags']
@@ -48,26 +49,39 @@ module Swagger2objc
                 next
               end
 
-              controller = controller_hash[controller_key]
-
+              #获取类别 目前格式 [XX--controller]   [XX resource] [XXResource]
               category = controller_key.sub('-controller', '').sub(' resource', '').sub('Resource', '')
+              #合并所有Audit到一个类别中
               category = 'Audit' if category.include?('Audit')
+              #首字母大写
               category = category[0].upcase + category[1..-1]
+              #xx-aa-bb -> xxAaBb
               category.gsub!(/\-\w/) { |match| match[1].upcase }
+
+              ##合并所有XXX到一个类别中
               category = 'Notification' if category == 'ExternalChannel' || category == 'PushNotification'
               category = 'File' if category == 'AppFile'
               category = 'Login' if category == 'IdentityAudit' || category == 'VerifyCode'
+              # 有only,则只解析only列表中的
               next if @only && !@only.include?(category)
+              # 文件未从web中删除,但是已经微服务了.fxxk
               next if category == 'File' && name == 'web'
+              # get/ post 大写
               operation_hash['method'] = method.upcase
               operation_hash['path'] = path
 
+              # auth: permission/api
+              # msg: msg/api
+              # 上面比较特殊.需要加/api
               service = router_map[name]
+              # 一般的[/xx] 就好, 比如[/web]
               service = '/' + name if service.nil?
               operation_hash['service'] = service
+              #某个请求称之为operation
               operation = Swagger2objc::Struct::Operation.new(operation_hash)
               operation.path = service + operation.path
               operation.add_subfix = add_subfix
+              controller = controller_hash[controller_key]
               if controller.nil?
                 controller = Swagger2objc::Struct::Controller.new
                 controller.category = category

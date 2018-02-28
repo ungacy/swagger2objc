@@ -1,6 +1,5 @@
 require 'swagger2objc/client/client'
 require 'swagger2objc/struct'
-require 'swagger2objc/constants'
 require 'swagger2objc/generator/model_generator'
 require 'swagger2objc/generator/sdk_generator'
 require 'swagger2objc/config'
