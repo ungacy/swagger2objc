@@ -1,7 +1,7 @@
 require 'swagger2objc/struct/model'
 module Swagger2objc
   module Struct
-    class Root < Base
+    class Service < Base
       attr_reader :basePath
       attr_reader :definitions
       attr_reader :common

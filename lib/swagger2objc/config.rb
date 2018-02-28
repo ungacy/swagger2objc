@@ -21,7 +21,6 @@ module Swagger2objc
     FILTER = 'filter'.freeze
     ROUTER = 'router'.freeze
     DUPICATED_MODEL = 'Dupicated_Model'.freeze
-    IGNORE = 'ignore'.freeze
   end
 
   class Configure

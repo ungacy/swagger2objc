@@ -41,9 +41,9 @@ module Swagger2objc
       swagger_hash = request.object_from_uri
       raise swagger_hash.to_s if swagger_hash['code'] == 500
       puts 'Generating code from : [' + name + ']'
-      root = Swagger2objc::Struct::Root.new(swagger_hash, nil, name)
-      sdk_result(root)
-      model_result(root)
+      service = Swagger2objc::Struct::Service.new(swagger_hash, nil, name)
+      sdk_result(service)
+      model_result(service)
     end
 
     def sdk_result(root)
