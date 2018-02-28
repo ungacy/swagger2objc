@@ -24,8 +24,8 @@ module Swagger2objc
     def setup
       ignore = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE]
 
-      request = Swagger2objc::Client.new(@base_uri + @path)
-      services = request.object_from_uri
+      client = Swagger2objc::Client.new(@base_uri + @path)
+      services = client.object_from_uri
       services.each do |service_hash|
         name = service_hash['name']
         next if ignore.include?(name)
@@ -36,8 +36,8 @@ module Swagger2objc
 
     def single_service(name, location)
       puts 'Fetching swagger from ' + @base_uri + location
-      request = Swagger2objc::Client.new(@base_uri + location)
-      swagger_hash = request.object_from_uri
+      client = Swagger2objc::Client.new(@base_uri + location)
+      swagger_hash = client.object_from_uri
       raise swagger_hash.to_s if swagger_hash['code'] == 500
       puts 'Generating code from : [' + name + ']'
       service = Swagger2objc::Struct::Service.new(swagger_hash, nil, name)
