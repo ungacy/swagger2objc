@@ -12,8 +12,6 @@ module Swagger2objc
       end
 
       def setup; end
-
-      # @return [HASH]
       def result; end
     end
   end
