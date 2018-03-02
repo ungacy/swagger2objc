@@ -32,6 +32,8 @@ module Swagger2objc
       def setup
         router_map = Swagger2objc::Configure.config[Swagger2objc::Config::ROUTER]
         ignore_category = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_CATEGORY]
+        ignore_category = [] if ignore_category.nil?
+
         if definitions
           definitions.delete('Null')
           definitions.delete('Timestamp')
@@ -46,6 +48,7 @@ module Swagger2objc
             dict.each do |method, operation_hash|
               if operation_hash['tags']
                 controller_key = operation_hash['tags'].first
+                next if ignore_category.include?(controller_key)
               else
                 next
               end
