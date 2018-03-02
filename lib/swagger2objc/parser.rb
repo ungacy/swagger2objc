@@ -22,13 +22,13 @@ module Swagger2objc
     end
 
     def setup
-      ignore = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE]
+      ignore_service = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_SERVICE]
 
       client = Swagger2objc::Client.new(@base_uri + @path)
       services = client.object_from_uri
       services.each do |service_hash|
         name = service_hash['name']
-        next if ignore.include?(name)
+        next if ignore_service.include?(name)
         location = service_hash['location']
         single_service(name, location)
       end

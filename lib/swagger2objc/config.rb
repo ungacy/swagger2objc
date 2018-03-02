@@ -6,7 +6,9 @@ module Swagger2objc
     COMPANY = 'company'.freeze
     PROJECT = 'project'.freeze
     CLASS_PREFIX = 'class_prefix'.freeze
-    IGNORE = 'ignore'.freeze
+    IGNORE_SERVICE = 'ignore_service'.freeze
+    IGNORE_CATEGORY = 'ignore_category'.freeze
+    IGNORE_MODEL = 'ignore_model'.freeze
     MAPPING = 'mapping'.freeze
     TRIM = 'trim'.freeze
     AVOID = 'avoid'.freeze

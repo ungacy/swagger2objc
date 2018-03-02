@@ -11,7 +11,6 @@ module Swagger2objc
       attr_reader :summary
       attr_reader :tags
 
-
       attr_reader :response_class
 
       attr_reader :type

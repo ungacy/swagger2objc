@@ -12,6 +12,7 @@ module Swagger2objc
       end
 
       def setup; end
+
       def result; end
     end
   end

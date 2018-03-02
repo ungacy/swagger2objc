@@ -7,14 +7,14 @@ module Swagger2objc
       attr_reader :definitions
       attr_reader :host
       attr_reader :info
-      attr_reader :paths#每个path会生成一个Operation,存在下面的controllers中
+      attr_reader :paths # 每个path会生成一个Operation,存在下面的controllers中
       attr_reader :swagger
       attr_reader :tags
 
-      #custom
+      # custom
       attr_reader :only
-      attr_reader :controllers #Resources or Controllers
-      #[{"name":"web","location":"/web/v2/api-docs","swaggerVersion":"2.0"}
+      attr_reader :controllers # Resources or Controllers
+      # [{"name":"web","location":"/web/v2/api-docs","swaggerVersion":"2.0"}
       attr_reader :name # from #{url}/servers structs
 
       def initialize(hash = {}, only, name)
@@ -31,6 +31,7 @@ module Swagger2objc
 
       def setup
         router_map = Swagger2objc::Configure.config[Swagger2objc::Config::ROUTER]
+        ignore_category = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_CATEGORY]
         if definitions
           definitions.delete('Null')
           definitions.delete('Timestamp')
@@ -49,16 +50,16 @@ module Swagger2objc
                 next
               end
 
-              #获取类别 目前格式 [XX--controller]   [XX resource] [XXResource]
+              # 获取类别 目前格式 [XX--controller]   [XX resource] [XXResource]
               category = controller_key.sub('-controller', '').sub(' resource', '').sub('Resource', '')
-              #合并所有Audit到一个类别中
+              # 合并所有Audit到一个类别中
               category = 'Audit' if category.include?('Audit')
-              #首字母大写
+              # 首字母大写
               category = category[0].upcase + category[1..-1]
-              #xx-aa-bb -> xxAaBb
+              # xx-aa-bb -> xxAaBb
               category.gsub!(/\-\w/) { |match| match[1].upcase }
-
-              ##合并所有XXX到一个类别中
+              next if ignore_category.include?(category)
+              # #合并所有XXX到一个类别中
               category = 'Notification' if category == 'ExternalChannel' || category == 'PushNotification'
               category = 'File' if category == 'AppFile'
               category = 'Login' if category == 'IdentityAudit' || category == 'VerifyCode'
@@ -77,7 +78,7 @@ module Swagger2objc
               # 一般的[/xx] 就好, 比如[/web]
               service = '/' + name if service.nil?
               operation_hash['service'] = service
-              #某个请求称之为operation
+              # 某个请求称之为operation
               operation = Swagger2objc::Struct::Operation.new(operation_hash)
               operation.path = service + operation.path
               operation.add_subfix = add_subfix

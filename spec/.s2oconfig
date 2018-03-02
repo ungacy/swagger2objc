@@ -47,7 +47,10 @@ hate:
 router:
   auth: permission/api
   msg: msg/api
-ignore:
+ignore_service:
  - material
  - tss
  - test
+ignore_category:
+ - Inner
+ - Backend

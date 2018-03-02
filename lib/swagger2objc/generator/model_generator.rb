@@ -4,7 +4,8 @@ module Swagger2objc
   module Generator
     class ModelGenerator < AbstractGenerator
       def generate
-        ignore = Configure.config[Swagger2objc::Config::IGNORE]
+        ignore_model = Configure.config[Swagger2objc::Config::IGNORE_MODEL]
+        ignore = [] if ignore_model.nil?
         return if ignore.include?(model.id) || model.id == 'Null' || model.id.start_with?('Entry')
         properties = ''
         import = ''
