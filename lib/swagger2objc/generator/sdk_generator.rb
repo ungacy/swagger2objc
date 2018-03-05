@@ -30,6 +30,8 @@ module Swagger2objc
                    class_name + 'Remove'
                  elsif method == 'POST'
                    class_name + 'Submit'
+                 else
+                   class_name + method
                      end
         result
       end

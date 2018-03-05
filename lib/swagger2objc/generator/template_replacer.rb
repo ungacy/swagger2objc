@@ -102,6 +102,8 @@ module Swagger2objc
       end
 
       def self.replace_file_name(file_path, target, replacement)
+        puts 'nil tartget' if target.nil?
+        puts 'nil replacement' if replacement.nil?
         newfilename = file_path.sub(target, replacement)
         File.rename(file_path, newfilename)
         newfilename
