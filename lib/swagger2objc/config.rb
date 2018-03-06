@@ -23,6 +23,7 @@ module Swagger2objc
     FILTER = 'filter'.freeze
     ROUTER = 'router'.freeze
     DUPICATED_MODEL = 'Dupicated_Model'.freeze
+    PATH_MAP = 'path_map'.freeze
   end
 
   class Configure

@@ -31,6 +31,7 @@ module Swagger2objc
 
       def setup
         router_map = Swagger2objc::Configure.config[Swagger2objc::Config::ROUTER]
+        path_map = Swagger2objc::Configure.config[Swagger2objc::Config::PATH_MAP]
         ignore_category = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_CATEGORY]
         ignore_category = [] if ignore_category.nil?
 
@@ -87,6 +88,8 @@ module Swagger2objc
               operation = Swagger2objc::Struct::Operation.new(operation_hash)
 
               operation.path = service + operation.path
+              mapped_path = path_map[operation.path]
+              operation.path = mapped_path if mapped_path
               operation.add_subfix = add_subfix
               controller = controller_hash[controller_key]
               if controller.nil?

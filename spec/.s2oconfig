@@ -53,3 +53,5 @@ ignore_category:
  - Inner
  - Backend
  - Test
+path_map:
+  /web/material/material_detail: /material/detail
