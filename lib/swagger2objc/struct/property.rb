@@ -1,4 +1,4 @@
-require 'swagger2objc/utils/utils'
+require 'swagger2objc/utils'
 module Swagger2objc
   module Struct
     class Property < Base

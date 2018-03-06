@@ -64,12 +64,14 @@ module Swagger2objc
               next if ignore_category.include?(category)
               # #合并所有XXX到一个类别中
               category = 'Notification' if category == 'ExternalChannel' || category == 'PushNotification'
+              category = 'Material' if category.start_with?('Material')
               category = 'File' if category == 'AppFile'
               category = 'Login' if category == 'IdentityAudit' || category == 'VerifyCode'
               # 有only,则只解析only列表中的
               next if @only && !@only.include?(category)
               # 文件未从web中删除,但是已经微服务了.fxxk
               next if category == 'File' && name == 'web'
+              next if category == 'Material' && name == 'web'
               # get/ post 大写
               operation_hash['method'] = method.upcase
               operation_hash['path'] = path

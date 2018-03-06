@@ -45,7 +45,6 @@ router:
   auth: permission/api
   msg: msg/api
 ignore_service:
- - material
  - tss
  - test
 ignore_category:

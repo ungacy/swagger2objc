@@ -29,7 +29,6 @@ module Swagger2objc
       operationid = operation.operationId
       category =  controller.category
       hate = Swagger2objc::Configure.config[Swagger2objc::Config::HATE]
-      router_map = Swagger2objc::Configure.config[Swagger2objc::Config::ROUTER]
       class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][type]
       result = class_name.clone
       unless result.include?('and') || category == 'Role' || result.end_with?(category.downcase)
@@ -41,7 +40,8 @@ module Swagger2objc
 
       root_path = controller.service
       some = category[0].downcase + category[1..-1]
-      result.sub!(root_path, '')
+      result.sub!(root_path, '') if category != 'Material'
+
       result.sub!('api/external', some)
       result.sub!('api', some)
       result.sub!('external/notification', 'notification')
