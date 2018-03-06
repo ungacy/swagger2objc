@@ -12,8 +12,8 @@ module Swagger2objc
       mapping = Swagger2objc::Configure.config[Swagger2objc::Config::MAPPING]
 
       result = mapping[result] if mapping[result]
-      if result != class_name
-        # puts "Rename [#{class_name}] to [#{result}]"
+      if result == ''
+
       end
       dupicated_model_config = Swagger2objc::Configure.config[Swagger2objc::Config::DUPICATED_MODEL]
       dupicated_model = dupicated_model_config[service]

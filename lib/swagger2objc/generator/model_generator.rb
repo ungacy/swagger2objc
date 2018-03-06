@@ -6,14 +6,15 @@ module Swagger2objc
       def generate
         ignore_model = Configure.config[Swagger2objc::Config::IGNORE_MODEL]
         ignore = [] if ignore_model.nil?
-        return if ignore.include?(model.id) || model.id == 'Null' || model.id.start_with?('Entry')
+        if ignore.include?(model.id) || model.id == 'Null' # || model.id.start_with?('Entry')
+          puts 'Ignored : [' + model.id + ']'
+        end
         properties = ''
         import = ''
         primary_key = ''
         class_map = {}
         avoid_map = {}
         plan_b = ''
-
         model_name = Swagger2objc::Utils.class_name_formatter(model.id, service)
         return unless model_name
         return if model_name == 'SISimpleResponse'

@@ -47,6 +47,7 @@ router:
 ignore_service:
  - tss
  - test
+ - affair
 ignore_category:
  - Sender
  - Inner

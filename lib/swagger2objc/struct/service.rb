@@ -85,6 +85,7 @@ module Swagger2objc
               operation_hash['service'] = service
               # 某个请求称之为operation
               operation = Swagger2objc::Struct::Operation.new(operation_hash)
+
               operation.path = service + operation.path
               operation.add_subfix = add_subfix
               controller = controller_hash[controller_key]
