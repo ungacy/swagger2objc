@@ -40,7 +40,7 @@ module Swagger2objc
 
       root_path = controller.service
       some = category[0].downcase + category[1..-1]
-      result.sub!(root_path, '') if category != 'Material'
+      result.sub!(root_path, '')
 
       result.sub!('api/external', some)
       result.sub!('api', some)
