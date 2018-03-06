@@ -71,7 +71,7 @@ module Swagger2objc
               next if @only && !@only.include?(category)
               # 文件未从web中删除,但是已经微服务了.fxxk
               next if category == 'File' && name == 'web'
-              next if category == 'Material' && name == 'web'
+              # next if category == 'Material' && name == 'web'
               # get/ post 大写
               operation_hash['method'] = method.upcase
               operation_hash['path'] = path
