@@ -89,7 +89,7 @@ module Swagger2objc
 
               operation.path = service + operation.path
               mapped_path = path_map[operation.path]
-              operation.path = mapped_path if mapped_path
+              next if mapped_path
               operation.add_subfix = add_subfix
               controller = controller_hash[controller_key]
               if controller.nil?
