@@ -24,6 +24,7 @@ module Swagger2objc
     ROUTER = 'router'.freeze
     DUPICATED_MODEL = 'Dupicated_Model'.freeze
     PATH_MAP = 'path_map'.freeze
+    CATEGORY_MAP = 'category_map'.freeze
   end
 
   class Configure

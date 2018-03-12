@@ -70,3 +70,11 @@ path_map:
   /web/material/modify_material_description: /material/modify
   /web/material/modify_material_image: /material/modify
   /web/material/modify_material: /material/modify
+category_map:
+ - Affair
+ - AffairChat
+ - AffairMember
+ - Alliance
+ - AllianceMember
+ - Personnel
+ - Role
