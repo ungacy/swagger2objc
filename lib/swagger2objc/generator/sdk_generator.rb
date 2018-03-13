@@ -92,18 +92,12 @@ module Swagger2objc
           end
         end
         # Swagger2objc::Generator::TemplateReplacer.replace_plist_content(result.to_plist_xml)
-        category_map = Swagger2objc::Configure.config[Swagger2objc::Config::CATEGORY_MAP]
         sim.each do |class_name, hash|
           category = hash[:category]
           operation = hash[:operation]
 
           # puts "---------#{class_name}-------#{category}-------"
           config = result[class_name]
-          if category_map.include?(category)
-            path = config[:path]
-            path = path.sub!('/web', '/affair')
-            config[:path] = path
-          end
           param_generate(class_name, hash[:parameters], category, operation, config, hash[:service])
         end
 
