@@ -25,6 +25,7 @@ module Swagger2objc
                   end
 
         class_name = replacement[:class_name]
+        puts "\033[31m #{class_name} \033[0m" if @@generated_set.include?(class_name) && class_name.start_with?('SRK')
         return if @@generated_set.include?(class_name)
         @@generated_set << class_name
         file_path_array = FileGenerator.copy_class_files(service + '/' + category, type)
