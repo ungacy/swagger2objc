@@ -47,7 +47,6 @@ router:
 ignore_service:
  - tss
  - test
- - affair
 ignore_category:
  - Sender
  - Inner
@@ -57,6 +56,18 @@ ignore_web_category:
  - File
  - Meeting
  - Board
+add_property:
+ AffairInfo:
+  rolePermission:
+    description: 脚本添加,存储角色权限用
+    type: array
+    items:
+     format: int32
+     type: integer
+  resourceId:
+    description: 脚本添加,存储resourceId用
+    format: int32
+    type: integer
 path_map:
   /web/material/material_detail: /material/detail
   /web/material/public: /material/public
