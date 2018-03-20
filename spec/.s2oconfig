@@ -53,6 +53,10 @@ ignore_category:
  - Inner
  - Backend
  - Test
+ignore_web_category:
+ - File
+ - Meeting
+ - Board
 path_map:
   /web/material/material_detail: /material/detail
   /web/material/public: /material/public

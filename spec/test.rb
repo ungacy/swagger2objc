@@ -3,7 +3,7 @@ require 'swagger2objc'
 
 # 全服务更新
 
-base_uri = 'http://superid.org:18000'
+base_uri = 'https://superid.cn:5443'
 path = '/services'
 Swagger2objc::Parser.new(base_uri, path)
 
