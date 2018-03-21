@@ -113,7 +113,13 @@ module Swagger2objc
         puts 'nil tartget' if target.nil?
         puts 'nil replacement' if replacement.nil?
         newfilename = file_path.sub(target, replacement)
-        File.rename(file_path, newfilename)
+
+        begin
+          File.rename(file_path, newfilename)
+        rescue
+          puts error
+        end
+
         newfilename
       end
 
