@@ -113,7 +113,7 @@ module Swagger2objc
           replacement[:category] = key
           replacement[:module_name] = class_prefix + key
           header = ''
-          array.each do |item|
+          array.to_set.to_a.sort.each do |item|
             header << "#import \"#{item}.h\"\n"
           end
           replacement[:header] = header
