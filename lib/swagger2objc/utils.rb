@@ -53,9 +53,9 @@ module Swagger2objc
       #   puts "Rename [#{class_name}] to [#{result}]"
       # end
       if category == 'Message' || category == 'Permission' || category == 'Audit'
-        short_name.sub!('/', '')
         short_name = operationid[0].capitalize + operationid[1..-1]
         short_name.gsub!(/By.*/, '')
+        short_name.sub!('/', '')
         return class_prefix + category + short_name
       end
       # puts 'result : ' + result
