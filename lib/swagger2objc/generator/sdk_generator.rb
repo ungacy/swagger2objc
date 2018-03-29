@@ -8,7 +8,7 @@ module Swagger2objc
       def wrap_response_class_header(response_class)
         template = "\n/**
  The class of response object[s]\n @return [#{response_class} class]*/
-+ (Class /*#{response_class}*/)responseClass;\n"
++ (Class /*#{response_class}*/__nullable)responseClass;\n"
         template
       end
 
