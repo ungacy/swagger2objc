@@ -45,6 +45,18 @@ module Swagger2objc
         file_path_array
       end
 
+      def self.copy_sdk_header_file()
+        header = 'SIRequestKit.h'
+        template_dir = File.dirname(__FILE__) + '/template/sdk/'
+        directory = Swagger2objc::Configure.config[Swagger2objc::Config::DIRECTORY]
+        result_dir = Dir.pwd + directory + '/'
+        unless File.exist?(result_dir + header)
+          FileUtils.mkdir_p(result_dir) unless File.directory?(result_dir)
+          FileUtils.cp(template_dir + header, result_dir + header)
+        end
+        result_dir + header
+      end
+
       def self.copy_module_header_files(category, type)
         template_dir = File.dirname(__FILE__) + '/template/' + type + '/'
         directory = Swagger2objc::Configure.config[Swagger2objc::Config::DIRECTORY]

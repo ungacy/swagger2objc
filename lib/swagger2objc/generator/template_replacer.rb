@@ -42,6 +42,15 @@ module Swagger2objc
         # set_file_array_read_only(file_path_array)
       end
 
+      def self.replace_framework_header_content(replacement)
+        file_path = FileGenerator.copy_sdk_header_file()
+        result = ''
+        replacement.lines.each {|line|
+          result += "    #import \"#{line.sub("\n", '')}.h\"" + "\n"
+        }
+        replace_file_content(file_path, "\n#endif", result + "\n#endif")
+      end
+
       def self.replace_module_header_content(replacement)
         category = replacement[:category]
         service = replacement[:service]
@@ -69,6 +78,7 @@ module Swagger2objc
         replace_file_content(file_path, '{year}', year)
         # replace_file_content(file_path, '{date}', date)
         replace_file_name(file_path, '{module_name}', module_name)
+        module_name
       end
 
       def self.replace_dir(dir, target, replacement)

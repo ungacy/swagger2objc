@@ -100,7 +100,7 @@ module Swagger2objc
           config = result[class_name]
           param_generate(class_name, hash[:parameters], category, operation, config, hash[:service])
         end
-
+        module_header_string = ''
         module_header.each do |key, array|
           replacement = {
             service: service_module[key],
@@ -117,8 +117,10 @@ module Swagger2objc
             header << "#import \"#{item}.h\"\n"
           end
           replacement[:header] = header
-          Swagger2objc::Generator::TemplateReplacer.replace_module_header_content(replacement)
+          module_header_string += Swagger2objc::Generator::TemplateReplacer.replace_module_header_content(replacement)
+          module_header_string += "\n"
         end
+        Swagger2objc::Generator::TemplateReplacer.replace_framework_header_content(module_header_string)
       end
 
       def objc_code_from_hash(hash)
