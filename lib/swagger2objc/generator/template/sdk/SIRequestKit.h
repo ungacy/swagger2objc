@@ -5,6 +5,8 @@
 //  Copyright © {year} {company}. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 #ifndef _SIREQUESTKIT_
     #define _SIREQUESTKIT_
 
