@@ -70,32 +70,32 @@ module Swagger2objc
         raise "unkown format : #{name}" if oc_type.nil? && format == 'object'
 
         if oc_type == 'NSString'
-          info << "@property (nonatomic, copy) #{oc_type} *#{format_name};\n"
+          info << "@property (nonatomic, copy, nullable) #{oc_type} *#{format_name};\n"
         elsif oc_type == 'UIImage'
-          info << "@property (nonatomic, strong) #{oc_type} *#{format_name};\n"
+          info << "@property (nonatomic, strong, nullable) #{oc_type} *#{format_name};\n"
         elsif oc_type == 'id'
-          info << "@property (nonatomic, strong) id #{format_name};\n"
+          info << "@property (nonatomic, strong, nullable) id #{format_name};\n"
         elsif oc_type.nil? # Custom Model Type
           if type.start_with?('HashMap')
-            info << "@property (nonatomic, strong) NSDictionary *#{format_name};\n"
+            info << "@property (nonatomic, strong, nullable) NSDictionary *#{format_name};\n"
           else
             class_name = Swagger2objc::Utils.class_name_formatter(type, service)
             import << "#import \"#{class_name}.h\"\n"
-            info << "@property (nonatomic, strong) #{class_name} *#{format_name};\n"
+            info << "@property (nonatomic, strong, nullable) #{class_name} *#{format_name};\n"
           end
         elsif oc_type == 'NSArray'
           element_type = @items['format'] ? @items['format'] : items['type']
           oc_element_type = Swagger2objc::Generator::Type::OC_MAP[element_type]
           if oc_element_type.nil?
-            info << "@property (nonatomic, strong) NSArray *#{format_name};\n"
+            info << "@property (nonatomic, strong, nullable) NSArray *#{format_name};\n"
           elsif !oc_element_type.start_with?('NS') && !oc_element_type.start_with?('UI')
-            info << "@property (nonatomic, strong) NSArray<NSNumber /*#{oc_element_type}*/ *> *#{format_name};\n"
+            info << "@property (nonatomic, strong, nullable) NSArray<NSNumber /*#{oc_element_type}*/ *> *#{format_name};\n"
           else
-            info << "@property (nonatomic, strong) NSArray<#{oc_element_type} *> *#{format_name};\n"
+            info << "@property (nonatomic, strong, nullable) NSArray<#{oc_element_type} *> *#{format_name};\n"
           end
 
         else
-          info << "@property (nonatomic, strong) NSNumber /*#{oc_type}*/ *#{format_name};\n"
+          info << "@property (nonatomic, strong, nullable) NSNumber /*#{oc_type}*/ *#{format_name};\n"
         end
         info
       end

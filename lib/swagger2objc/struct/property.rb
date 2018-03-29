@@ -86,35 +86,35 @@ module Swagger2objc
 
         if oc_type == 'NSString'
           if @type == 'List' || @type == 'Array' || @type == 'array'
-            info << "@property (nonatomic, strong) NSArray<#{oc_type} *> *#{format_name};\n"
+            info << "@property (nonatomic, strong, nullable) NSArray<#{oc_type} *> *#{format_name};\n"
             info.sub!("{#{type}}", "[#{oc_type}]")
           else
-            info << "@property (nonatomic, copy) #{oc_type} *#{format_name};\n"
+            info << "@property (nonatomic, copy, nullable) #{oc_type} *#{format_name};\n"
             info.sub!("{#{type}}", oc_type)
           end
         elsif oc_type == 'id'
-          info << "@property (nonatomic, strong) id #{format_name};\n"
+          info << "@property (nonatomic, strong, nullable) id #{format_name};\n"
           info.sub!("{#{type}}", 'id')
         elsif oc_type.nil? # Custom Model Type
           if type.start_with?('HashMap')
             info.sub!("{#{type}}", 'NSDictionary')
-            info << "@property (nonatomic, strong) NSDictionary *#{format_name};\n"
+            info << "@property (nonatomic, strong, nullable) NSDictionary *#{format_name};\n"
           else
             class_name = Swagger2objc::Utils.class_name_formatter(@format, service)
             if !items.nil?
               if class_name.start_with?('SIEntry«')
-                info << "@property (nonatomic, strong) NSDictionary *#{format_name};\n"
+                info << "@property (nonatomic, strong, nullable) NSDictionary *#{format_name};\n"
                 info.sub!("{#{type}}", "[#{class_name}]")
               else
                 import << "#import \"#{class_name}.h\"\n" if format != model.id
-                info << "@property (nonatomic, strong) NSArray<#{class_name} *> *#{format_name};\n"
+                info << "@property (nonatomic, strong, nullable) NSArray<#{class_name} *> *#{format_name};\n"
                 class_map[name] = class_name
                 info.sub!("{#{type}}", "[#{class_name}]")
               end
             else
               import << "#import \"#{class_name}.h\"\n" if format != model.id
               info.sub!("{#{type}}", class_name)
-              info << "@property (nonatomic, strong) #{class_name} *#{format_name};\n"
+              info << "@property (nonatomic, strong, nullable) #{class_name} *#{format_name};\n"
             end
           end
 
@@ -122,9 +122,9 @@ module Swagger2objc
           info.sub!("{#{type}}", oc_type)
 
           if @type == 'List' || @type == 'Array' || @type == 'array'
-            info << "@property (nonatomic, strong) NSArray<NSNumber /*#{oc_type}*/ *> *#{format_name};\n"
+            info << "@property (nonatomic, strong, nullable) NSArray<NSNumber /*#{oc_type}*/ *> *#{format_name};\n"
           else
-            info << "@property (nonatomic, strong) NSNumber /*#{oc_type}*/ *#{format_name};\n"
+            info << "@property (nonatomic, strong, nullable) NSNumber /*#{oc_type}*/ *#{format_name};\n"
           end
         end
         info
