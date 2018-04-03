@@ -46,7 +46,7 @@ module Swagger2objc
         file_path = FileGenerator.copy_sdk_header_file()
         result = ''
         replacement.lines.each {|line|
-          result += "    #import \"#{line.sub("\n", '')}.h\"" + "\n"
+          result += "#import \"#{line.sub("\n", '')}.h\"" + "\n"
         }
         replace_file_content(file_path, "\n#endif", result + "\n#endif")
       end

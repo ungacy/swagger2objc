@@ -8,11 +8,11 @@
 #import <Foundation/Foundation.h>
 
 #ifndef _SIREQUESTKIT_
-    #define _SIREQUESTKIT_
+#define _SIREQUESTKIT_
 
-    #import "SIRequestCenter.h"
-    #import "SIRequestDefine.h"
-    #import "SIRequestMaker.h"
+#import "SIRequestCenter.h"
+#import "SIRequestDefine.h"
+#import "SIRequestMaker.h"
 
 #endif /* _SIREQUESTKIT_ */
 
