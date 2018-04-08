@@ -59,7 +59,6 @@ module Swagger2objc
         return class_prefix + category + short_name
       end
       if category == 'ChatGroup'
-        puts operationid
         result.sub!('ChatGroupChatGroup', 'ChatGroup')
       end
       # puts 'result : ' + result
