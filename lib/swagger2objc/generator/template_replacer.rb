@@ -43,11 +43,11 @@ module Swagger2objc
       end
 
       def self.replace_framework_header_content(replacement)
-        file_path = FileGenerator.copy_sdk_header_file()
+        file_path = FileGenerator.copy_sdk_header_file
         result = ''
-        replacement.lines.each {|line|
+        replacement.lines.each do |line|
           result += "#import \"#{line.sub("\n", '')}.h\"" + "\n"
-        }
+        end
         replace_file_content(file_path, "\n#endif", result + "\n#endif")
       end
 

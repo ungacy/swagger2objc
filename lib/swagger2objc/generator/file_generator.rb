@@ -45,7 +45,7 @@ module Swagger2objc
         file_path_array
       end
 
-      def self.copy_sdk_header_file()
+      def self.copy_sdk_header_file
         header = 'SIRequestKit.h'
         template_dir = File.dirname(__FILE__) + '/template/sdk/'
         directory = Swagger2objc::Configure.config[Swagger2objc::Config::DIRECTORY]

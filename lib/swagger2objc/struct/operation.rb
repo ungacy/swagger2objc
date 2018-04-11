@@ -79,6 +79,7 @@ module Swagger2objc
           type: type,
           param: parameter_result
         }
+        hash[:consumes] = consumes.join('#') if consumes
         class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][Swagger2objc::Config::MODEL]
         if @response_class.start_with?(class_prefix)
           hash[:response] = @response_class
