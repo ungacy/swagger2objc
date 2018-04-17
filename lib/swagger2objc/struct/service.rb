@@ -34,8 +34,8 @@ module Swagger2objc
         path_map = Swagger2objc::Configure.config[Swagger2objc::Config::PATH_MAP]
         ignore_category = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_CATEGORY]
         ignore_category = [] if ignore_category.nil?
-        ignore_web_category = Swagger2objc::Configure.config['ignore_web_category']
-        ignore_web_category = [] if ignore_web_category.nil?
+        include_web_category = Swagger2objc::Configure.config['include_web_category']
+        include_web_category = [] if include_web_category.nil?
         if definitions
           definitions.delete('Null')
           definitions.delete('Timestamp')
@@ -72,7 +72,7 @@ module Swagger2objc
               # 有only,则只解析only列表中的
               next if @only && !@only.include?(category)
               # 文件未从web中删除,但是已经微服务了.fxxk
-              next if ignore_web_category.include?(category) && @name == 'web'
+              next if !include_web_category.include?(category) && @name == 'web'
               # get/ post 大写
               operation_hash['method'] = method.upcase
               operation_hash['path'] = path

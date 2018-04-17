@@ -52,10 +52,10 @@ ignore_category:
  - Inner
  - Backend
  - Test
-ignore_web_category:
- - File
- - Meeting
- - Board
+include_web_category:
+ - Fund
+ - Material
+ - Notice
 add_property:
  AffairInfo:
   rolePermission:
