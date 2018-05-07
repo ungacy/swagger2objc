@@ -4,10 +4,8 @@ project: Super Id
 class_prefix:
  model: SI
  sdk: SRK
-filter:
 ignore:
  - Timestamp
- - Null
 trim:
  VO: Item
  DTO: Item
@@ -15,35 +13,41 @@ mapping:
   ViewedAffairItem: AffairHistoryItem
   AllianceUserMItem: AllianceUserItem
   Pair«string,string»: PairItem
+  Pair«int,long»: NumberPair
   Link: MessageLink
   Notice: MessageNotice
+  Handler: AffairLink
 Dupicated_Model:
-  /affair:
-    MessageLink: AffairMessageLink
-    MessageNotice: AffairMessageNotice
+  /permission/api:
+    RoleOperationItem: PermissionRoleOperationItem
 avoid:
   id: id_p
   description: desc
   newPwd: password
   newRoleId: roleId
+  newTitle: title
+  newFileSetVO : fileSetVO
   init: start
+  default: isDefault
+  X-SIMU-RoleId: X_SIMU_RoleId
+  X-SIMU-AffairId: X_SIMU_AffairId
+  X-SIMU-UserId: X_SIMU_UserId
+  X-SIMU-ResourceId: X_SIMU_ResourceId
 rename:
 primary:
   SIFileItem:
     - id_p
     - version
-directory: /result/
+directory: /SIRequestKit/Classes/
 output:
  model: /Models/
  sdk: /SDK/
 hate:
  - get
  - Get
- - set
- - Set
 router:
-  auth: permission/api
-  msg: msg/api
+  auth: /permission/api
+  msg: /msg/api
 ignore_service:
  - tss
  - test
@@ -56,6 +60,8 @@ include_web_category:
  - Fund
  - Material
  - Notice
+ - Order
+ - Constant
 add_property:
  AffairInfo:
   rolePermission:
@@ -75,8 +81,8 @@ path_map:
   /web/material/register_material: /material/register
   /web/material/search: /material/search_material
   /web/material/search_material: /material/search_material
-  /web/material/add_scene_warehouse: /material//warehouse/add_scene_warehouse
-  /web/material/can_manage_warehouse: /material//warehouse/can_manage_warehouse
+  /web/material/add_scene_warehouse: /material/warehouse/add_scene_warehouse
+  /web/material/can_manage_warehouse: /material/warehouse/can_manage_warehouse
   /web/material/warehouse_detail: /material/warehouse/detail
   /web/material/warehouse_list: /material/warehouse/list
   /web/material/warehouse_materials: /material/warehouse/materials
@@ -85,3 +91,4 @@ path_map:
   /web/material/modify_material_description: /material/modify
   /web/material/modify_material_image: /material/modify
   /web/material/modify_material: /material/modify
+category_map:
