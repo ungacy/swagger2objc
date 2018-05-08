@@ -106,13 +106,15 @@ module Swagger2objc
                 info << "@property (nonatomic, strong, nullable) NSDictionary *#{format_name};\n"
                 info.sub!("{#{type}}", "[#{class_name}]")
               else
-                import << "#import \"#{class_name}.h\"\n" if format != model.id
+                new_import = "#import \"#{class_name}.h\"\n"
+                import << new_import if format != model.id && !import.include?(new_import)
                 info << "@property (nonatomic, strong, nullable) NSArray<#{class_name} *> *#{format_name};\n"
                 class_map[name] = class_name
                 info.sub!("{#{type}}", "[#{class_name}]")
               end
             else
-              import << "#import \"#{class_name}.h\"\n" if format != model.id
+              new_import = "#import \"#{class_name}.h\"\n"
+              import << new_import if format != model.id && !import.include?(new_import)
               info.sub!("{#{type}}", class_name)
               info << "@property (nonatomic, strong, nullable) #{class_name} *#{format_name};\n"
             end
