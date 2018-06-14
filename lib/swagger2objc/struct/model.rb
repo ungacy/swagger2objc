@@ -13,6 +13,7 @@ module Swagger2objc
         # puts '----------Model--------------'
 
         hash = {}
+        @properties = @properties != nil ? @properties : []
         @properties.each do |key, item|
           property = Property.new(item)
           property.name = key
