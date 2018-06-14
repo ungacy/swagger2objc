@@ -38,7 +38,7 @@ module Swagger2objc
       puts 'Fetching swagger from ' + @base_uri + location
       client = Swagger2objc::Client.new(@base_uri + location)
       swagger_hash = client.object_from_uri
-      raise swagger_hash.to_s if swagger_hash['code'] == 500
+      next if swagger_hash['code'] == 500
       puts 'Generating code from : [' + name + ']'
       # puts 'swagger_hash : ' + swagger_hash.to_s
       service = Swagger2objc::Struct::Service.new(swagger_hash, nil, name)
