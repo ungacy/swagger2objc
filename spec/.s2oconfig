@@ -8,7 +8,6 @@ ignore:
  - Timestamp
 trim:
  VO: Item
- DTO: Item
 mapping:
   ViewedAffairItem: AffairHistoryItem
   AllianceUserMItem: AllianceUserItem
@@ -51,6 +50,8 @@ router:
 ignore_service:
  - tss
  - test
+ - msg
+ - resource
 ignore_category:
  - Sender
  - Inner

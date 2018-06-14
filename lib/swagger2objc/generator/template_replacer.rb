@@ -5,6 +5,24 @@ module Swagger2objc
   module Generator
     class TemplateReplacer
       @@generated_set = Set.new
+      @@filearray = Set.new
+
+      def self.filearray
+        @@filearray
+      end
+
+      def self.traverse(filepath)
+        if File.directory?(filepath)
+          Dir.foreach(filepath) do |filename|
+            if (filename != '.') && (filename != '..')
+              traverse(filepath + '/' + filename)
+            end
+          end
+        else
+          filename = filepath.split('/').last
+          @@filearray.add(filepath) if /[\w\+]+\.[hm]{1}$/.match(filename)
+        end
+      end
 
       def self.read_file_content(file_path)
         file = File.open(file_path, 'rb')
