@@ -26,26 +26,7 @@ module Swagger2objc
 
       def setup
         @all_ref = []
-
         if @parameters
-          if service.start_with?('/file')
-            item = {
-                "description" => "X-SIMU-ResourceId",
-                "format" => "int64",
-                "in" => "header",
-                "name" => "X-SIMU-ResourceId",
-                "required" => true,
-                "type" => "integer"
-            }
-            role_index = 0
-            @parameters.each_with_index {|item, index|
-              if item['name'] == 'X-SIMU-RoleId'
-                role_index = index
-              end
-            }
-            @parameters.insert(role_index, item)
-          end
-
           @parameters.map! do |item|
             parameter = Parameter.new(item)
             parameter.service = service
@@ -90,7 +71,6 @@ module Swagger2objc
       end
 
       def result
-
         parameter_result = []
         parameters.each { |item| parameter_result << item.result }
         hash = {
