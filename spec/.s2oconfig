@@ -61,7 +61,6 @@ include_web_category:
  - Fund
  - Material
  - Notice
- - Order
  - Constant
 add_property:
  AffairInfo:

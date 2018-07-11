@@ -12,18 +12,34 @@ module Swagger2objc
       @only = only
       @path = path
       @base_uri = base_uri
+      @server_array = Array.new
       Swagger2objc::Generator::AbstractGenerator.clear(only)
       if only
         single_service(name, path)
       else
         puts 'Parsing : ' + base_uri
-        setup
+        all_service
       end
+      @server_array.sort! do |s_a, s_b|
+        a = s_a.name
+        b = s_b.name
+        if a == 'affair'
+          -1
+        elsif b == 'affair'
+          1
+        else
+          a <=> b
+        end
+      end
+      @server_array.each {|service|
+        #puts service.name
+        sdk_result(service)
+        model_result(service)
+      }
     end
 
-    def setup
+    def all_service
       ignore_service = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_SERVICE]
-
       client = Swagger2objc::Client.new(@base_uri + @path)
       services = client.object_from_uri
       services.each do |service_hash|
@@ -32,18 +48,19 @@ module Swagger2objc
         location = service_hash['location']
         single_service(name, location)
       end
+
+
     end
 
     def single_service(name, location)
       puts 'Fetching swagger from ' + @base_uri + location
       client = Swagger2objc::Client.new(@base_uri + location)
       swagger_hash = client.object_from_uri
-      return if swagger_hash['code'] == 500
+      return nil if swagger_hash['code'] == 500
       puts 'Generating code from : [' + name + ']'
       # puts 'swagger_hash : ' + swagger_hash.to_s
       service = Swagger2objc::Struct::Service.new(swagger_hash, nil, name)
-      sdk_result(service)
-      model_result(service)
+      @server_array << service
     end
 
     def sdk_result(root)

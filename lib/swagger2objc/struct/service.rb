@@ -17,6 +17,7 @@ module Swagger2objc
       # [{"name":"web","location":"/web/v2/api-docs","swaggerVersion":"2.0"}
       attr_reader :name # from #{url}/servers structs
 
+      attr_reader :common
       def initialize(hash = {}, only, name)
         hash.each do |k, v|
           key = k.sub('$', '')
@@ -102,9 +103,9 @@ module Swagger2objc
               puts category.center(20, '-') + ' : ' + operation.path
               controller.operations << operation
               controller.service = service
-              all_ref = Swagger2objc::Utils.all_ref_of_ref(operation.all_ref, @common)
-              controller.models += all_ref
-              all_ref.each { |ref| @common.delete(ref) }
+              @all_ref = Swagger2objc::Utils.all_ref_of_ref(operation.all_ref, @common)
+              controller.models += @all_ref
+              # @all_ref.each { |ref| @common.delete(ref) }
             end
           end
         end
