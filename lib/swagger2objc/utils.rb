@@ -58,6 +58,7 @@ module Swagger2objc
 
         return class_prefix + category + short_name
       end
+      result.gsub!(/Using.*/, '')
       result.sub!('ChatGroupChatGroup', 'ChatGroup') if category == 'ChatGroup'
       # puts 'result : ' + result
       class_prefix + result
