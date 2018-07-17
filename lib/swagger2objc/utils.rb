@@ -55,7 +55,7 @@ module Swagger2objc
       if category == 'Message' || category == 'Permission' || category == 'Audit'
         short_name = operationid[0].capitalize + operationid[1..-1]
         short_name.gsub!(/By.*/, '')
-        short_name.sub(/Using.*/, '')
+        short_name.sub!(/Using.*/, '')
 
         return class_prefix + category + short_name
       end
