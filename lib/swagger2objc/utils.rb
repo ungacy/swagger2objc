@@ -41,7 +41,6 @@ module Swagger2objc
       root_path = controller.service
       some = category[0].downcase + category[1..-1]
       result.sub!(root_path, '') if root_path != '/material' && root_path != '/announcement'
-      result.sub(/Using.*/, '')
       result.sub!('api/external', some)
       result.sub!('api', some)
       result.sub!('external/notification', 'notification')
@@ -56,6 +55,7 @@ module Swagger2objc
       if category == 'Message' || category == 'Permission' || category == 'Audit'
         short_name = operationid[0].capitalize + operationid[1..-1]
         short_name.gsub!(/By.*/, '')
+        short_name.sub(/Using.*/, '')
 
         return class_prefix + category + short_name
       end
