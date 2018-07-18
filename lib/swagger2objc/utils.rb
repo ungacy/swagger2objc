@@ -21,6 +21,9 @@ module Swagger2objc
         some = dupicated_model[result]
         result = some if some
       end
+      if service == '/chat' && !result.start_with?('Chat')
+        result = 'Chat' + result
+      end
       class_prefix + result
     end
 
@@ -52,7 +55,7 @@ module Swagger2objc
       # if result != class_name
       #   puts "Rename [#{class_name}] to [#{result}]"
       # end
-      if category == 'Message' || category == 'Permission' || category == 'Audit'
+      if (root_path != '/chat' && category == 'Message') || category == 'Permission' || category == 'Audit'
         short_name = operationid[0].capitalize + operationid[1..-1]
         short_name.gsub!(/By.*/, '')
         short_name.sub!(/Using.*/, '')
@@ -60,6 +63,9 @@ module Swagger2objc
         return class_prefix + category + short_name
       end
       result.sub!('ChatGroupChatGroup', 'ChatGroup') if category == 'ChatGroup'
+      if root_path == '/chat' && category == 'Message'
+        result = 'Chat' + result
+      end
       # puts 'result : ' + result
       class_prefix + result
     end
