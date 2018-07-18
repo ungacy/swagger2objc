@@ -64,6 +64,7 @@ module Swagger2objc
       end
       result.sub!('ChatGroupChatGroup', 'ChatGroup') if category == 'ChatGroup'
       if root_path == '/chat' && category == 'Message'
+        result.sub!('Message', '')
         result = 'Chat' + result
       end
       # puts 'result : ' + result
