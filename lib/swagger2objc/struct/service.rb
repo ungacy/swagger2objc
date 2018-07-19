@@ -70,6 +70,7 @@ module Swagger2objc
               category = 'Material' if category.start_with?('Material')
               category = 'File' if category == 'AppFile'
               category = 'Login' if category == 'IdentityAudit' || category == 'VerifyCode'
+              category = 'Menkor' if name == 'menkor'
               # 有only,则只解析only列表中的
               next if @only && !@only.include?(category)
               # 文件未从web中删除,但是已经微服务了.fxxk

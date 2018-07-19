@@ -24,6 +24,9 @@ module Swagger2objc
       if service == '/chat' && !result.start_with?('Chat')
         result = 'Chat' + result
       end
+      if service == '/menkor'  && !result.start_with?('Menkor')
+        result = 'Menkor' + result
+      end
       class_prefix + result
     end
 
@@ -67,6 +70,10 @@ module Swagger2objc
         result.sub!('Message', '')
         result = 'Chat' + result
       end
+      if root_path == '/menkor'
+        result = 'Menkor' + result
+      end
+      result.sub!(category+category, category)
       # puts 'result : ' + result
       class_prefix + result
     end
