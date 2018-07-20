@@ -27,7 +27,7 @@ module Swagger2objc
 
         if @type == 'List' || @type == 'Array' || @type == 'array'
           @format = items['type']
-          @format = items['format'] if @format == 'integer'
+          @format = items['format'] if @format == 'integer' || @format == 'number'
           @format = items['$ref'].sub('#/definitions/', '') if @format.nil?
         elsif @type == 'integer'
           @format = 'int64' if @format.nil?
