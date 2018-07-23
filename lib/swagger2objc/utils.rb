@@ -72,8 +72,8 @@ module Swagger2objc
       end
       if root_path == '/menkor'
         result = 'Menkor' + result
+        result.sub!(category+category, category)
       end
-      result.sub!(category+category, category)
       # puts 'result : ' + result
       class_prefix + result
     end
