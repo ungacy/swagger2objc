@@ -40,21 +40,27 @@ module Swagger2objc
 
     def all_service
       ignore_service = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_SERVICE]
+      replace_service = Swagger2objc::Configure.config['replace_service']
       client = Swagger2objc::Client.new(@base_uri + @path)
       services = client.object_from_uri
       services.each do |service_hash|
         name = service_hash['name']
         next if ignore_service.include?(name)
         location = service_hash['location']
-        single_service(name, location)
+        replace = replace_service[name]
+        single_service(name, replace ? replace : location)
       end
 
 
     end
 
     def single_service(name, location)
-      puts 'Fetching swagger from ' + @base_uri + location
-      client = Swagger2objc::Client.new(@base_uri + location)
+      uri = @base_uri + location
+      if location.start_with?('http')
+        uri = location
+      end
+      puts 'Fetching swagger from ' + uri
+      client = Swagger2objc::Client.new(uri)
       swagger_hash = client.object_from_uri
       return nil if swagger_hash['code'] == 500
       puts 'Generating code from : [' + name + ']'
