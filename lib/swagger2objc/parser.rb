@@ -41,6 +41,7 @@ module Swagger2objc
     def all_service
       ignore_service = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_SERVICE]
       replace_service = Swagger2objc::Configure.config['replace_service']
+      replace_service = {} if replace_service == nil
       client = Swagger2objc::Client.new(@base_uri + @path)
       services = client.object_from_uri
       services.each do |service_hash|
