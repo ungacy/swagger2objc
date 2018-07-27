@@ -33,6 +33,9 @@ module Swagger2objc
       def setup
         router_map = Swagger2objc::Configure.config[Swagger2objc::Config::ROUTER]
         path_map = Swagger2objc::Configure.config[Swagger2objc::Config::PATH_MAP]
+        if path_map == nil
+          path_map = {}
+        end
         ignore_category = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_CATEGORY]
         ignore_category = [] if ignore_category.nil?
         include_web_category = Swagger2objc::Configure.config['include_web_category']
