@@ -24,8 +24,13 @@ module Swagger2objc
       if service == '/chat' && !result.start_with?('Chat')
         result = 'Chat' + result
       end
-      if service == '/menkor'  && !result.start_with?('Menkor')
-        result = 'Menkor' + result
+      service_prefix = Swagger2objc::Configure.config['service_prefix']
+      if service_prefix == nil
+        service_prefix = {}
+      end
+      prefix = service_prefix[service]
+      if prefix
+        result = prefix + result
       end
       class_prefix + result
     end

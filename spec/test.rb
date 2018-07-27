@@ -5,7 +5,7 @@ require 'swagger2objc'
 
 base_uri = 'https://api.superid.org:1443'
 path = '/services'
-Swagger2objc::Parser.new(base_uri, path)
+# Swagger2objc::Parser.new(base_uri, path)
 
 # 单服务更新
 #
@@ -26,3 +26,9 @@ Swagger2objc::Parser.new(base_uri, path)
 # base_uri = 'http://192.168.1.63:19999'
 # path = '/v2/api-docs'
 # Swagger2objc::Parser.new(base_uri, path, only, name)
+
+name = 'collector'
+only = [name]
+base_uri = 'http://192.168.1.189:8888'
+path = '/v2/api-docs'
+Swagger2objc::Parser.new(base_uri, path, only, name)
