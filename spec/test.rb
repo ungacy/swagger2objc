@@ -29,6 +29,6 @@ path = '/services'
 
 name = 'collector'
 only = [name]
-base_uri = 'http://192.168.1.189:8888'
+base_uri = 'http://192.168.1.204:8889'
 path = '/v2/api-docs'
 Swagger2objc::Parser.new(base_uri, path, only, name)

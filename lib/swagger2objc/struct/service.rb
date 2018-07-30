@@ -92,7 +92,7 @@ module Swagger2objc
               # 某个请求称之为operation
               operation = Swagger2objc::Struct::Operation.new(operation_hash)
 
-              operation.path = service + operation.path
+              operation.path = service + operation.path if category != 'Collector'
               mapped_path = path_map[operation.path]
               next if mapped_path
               operation.add_subfix = add_subfix

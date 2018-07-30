@@ -8,6 +8,7 @@ ignore:
  - Timestamp
 trim:
  VO: Item
+ Vo: Item
 mapping:
   ViewedAffairItem: AffairHistoryItem
   AllianceUserMItem: AllianceUserItem
@@ -19,6 +20,12 @@ mapping:
 Dupicated_Model:
   /permission/api:
     RoleOperationItem: PermissionRoleOperationItem
+  /file:
+    RoleItem: FileRoleItem
+  /affair:
+    FileSetItem: AffairCheckFileSetItem
+    FundPoolItem: AffairCheckFundPoolItem
+    MaterialWarehouseItem: AffairCheckMaterialWarehouseItem
 avoid:
   id: id_p
   description: desc
@@ -26,12 +33,14 @@ avoid:
   newRoleId: roleId
   newTitle: title
   newFileSetVO : fileSetVO
+  newPublicType: publicType
   init: start
   default: isDefault
   X-SIMU-RoleId: X_SIMU_RoleId
   X-SIMU-AffairId: X_SIMU_AffairId
   X-SIMU-UserId: X_SIMU_UserId
   X-SIMU-ResourceId: X_SIMU_ResourceId
+  X-SIMU-AllianceId: X_SIMU_AllianceId
 rename:
 primary:
   SIFileItem:
@@ -47,18 +56,21 @@ hate:
 router:
   auth: /permission/api
   msg: /msg/api
+replace_service:
 ignore_service:
  - tss
  - test
- - msg
  - resource
+ - msg
+ - data-access
+link:
+ Collector: Collector
 ignore_category:
  - Sender
  - Inner
  - Backend
  - Test
-replace_service:
-  material: http://192.168.1.234:20008/v2/api-docs
+ - Constant
 include_web_category:
  - Fund
  - Material
