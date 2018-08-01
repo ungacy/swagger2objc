@@ -93,5 +93,4 @@ service_prefix:
  /menkor: Menkor
  /collector: Collector
 merge_category_into_server:
-  fund: Fund
   menkor: Menkor
