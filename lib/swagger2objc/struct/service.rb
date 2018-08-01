@@ -40,6 +40,8 @@ module Swagger2objc
         ignore_category = [] if ignore_category.nil?
         include_web_category = Swagger2objc::Configure.config['include_web_category']
         include_web_category = [] if include_web_category.nil?
+        merge_category_into_server = Swagger2objc::Configure.config['merge_category_into_server']
+        merge_category_into_server = {} if merge_category_into_server.nil?
         if definitions
           definitions.delete('Null')
           definitions.delete('Timestamp')
@@ -73,7 +75,10 @@ module Swagger2objc
               category = 'Material' if category.start_with?('Material')
               category = 'File' if category == 'AppFile'
               category = 'Login' if category == 'IdentityAudit' || category == 'VerifyCode'
-              category = 'Menkor' if name == 'menkor'
+              merge_category = merge_category_into_server[name]
+              if merge_category
+                category = merge_category
+              end
               # 有only,则只解析only列表中的
               next if @only && !@only.include?(category)
               # 文件未从web中删除,但是已经微服务了.fxxk

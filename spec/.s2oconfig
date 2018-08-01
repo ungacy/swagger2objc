@@ -72,7 +72,6 @@ ignore_category:
  - Test
  - Constant
 include_web_category:
- - Fund
  - Material
  - Notice
  - Constant
@@ -93,3 +92,6 @@ category_map:
 service_prefix:
  /menkor: Menkor
  /collector: Collector
+merge_category_into_server:
+  fund: Fund
+  menkor: Menkor
