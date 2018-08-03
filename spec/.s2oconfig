@@ -57,14 +57,16 @@ router:
   auth: /permission/api
   msg: /msg/api
 replace_service:
+ #web: http://192.168.1.168:19999/v2/api-docs
+link:
+ Collector: Collector
 ignore_service:
  - tss
  - test
  - resource
  - msg
  - data-access
-link:
- Collector: Collector
+ - conference
 ignore_category:
  - Sender
  - Inner
@@ -73,8 +75,6 @@ ignore_category:
  - Constant
 include_web_category:
  - Material
- - Notice
- - Constant
 add_property:
  AffairInfo:
   rolePermission:
@@ -93,4 +93,5 @@ service_prefix:
  /menkor: Menkor
  /collector: Collector
 merge_category_into_server:
+  fund: Fund
   menkor: Menkor

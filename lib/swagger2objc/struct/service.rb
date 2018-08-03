@@ -75,7 +75,6 @@ module Swagger2objc
               category = 'Material' if category.start_with?('Material')
               category = 'File' if category == 'AppFile'
               category = 'Login' if category == 'IdentityAudit' || category == 'VerifyCode'
-              next if category != 'Fund' && name == 'fund'
               merge_category = merge_category_into_server[name]
               if merge_category
                 category = merge_category
