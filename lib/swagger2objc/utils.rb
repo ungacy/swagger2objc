@@ -31,6 +31,7 @@ module Swagger2objc
       prefix = service_prefix[service]
       if prefix
         result = prefix + result
+        result.sub!(prefix+prefix, prefix)
       end
       class_prefix + result
     end
@@ -82,7 +83,7 @@ module Swagger2objc
       prefix = service_prefix[root_path]
       if prefix
         result = prefix + result
-        result.sub!(category+category, category)
+        result.sub!(prefix+prefix, prefix)
       end
       # puts 'result : ' + result
       class_prefix + result
