@@ -65,7 +65,6 @@ ignore_service:
  - test
  - resource
  - msg
- - data-access
  - conference
 ignore_category:
  - Sender
@@ -93,5 +92,6 @@ service_prefix:
  /menkor: Menkor
  /collector: Collector
 merge_category_into_server:
+  data-access: DataAccess
   fund: Fund
   menkor: Menkor

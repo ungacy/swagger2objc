@@ -64,7 +64,7 @@ module Swagger2objc
       # if result != class_name
       #   puts "Rename [#{class_name}] to [#{result}]"
       # end
-      if (root_path != '/chat' && category == 'Message') || category == 'Permission' || category == 'Audit'
+      if (root_path != '/chat' && category == 'Message') || category == 'Permission' || category == 'Audit' || category == 'DataAccess'
         short_name = operationid[0].capitalize + operationid[1..-1]
         short_name.gsub!(/By.*/, '')
         short_name.sub!(/Using.*/, '')
