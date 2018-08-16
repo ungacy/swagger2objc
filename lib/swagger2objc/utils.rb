@@ -29,7 +29,7 @@ module Swagger2objc
         service_prefix = {}
       end
       prefix = service_prefix[service]
-      if prefix
+      if prefix &&  !result.include?(prefix)
         result = prefix + result
         result.sub!(prefix+prefix, prefix)
       end

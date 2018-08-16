@@ -91,6 +91,7 @@ category_map:
 service_prefix:
  /menkor: Menkor
  /collector: Collector
+ /material: Material
 merge_category_into_server:
   data-access: DataAccess
   fund: Fund
