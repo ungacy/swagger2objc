@@ -79,15 +79,6 @@ module Swagger2objc
                     service[0].upcase + service[1..-1]
                   end
 
-        if service == '/Web' && category == 'Material'
-          replacement[:module_name] = 'SRKWebMaterial'
-        end
-        if service == '/Web' && category == 'Notice'
-          replacement[:module_name] = 'SRKWebNotice'
-        end
-        if service == '/Chat' && category == 'Message'
-          replacement[:module_name] = 'SRKChatMessage'
-        end
         module_name = replacement[:module_name]
         file_path = FileGenerator.copy_module_header_files(service + '/' + category, Swagger2objc::Config::SDK)
         replacement.each do |key, value|

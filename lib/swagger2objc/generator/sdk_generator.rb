@@ -120,7 +120,7 @@ module Swagger2objc
           module_header_string += Swagger2objc::Generator::TemplateReplacer.replace_module_header_content(replacement)
           module_header_string += "\n"
         end
-        Swagger2objc::Generator::TemplateReplacer.replace_framework_header_content(module_header_string)
+        #Swagger2objc::Generator::TemplateReplacer.replace_framework_header_content(module_header_string)
       end
 
       def objc_code_from_hash(hash)
