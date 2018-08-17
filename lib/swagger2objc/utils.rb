@@ -52,10 +52,8 @@ module Swagger2objc
 
       root_path = controller.service
       some = category[0].downcase + category[1..-1]
-      result.sub!(root_path, '') if root_path != '/material' && root_path != '/announcement' && root_path != '/fund'
-      result.sub!('api/external', some)
+      result.sub!(root_path, '') if root_path != '/material' && root_path != '/announcement' && root_path != '/fund' && root_path != '/workflow'
       result.sub!('api', some)
-      result.sub!('external/notification', 'notification')
 
       result.gsub!(/[\/\_]\w/) { |match| match[1].upcase }
       result.gsub!(/[\/[\_\-]]\w/) { |match| match[1].upcase }
