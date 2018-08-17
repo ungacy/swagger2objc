@@ -38,8 +38,8 @@ module Swagger2objc
         end
         ignore_category = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_CATEGORY]
         ignore_category = [] if ignore_category.nil?
-        include_web_category = Swagger2objc::Configure.config['include_web_category']
-        include_web_category = [] if include_web_category.nil?
+        exclude_service_category = Swagger2objc::Configure.config['exclude_service_category']
+        exclude_service_category = [] if exclude_service_category.nil?
         merge_category_into_server = Swagger2objc::Configure.config['merge_category_into_server']
         merge_category_into_server = {} if merge_category_into_server.nil?
         if definitions
@@ -82,7 +82,8 @@ module Swagger2objc
               # 有only,则只解析only列表中的
               next if @only && !@only.include?(category)
               # 文件未从web中删除,但是已经微服务了.fxxk
-              next if !include_web_category.include?(category) && @name == 'web'
+              exclude_category = exclude_service_category[@name]
+              next if exclude_category && exclude_category.include?(category)
               # get/ post 大写
               operation_hash['method'] = method.upcase
               operation_hash['path'] = path

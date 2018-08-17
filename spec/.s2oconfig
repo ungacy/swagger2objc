@@ -72,8 +72,17 @@ ignore_category:
  - Backend
  - Test
  - Constant
-include_web_category:
- - Material
+exclude_service_category:
+ announcement:
+  - My
+  - AnnouncementTask
+  - MyTask
+ web:
+  - Fund
+  - Material
+  - Notice
+  - Order
+  - Task
 add_property:
  AffairInfo:
   rolePermission:
