@@ -63,18 +63,13 @@ module Swagger2objc
 
               # 获取类别 目前格式 [XX--controller]   [XX resource] [XXResource]
               category = controller_key.sub('-controller', '').sub(' resource', '').sub('Resource', '')
-              # 合并所有Audit到一个类别中
-              category = 'Audit' if category.include?('Audit')
+
               # 首字母大写
               category = category[0].upcase + category[1..-1]
               # xx-aa-bb -> xxAaBb
               category.gsub!(/\-\w/) { |match| match[1].upcase }
               next if ignore_category.include?(category)
               # #合并所有XXX到一个类别中
-              category = 'Notification' if category == 'ExternalChannel' || category == 'PushNotification'
-              category = 'Material' if category.start_with?('Material')
-              category = 'File' if category == 'AppFile'
-              category = 'Login' if category == 'IdentityAudit' || category == 'VerifyCode'
               merge_category = merge_category_into_server[name]
               if merge_category
                 category = merge_category

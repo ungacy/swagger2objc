@@ -57,7 +57,8 @@ router:
   auth: /permission/api
   msg: /msg/api
 replace_service:
- #web: http://192.168.1.168:19999/v2/api-docs
+ #trade: http://192.168.1.222:11235/v2/api-docs
+ #material: http://192.168.1.234:20008/v2/api-docs
 link:
  Collector: Collector
 ignore_service:
@@ -100,8 +101,11 @@ category_map:
 service_prefix:
  /menkor: Menkor
  /collector: Collector
- /material: Material
 merge_category_into_server:
   data-access: DataAccess
   fund: Fund
+  trade: Trade
   menkor: Menkor
+  file: File
+  task: Task
+  user: User
