@@ -69,6 +69,7 @@ module Swagger2objc
               # xx-aa-bb -> xxAaBb
               category.gsub!(/\-\w/) { |match| match[1].upcase }
               next if ignore_category.include?(category)
+              next if path.include?('inner')
               # #合并所有XXX到一个类别中
               merge_category = merge_category_into_server[name]
               if merge_category
@@ -76,7 +77,6 @@ module Swagger2objc
               end
               # 有only,则只解析only列表中的
               next if @only && !@only.include?(category)
-              # 文件未从web中删除,但是已经微服务了.fxxk
               exclude_category = exclude_service_category[@name]
               next if exclude_category && exclude_category.include?(category)
               # get/ post 大写
