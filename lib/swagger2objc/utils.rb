@@ -83,7 +83,7 @@ module Swagger2objc
       if prefix && !result.include?(prefix)
         result = prefix + result
       end
-      result.sub!(prefix+prefix, prefix)
+      result.sub!(category+category, category)
       # puts 'result : ' + result
       class_prefix + result
     end
