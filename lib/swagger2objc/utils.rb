@@ -82,8 +82,8 @@ module Swagger2objc
       prefix = service_prefix[root_path]
       if prefix && !result.include?(prefix)
         result = prefix + result
-        result.sub!(prefix+prefix, prefix)
       end
+      result.sub!(prefix+prefix, prefix)
       # puts 'result : ' + result
       class_prefix + result
     end
