@@ -69,7 +69,7 @@ module Swagger2objc
               # xx-aa-bb -> xxAaBb
               category.gsub!(/\-\w/) { |match| match[1].upcase }
               next if ignore_category.include?(category)
-              next if path.include?('inner')
+              next if path.include?('/inner/')
               # #合并所有XXX到一个类别中
               merge_category = merge_category_into_server[name]
               if merge_category
