@@ -32,3 +32,10 @@ Swagger2objc::Parser.new(base_uri, path)
 # base_uri = 'http://192.168.1.168:19999'
 # path = '/v2/api-docs'
 # Swagger2objc::Parser.new(base_uri, path, only, name)
+#
+
+# name = 'collector'
+# only = [name]
+# base_uri = 'http://superid.org:8889'
+# path = '/v2/api-docs'
+# Swagger2objc::Parser.new(base_uri, path, only, name)

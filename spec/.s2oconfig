@@ -22,10 +22,8 @@ Dupicated_Model:
     RoleOperationItem: PermissionRoleOperationItem
   /file:
     RoleItem: FileRoleItem
-  /affair:
-    FileSetItem: AffairCheckFileSetItem
-    FundPoolItem: AffairCheckFundPoolItem
-    MaterialWarehouseItem: AffairCheckMaterialWarehouseItem
+  /material:
+    Instance: InstanceSome
 avoid:
   id: id_p
   description: desc
@@ -84,6 +82,9 @@ exclude_service_category:
   - Notice
   - Order
   - Task
+exclude_path:
+  - /trade/callback/alipay
+  - /trade/callback/wxpay
 add_property:
  AffairInfo:
   rolePermission:

@@ -39,6 +39,7 @@ module Swagger2objc
         ignore_category = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_CATEGORY]
         ignore_category = [] if ignore_category.nil?
         exclude_service_category = Swagger2objc::Configure.config['exclude_service_category']
+        exclude_path = Swagger2objc::Configure.config['exclude_path']
         exclude_service_category = [] if exclude_service_category.nil?
         merge_category_into_server = Swagger2objc::Configure.config['merge_category_into_server']
         merge_category_into_server = {} if merge_category_into_server.nil?
@@ -94,6 +95,7 @@ module Swagger2objc
               operation = Swagger2objc::Struct::Operation.new(operation_hash)
 
               operation.path = service + operation.path if category != 'Collector'
+              next if exclude_path && exclude_path.include?(operation.path)
               mapped_path = path_map[operation.path]
               next if mapped_path
               operation.add_subfix = add_subfix
