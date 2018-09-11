@@ -6,6 +6,12 @@ module Swagger2objc
       trim = Swagger2objc::Configure.config[Swagger2objc::Config::TRIM]
       class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][type]
       result = class_name.clone
+      dupicated_model_config = Swagger2objc::Configure.config[Swagger2objc::Config::DUPICATED_MODEL]
+      dupicated_model = dupicated_model_config[service]
+      if dupicated_model
+        some = dupicated_model[result]
+        result = some if some
+      end
       trim.each do |key, value|
         result = result.sub(key, value)
       end
@@ -15,12 +21,7 @@ module Swagger2objc
       if result == ''
 
       end
-      dupicated_model_config = Swagger2objc::Configure.config[Swagger2objc::Config::DUPICATED_MODEL]
-      dupicated_model = dupicated_model_config[service]
-      if dupicated_model
-        some = dupicated_model[result]
-        result = some if some
-      end
+
       if service == '/chat' && !result.start_with?('Chat')
         result = 'Chat' + result
       end
