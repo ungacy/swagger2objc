@@ -44,7 +44,7 @@ module Swagger2objc
 
       def output(import, avoid_map)
 
-        if @in == 'query'
+        if @in == 'query' && 'array' == type
           @type = 'string'
         end
 
