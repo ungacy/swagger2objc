@@ -43,6 +43,11 @@ module Swagger2objc
       end
 
       def output(import, avoid_map)
+
+        if @in == 'query'
+          @type = 'string'
+        end
+
         info = "\n/**\n"
         info << " paramType  : #{@in}\n"
         info << " key        : #{name}\n"
