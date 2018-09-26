@@ -61,11 +61,11 @@ module Swagger2objc
         avoid = Swagger2objc::Configure.config[Swagger2objc::Config::AVOID]
         if avoid[format_name] && !avoid[format_name].empty?
           format_name = avoid[format_name]
-          if description.nil?
-            avoid_map[format_name] = name
-          else
-            avoid_map[format_name] = description
-          end
+          avoid_map[format_name] = if description.nil?
+                                     name
+                                   else
+                                     description
+                                   end
 
           @rename = format_name.dup
           # puts @rename
