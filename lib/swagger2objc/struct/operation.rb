@@ -68,9 +68,7 @@ module Swagger2objc
         end
         @type = type
         @summary = '' if @summary.nil?
-        if @path.end_with?('/')
-          @path = @path[0...@path.length - 1]
-        end
+        @path = @path[0...@path.length - 1] if @path.end_with?('/')
       end
 
       def result

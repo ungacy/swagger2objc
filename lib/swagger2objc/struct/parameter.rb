@@ -43,10 +43,7 @@ module Swagger2objc
       end
 
       def output(import, avoid_map)
-
-        if @in == 'query' && 'array' == type
-          @type = 'string'
-        end
+        @type = 'string' if @in == 'query' && type == 'array'
 
         info = "\n/**\n"
         info << " paramType  : #{@in}\n"

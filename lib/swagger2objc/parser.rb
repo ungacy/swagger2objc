@@ -12,7 +12,7 @@ module Swagger2objc
       @only = only
       @path = path
       @base_uri = base_uri
-      @server_array = Array.new
+      @server_array = []
       Swagger2objc::Generator::AbstractGenerator.clear(only)
       if only
         single_service(name, path)
@@ -31,17 +31,17 @@ module Swagger2objc
           a <=> b
         end
       end
-      @server_array.each {|service|
-        #puts service.name
+      @server_array.each do |service|
+        # puts service.name
         sdk_result(service)
         model_result(service)
-      }
+      end
     end
 
     def all_service
       ignore_service = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_SERVICE]
       replace_service = Swagger2objc::Configure.config['replace_service']
-      replace_service = {} if replace_service == nil
+      replace_service = {} if replace_service.nil?
       client = Swagger2objc::Client.new(@base_uri + @path)
       services = client.object_from_uri
       services.each do |service_hash|
@@ -51,15 +51,11 @@ module Swagger2objc
         replace = replace_service[name]
         single_service(name, replace ? replace : location)
       end
-
-
     end
 
     def single_service(name, location)
       uri = @base_uri + location
-      if location.start_with?('http')
-        uri = location
-      end
+      uri = location if location.start_with?('http')
       puts 'Fetching swagger from ' + uri
       client = Swagger2objc::Client.new(uri)
       swagger_hash = client.object_from_uri

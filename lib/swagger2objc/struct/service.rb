@@ -33,9 +33,7 @@ module Swagger2objc
       def setup
         router_map = Swagger2objc::Configure.config[Swagger2objc::Config::ROUTER]
         path_map = Swagger2objc::Configure.config[Swagger2objc::Config::PATH_MAP]
-        if path_map == nil
-          path_map = {}
-        end
+        path_map = {} if path_map.nil?
         ignore_category = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_CATEGORY]
         ignore_category = [] if ignore_category.nil?
         exclude_service_category = Swagger2objc::Configure.config['exclude_service_category']
@@ -73,9 +71,7 @@ module Swagger2objc
               next if path.include?('/inner/')
               # #合并所有XXX到一个类别中
               merge_category = merge_category_into_server[name]
-              if merge_category
-                category = merge_category
-              end
+              category = merge_category if merge_category
               # 有only,则只解析only列表中的
               next if @only && !@only.include?(category)
               exclude_category = exclude_service_category[@name]

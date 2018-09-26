@@ -26,13 +26,11 @@ module Swagger2objc
         result = 'Chat' + result
       end
       service_prefix = Swagger2objc::Configure.config['service_prefix']
-      if service_prefix == nil
-        service_prefix = {}
-      end
+      service_prefix = {} if service_prefix.nil?
       prefix = service_prefix[service]
-      if prefix &&  !result.include?(prefix)
+      if prefix && !result.include?(prefix)
         result = prefix + result
-        result.sub!(prefix+prefix, prefix)
+        result.sub!(prefix + prefix, prefix)
       end
       class_prefix + result
     end
@@ -77,14 +75,10 @@ module Swagger2objc
         result = 'Chat' + result
       end
       service_prefix = Swagger2objc::Configure.config['service_prefix']
-      if service_prefix == nil
-        service_prefix = {}
-      end
+      service_prefix = {} if service_prefix.nil?
       prefix = service_prefix[root_path]
-      if prefix && !result.include?(prefix)
-        result = prefix + result
-      end
-      result.sub!(category+category, category)
+      result = prefix + result if prefix && !result.include?(prefix)
+      result.sub!(category + category, category)
       # puts 'result : ' + result
       class_prefix + result
     end
