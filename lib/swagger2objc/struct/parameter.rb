@@ -56,16 +56,13 @@ module Swagger2objc
           raise "type : #{description}"
         end
         format_name = name.clone
-        format_name = description.clone if @in.nil?
 
+        format_name = description.clone if @in.nil?
+        old = format_name.clone
         avoid = Swagger2objc::Configure.config[Swagger2objc::Config::AVOID]
         if avoid[format_name] && !avoid[format_name].empty?
           format_name = avoid[format_name]
-          avoid_map[format_name] = if description.nil?
-                                     name
-                                   else
-                                     description
-                                   end
+          avoid_map[format_name] = old
 
           @rename = format_name.dup
           # puts @rename
