@@ -80,6 +80,11 @@ module Swagger2objc
       result = prefix + result if prefix && !result.include?(prefix)
       result.sub!(category + category, category)
       # puts 'result : ' + result
+      #
+      specific_name_for_path = Swagger2objc::Configure.config['specific_name_for_path']
+      if specific_name_for_path && specific_name_for_path[operation.path]
+        result = specific_name_for_path[operation.path]
+      end
       class_prefix + result
     end
 

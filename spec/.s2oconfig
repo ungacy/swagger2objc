@@ -65,6 +65,7 @@ ignore_service:
  - resource
  - msg
  - conference
+ - audit
 ignore_category:
  - Sender
  - Inner
@@ -85,6 +86,8 @@ exclude_service_category:
 exclude_path:
   - /trade/callback/alipay
   - /trade/callback/wxpay
+specific_name_for_path:
+  /trade/fund/transfer: TradeFundTransfer
 add_property:
  AffairInfo:
   rolePermission:
