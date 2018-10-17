@@ -124,7 +124,12 @@ module Swagger2objc
           info.sub!("{#{type}}", oc_type)
 
           if @type == 'List' || @type == 'Array' || @type == 'array'
-            info << "@property (nonatomic, strong, nullable) NSArray<NSNumber /*#{oc_type}*/ *> *#{format_name};\n"
+            if !oc_type.start_with?('NS') && !oc_type.start_with?('UI')
+              info << "@property (nonatomic, strong, nullable) NSArray<NSNumber /*#{oc_type}*/ *> *#{format_name};\n"
+            else
+              info << "@property (nonatomic, strong, nullable) NSArray<#{oc_type} *> *#{format_name};\n"
+            end
+
           else
             info << "@property (nonatomic, strong, nullable) NSNumber /*#{oc_type}*/ *#{format_name};\n"
           end

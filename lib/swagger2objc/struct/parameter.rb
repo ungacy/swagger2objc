@@ -24,6 +24,12 @@ module Swagger2objc
           else
             @type = schema['type']
             @items = schema['items']
+            if @type == 'List' || @type == 'Array' || @type == 'array'
+              @format = items['type']
+              @format = items['format'] if @format == 'integer' || @format == 'number'
+              @format = items['$ref'].sub('#/definitions/', '') if @format.nil?
+              @all_ref << @format
+            end
           end
         else
           @type = @format if @type == 'integer' || @type == 'number'
@@ -88,10 +94,12 @@ module Swagger2objc
             info << "@property (nonatomic, strong, nullable) #{class_name} *#{format_name};\n"
           end
         elsif oc_type == 'NSArray'
-          element_type = @items['format'] ? @items['format'] : items['type']
-          oc_element_type = Swagger2objc::Generator::Type::OC_MAP[element_type]
+
+          oc_element_type = Swagger2objc::Generator::Type::OC_MAP[@format]
           if oc_element_type.nil?
-            info << "@property (nonatomic, strong, nullable) NSArray *#{format_name};\n"
+            class_name = Swagger2objc::Utils.class_name_formatter(@format, service)
+            import << "#import \"#{class_name}.h\"\n"
+            info << "@property (nonatomic, strong, nullable) NSArray<#{class_name} *> *#{format_name};\n"
           elsif !oc_element_type.start_with?('NS') && !oc_element_type.start_with?('UI')
             info << "@property (nonatomic, strong, nullable) NSArray<NSNumber /*#{oc_element_type}*/ *> *#{format_name};\n"
           else

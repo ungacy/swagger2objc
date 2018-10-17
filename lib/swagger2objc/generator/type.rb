@@ -13,7 +13,8 @@ module Swagger2objc
         'File' => 'UIImage',
         'Timestamp' => 'double',
         'Null' => 'NSString',
-        'array' => 'NSArray'
+        'array' => 'NSArray',
+        'JSONObject' => 'NSDictionary'
       }.freeze
     end
   end

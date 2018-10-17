@@ -10,20 +10,15 @@ trim:
  VO: Item
  Vo: Item
 mapping:
-  ViewedAffairItem: AffairHistoryItem
   AllianceUserMItem: AllianceUserItem
   Pair«string,string»: PairItem
   Pair«int,long»: NumberPair
   Link: MessageLink
-  Notice: MessageNotice
-  Handler: AffairLink
 Dupicated_Model:
-  /permission/api:
-    RoleOperationItem: PermissionRoleOperationItem
-  /file:
-    RoleItem: FileRoleItem
   /material:
-    Instance: InstanceSome
+    Instance: OperationLogInstance
+  /life:
+    ProductPlanItem: ProductPlanFormItem
 avoid:
   id: id_p
   description: desc
@@ -32,6 +27,8 @@ avoid:
   newTitle: title
   newFileSetVO : fileSetVO
   newPublicType: publicType
+  newOwnerRoleId: ownerRoleId
+  newAssistantRoleId: assistantRoleId
   init: start
   default: isDefault
   X-SIMU-RoleId: X_SIMU_RoleId
@@ -39,6 +36,7 @@ avoid:
   X-SIMU-UserId: X_SIMU_UserId
   X-SIMU-ResourceId: X_SIMU_ResourceId
   X-SIMU-AllianceId: X_SIMU_AllianceId
+  X-SIMU-BelongedType: X_SIMU_BelongedType
 rename:
 primary:
   SIFileItem:
@@ -53,7 +51,6 @@ hate:
  - Get
 router:
   auth: /permission/api
-  msg: /msg/api
 replace_service:
  #trade: http://192.168.1.222:11235/v2/api-docs
  #material: http://192.168.1.234:20008/v2/api-docs
@@ -63,26 +60,20 @@ ignore_service:
  - tss
  - test
  - resource
- - msg
- - conference
- - audit
+ - web
+ - notice
 ignore_category:
  - Sender
  - Inner
  - Backend
  - Test
- - Constant
 exclude_service_category:
  announcement:
-  - My
   - AnnouncementTask
   - MyTask
- web:
-  - Fund
-  - Material
-  - Notice
-  - Order
-  - Task
+ conference:
+  - Room
+  - Board
 exclude_path:
   - /trade/callback/alipay
   - /trade/callback/wxpay
@@ -100,12 +91,21 @@ add_property:
     description: 脚本添加,存储resourceId用
     format: int32
     type: integer
+ PageView:
+   resourceJson:
+     description: 脚本添加,存储资源字典的json数据
+     type: string
 path_map:
 category_map:
 service_prefix:
  /menkor: Menkor
  /collector: Collector
+ /material: Material
+ /conference: Conference
+ /life: Life
+ /education: Education
 merge_category_into_server:
+  material: Material
   data-access: DataAccess
   fund: Fund
   trade: Trade
@@ -114,3 +114,6 @@ merge_category_into_server:
   task: Task
   user: User
   audit: Audit
+  workflow: Workflow
+  life: Life
+  education: Education
