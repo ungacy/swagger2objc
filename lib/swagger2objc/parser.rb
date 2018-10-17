@@ -76,6 +76,7 @@ module Swagger2objc
         next if controller.models.nil?
         controller.models.each do |ref|
           ref_hash = root.definitions[ref].dup
+          next if ref_hash.nil?
           ref_hash['id'] = ref
           ref_hash['service'] = controller.service
           model = Swagger2objc::Struct::Model.new(ref_hash)

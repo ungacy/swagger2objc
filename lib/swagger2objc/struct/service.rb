@@ -44,6 +44,7 @@ module Swagger2objc
         if definitions
           definitions.delete('Null')
           definitions.delete('Timestamp')
+          definitions.delete('JSONObject')
         end
         controller_hash = {}
         @controllers = []

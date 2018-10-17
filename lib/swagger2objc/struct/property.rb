@@ -32,7 +32,11 @@ module Swagger2objc
         elsif @type == 'integer'
           @format = 'int64' if @format.nil?
         elsif @type == 'number'
-          @format = 'double' if @format.nil?
+          if @format.nil?
+            @type == 'string'
+            @format = 'string'
+          end
+
         else
           @format = @type
         end
