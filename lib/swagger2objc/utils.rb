@@ -32,6 +32,7 @@ module Swagger2objc
         result = prefix + result
         result.sub!(prefix + prefix, prefix)
       end
+      # result.sub!('ItemItem', 'ItemVO') if result.end_with?('ItemItem')
       class_prefix + result
     end
 

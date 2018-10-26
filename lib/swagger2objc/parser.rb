@@ -14,7 +14,7 @@ module Swagger2objc
       @base_uri = base_uri
       @server_array = []
       Swagger2objc::Generator::AbstractGenerator.clear(only)
-      if only
+      if only && name
         single_service(name, path)
       else
         puts 'Parsing : ' + base_uri
@@ -47,6 +47,7 @@ module Swagger2objc
       services.each do |service_hash|
         name = service_hash['name']
         next if ignore_service.include?(name)
+        next if @only && !@only.include?(name)
         location = service_hash['location']
         replace = replace_service[name]
         single_service(name, replace ? replace : location)
