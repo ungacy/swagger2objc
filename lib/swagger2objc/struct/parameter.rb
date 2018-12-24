@@ -34,7 +34,7 @@ module Swagger2objc
         else
           @type = @format if @type == 'integer' || @type == 'number'
           if @type.nil?
-            @type == 'string'
+            @type = 'string'
             @format = 'string'
           end
         end
