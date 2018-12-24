@@ -45,7 +45,7 @@ module Swagger2objc
               ref = responses['200']['schema']['items']['$ref']
               type = ref.sub('#/definitions/', '') if ref
             elsif type == 'number'
-              @type = 'string'
+              type = 'string'
             end
             if type.nil?
               @ref = responses['200']['schema']['$ref'].sub('#/definitions/', '')
