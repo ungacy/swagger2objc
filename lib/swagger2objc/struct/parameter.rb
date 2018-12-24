@@ -33,6 +33,10 @@ module Swagger2objc
           end
         else
           @type = @format if @type == 'integer' || @type == 'number'
+          if @type.nil?
+            @type == 'string'
+            @format = 'string'
+          end
         end
         if @in == 'formData'
           @type = 'File'
@@ -49,7 +53,7 @@ module Swagger2objc
       end
 
       def output(import, avoid_map)
-        @type = 'string' if @in == 'query' && type == 'array'
+        @type = 'string' if @in == 'query' && @type == 'array'
 
         info = "\n/**\n"
         info << " paramType  : #{@in}\n"
@@ -57,7 +61,7 @@ module Swagger2objc
         info << " type       : #{type}\n"
         info << " required   : #{required}\n"
         info << " notes      : #{description}\n"
-        if type.nil?
+        if @type.nil?
           puts "type : #{description}"
           raise "type : #{description}"
         end
