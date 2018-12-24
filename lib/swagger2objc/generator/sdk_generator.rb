@@ -111,7 +111,12 @@ module Swagger2objc
           type = Swagger2objc::Config::SDK
           class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][type]
           replacement[:category] = key
-          replacement[:module_name] = class_prefix + key
+          if replacement[:service] == '/order'
+            replacement[:module_name] = class_prefix + 'Order' + key
+          else
+            replacement[:module_name] = class_prefix + key
+          end
+
           header = ''
           array.to_set.to_a.sort.each do |item|
             header << "#import \"#{item}.h\"\n"
