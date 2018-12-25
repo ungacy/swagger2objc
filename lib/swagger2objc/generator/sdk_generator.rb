@@ -111,8 +111,17 @@ module Swagger2objc
           type = Swagger2objc::Config::SDK
           class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][type]
           replacement[:category] = key
-          if replacement[:service] == '/order'
-            replacement[:module_name] = class_prefix + 'Order' + key
+          service = replacement[:service].sub('/api', '')
+          service = service.sub('/', '')
+          service = 'DataAccess' if service == 'data-access'
+          if !service.casecmp(key.upcase).zero?
+            service = service[0].upcase + service[1..-1]
+            replacement[:module_name] = if key.start_with? service
+                                          class_prefix + key
+                                        else
+                                          class_prefix + service + key
+                                        end
+
           else
             replacement[:module_name] = class_prefix + key
           end
