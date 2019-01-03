@@ -75,6 +75,10 @@ module Swagger2objc
         result.sub!('Message', '')
         result = 'Chat' + result
       end
+      if root_path == '/affair' && !result.start_with?('Affair')
+        result = category + result
+        result.sub!('MemberMember', 'Member')
+      end
       service_prefix = Swagger2objc::Configure.config['service_prefix']
       service_prefix = {} if service_prefix.nil?
       prefix = service_prefix[root_path]

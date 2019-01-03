@@ -54,7 +54,7 @@ module Swagger2objc
         time = Time.now
         year = time.year.to_s # + '年'
         # date = time.strftime('%Y/%m/%d')
-        replace_file_array_content(file_path_array, '{year}', year)
+        replace_file_array_content(file_path_array, '{year}', '2018')
         # replace_file_array_content(file_path_array, '{date}', date)
 
         # set_file_array_read_only(file_path_array)
@@ -87,7 +87,7 @@ module Swagger2objc
         time = Time.now
         year = time.year.to_s # + '年'
         # date = time.strftime('%Y/%m/%d')
-        replace_file_content(file_path, '{year}', year)
+        replace_file_content(file_path, '{year}', '2018')
         # replace_file_content(file_path, '{date}', date)
         replace_file_name(file_path, '{module_name}', module_name)
         module_name
