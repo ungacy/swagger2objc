@@ -45,6 +45,7 @@ module Swagger2objc
         class_name = replacement[:class_name]
         puts "\033[31m #{class_name} \033[0m" if @@generated_set.include?(class_name) && class_name.start_with?('SRK')
         return if @@generated_set.include?(class_name)
+
         @@generated_set << class_name
         file_path_array = FileGenerator.copy_class_files(service + '/' + category, type)
         file_path_array = replace_file_array_name(file_path_array, '{class_name}', class_name)
@@ -138,7 +139,7 @@ module Swagger2objc
 
         begin
           File.rename(file_path, newfilename)
-        rescue
+        rescue StandardError
           puts error
         end
 

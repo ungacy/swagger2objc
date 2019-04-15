@@ -70,13 +70,16 @@ module Swagger2objc
               category.gsub!(/\-\w/) { |match| match[1].upcase }
               next if ignore_category.include?(category)
               next if path.include?('/inner/')
+
               # #合并所有XXX到一个类别中
               merge_category = merge_category_into_server[name]
               category = merge_category if merge_category
               # 有only,则只解析only列表中的
               next if @only && !@only.include?(category)
+
               exclude_category = exclude_service_category[@name]
               next if exclude_category && exclude_category.include?(category)
+
               # get/ post 大写
               operation_hash['method'] = method.upcase
               operation_hash['path'] = path
@@ -93,8 +96,10 @@ module Swagger2objc
 
               operation.path = service + operation.path if category != 'Collector'
               next if exclude_path && exclude_path.include?(operation.path)
+
               mapped_path = path_map[operation.path]
               next if mapped_path
+
               operation.add_subfix = add_subfix
               controller = controller_hash[controller_key]
               if controller.nil?

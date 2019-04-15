@@ -41,6 +41,7 @@ module Swagger2objc
         module_header = {}
         service_module = {}
         return if model.nil?
+
         model.each do |controller|
           controller.operations.each do |operation|
             class_name = Swagger2objc::Utils.sdk_name_formatter(operation,

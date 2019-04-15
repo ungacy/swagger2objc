@@ -18,6 +18,7 @@ module Swagger2objc
         model_name = Swagger2objc::Utils.class_name_formatter(model.id, service)
         return unless model_name
         return if model_name == 'SISimpleResponse'
+
         rename_config = Swagger2objc::Configure.config[Swagger2objc::Config::RENAME]
         rename = rename_config[model_name] if rename_config
         rename.each { |key, value| avoid_map[value] = key } if rename

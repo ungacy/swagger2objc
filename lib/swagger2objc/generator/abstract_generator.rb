@@ -21,6 +21,7 @@ module Swagger2objc
 
       def custom_class_map(hash)
         return '' if hash.count == 0
+
         template = "\n/**
  The generic class mapper for container properties.\n*/
 + (NSDictionary *)modelContainerPropertyGenericClass {
@@ -36,6 +37,7 @@ module Swagger2objc
 
       def custom_property_map(hash)
         return '' if hash.count == 0
+
         template = "\n/**
  Custom property mapper.\n*/
 + (NSDictionary *)modelCustomPropertyMapper {

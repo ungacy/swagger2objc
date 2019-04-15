@@ -48,9 +48,10 @@ module Swagger2objc
         name = service_hash['name']
         next if ignore_service.include?(name)
         next if @only && !@only.include?(name)
+
         location = service_hash['location']
         replace = replace_service[name]
-        single_service(name, replace ? replace : location)
+        single_service(name, replace || location)
       end
     end
 
@@ -61,6 +62,7 @@ module Swagger2objc
       client = Swagger2objc::Client.new(uri)
       swagger_hash = client.object_from_uri
       return nil if swagger_hash['code'] == 500
+
       puts 'Generating code from : [' + name + ']'
       # puts 'swagger_hash : ' + swagger_hash.to_s
       service = Swagger2objc::Struct::Service.new(swagger_hash, nil, name)
@@ -75,9 +77,13 @@ module Swagger2objc
     def model_result(root)
       root.controllers.each do |controller|
         next if controller.models.nil?
+
         controller.models.each do |ref|
+          next if root.definitions[ref].nil?
+
           ref_hash = root.definitions[ref].dup
           next if ref_hash.nil?
+
           ref_hash['id'] = ref
           ref_hash['service'] = controller.service
           model = Swagger2objc::Struct::Model.new(ref_hash)

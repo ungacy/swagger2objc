@@ -2,6 +2,7 @@ module Swagger2objc
   class Utils
     def self.class_name_formatter(class_name, service)
       return if class_name.start_with?('HashMap')
+
       type = Swagger2objc::Config::MODEL
       trim = Swagger2objc::Configure.config[Swagger2objc::Config::TRIM]
       class_prefix = Swagger2objc::Configure.config[Swagger2objc::Config::CLASS_PREFIX][type]
@@ -56,9 +57,9 @@ module Swagger2objc
       result.sub!('api/external', some)
       result.sub!('api', some)
 
-      result.gsub!(/[\/\_]\w/) { |match| match[1].upcase }
-      result.gsub!(/[\/[\_\-]]\w/) { |match| match[1].upcase }
-      result.gsub!(/\/\{\w+\}/, '')
+      result.gsub!(%r{[/\_]\w}) { |match| match[1].upcase }
+      result.gsub!(%r{[/[\_\-]]\w}) { |match| match[1].upcase }
+      result.gsub!(%r{/\{\w+\}}, '')
 
       # if result != class_name
       #   puts "Rename [#{class_name}] to [#{result}]"
@@ -98,8 +99,10 @@ module Swagger2objc
       refs.each do |ref|
         model = definitions[ref]
         next if model.nil?
+
         properties = model['properties']
         next if properties.nil?
+
         properties.each do |_name, property|
           result = ''
           definition = property['$ref']

@@ -60,7 +60,7 @@ module Swagger2objc
           @type = 'string'
         end
         @response_class = 'object' if @response_class.nil?
-        @response_class = 'string' if @response_class == 'SimpleResponse'
+        @response_class = 'string' if @response_class.start_with? 'SimpleResponse'
         oc_type = Swagger2objc::Generator::Type::OC_MAP[@response_class]
         if oc_type.nil?
           all_ref << type
