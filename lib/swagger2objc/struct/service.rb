@@ -38,6 +38,7 @@ module Swagger2objc
         ignore_category = [] if ignore_category.nil?
         exclude_service_category = Swagger2objc::Configure.config['exclude_service_category']
         exclude_path = Swagger2objc::Configure.config['exclude_path']
+        puts 'exclude_path : ' + exclude_path.to_s
         exclude_service_category = [] if exclude_service_category.nil?
         merge_category_into_server = Swagger2objc::Configure.config['merge_category_into_server']
         merge_category_into_server = {} if merge_category_into_server.nil?

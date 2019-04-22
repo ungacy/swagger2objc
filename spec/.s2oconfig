@@ -11,8 +11,10 @@ trim:
  Vo: Item
 mapping:
   AllianceUserMItem: AllianceUserItem
+  Pair«long,string»: PairItem
   Pair«string,string»: PairItem
   Pair«int,long»: NumberPair
+  SISimpleResponse«boolean»: SISimpleResponse
   Link: MessageLink
 Dupicated_Model:
   /material:
@@ -30,6 +32,8 @@ avoid:
   newOwnerRoleId: ownerRoleId
   newAssistantRoleId: assistantRoleId
   init: start
+  initStatus: startStatus
+  initPwdForm: form
   default: isDefault
   X-SIMU-RoleId: X_SIMU_RoleId
   X-SIMU-AffairId: X_SIMU_AffairId
@@ -54,6 +58,7 @@ router:
 replace_service:
  #trade: http://192.168.1.222:11235/v2/api-docs
  #material: http://192.168.1.234:20008/v2/api-docs
+ #affair: http://192.168.1.139:19998/v2/api-docs
 link:
  Collector: Collector
 ignore_service:
@@ -62,11 +67,13 @@ ignore_service:
  - resource
  - web
  - notice
+ - menkor
 ignore_category:
  - Sender
  - Inner
  - Backend
  - Test
+ - Temp
 exclude_service_category:
  announcement:
   - AnnouncementTask
@@ -77,8 +84,13 @@ exclude_service_category:
 exclude_path:
   - /trade/callback/alipay
   - /trade/callback/wxpay
+  - /trade/callback/chinapay
+  - /affair/notice/users
 specific_name_for_path:
   /trade/fund/transfer: TradeFundTransfer
+  /task/task/ann_task_list: TaskAnnTaskList
+  /target/demand/{targetId}: DemandList
+  /announcement/video/get: AnnouncementVideoQuery
 add_property:
  AffairInfo:
   rolePermission:
@@ -104,6 +116,10 @@ service_prefix:
  /conference: Conference
  /life: Life
  /education: Education
+ /question: Question
+ /live: Live
+ /lottery: Lottery
+ /version: Version
 merge_category_into_server:
   material: Material
   data-access: DataAccess
@@ -117,3 +133,7 @@ merge_category_into_server:
   workflow: Workflow
   life: Life
   education: Education
+  question: Question
+  live: Live
+  lottery: Lottery
+  version: Version
