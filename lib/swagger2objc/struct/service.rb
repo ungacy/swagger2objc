@@ -38,7 +38,6 @@ module Swagger2objc
         ignore_category = [] if ignore_category.nil?
         exclude_service_category = Swagger2objc::Configure.config['exclude_service_category']
         exclude_path = Swagger2objc::Configure.config['exclude_path']
-        puts 'exclude_path : ' + exclude_path.to_s
         exclude_service_category = [] if exclude_service_category.nil?
         merge_category_into_server = Swagger2objc::Configure.config['merge_category_into_server']
         merge_category_into_server = {} if merge_category_into_server.nil?
@@ -72,14 +71,14 @@ module Swagger2objc
               next if ignore_category.include?(category)
               next if path.include?('/inner/')
 
+              exclude_category = exclude_service_category[@name]
+              next if exclude_category && exclude_category.include?(category)
+
               # #合并所有XXX到一个类别中
               merge_category = merge_category_into_server[name]
               category = merge_category if merge_category
               # 有only,则只解析only列表中的
               next if @only && !@only.include?(category)
-
-              exclude_category = exclude_service_category[@name]
-              next if exclude_category && exclude_category.include?(category)
 
               # get/ post 大写
               operation_hash['method'] = method.upcase
@@ -94,6 +93,7 @@ module Swagger2objc
               operation_hash['service'] = service
               # 某个请求称之为operation
               operation = Swagger2objc::Struct::Operation.new(operation_hash)
+              next if operation.deprecated
 
               operation.path = service + operation.path if category != 'Collector'
               next if exclude_path && exclude_path.include?(operation.path)

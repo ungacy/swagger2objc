@@ -81,6 +81,9 @@ exclude_service_category:
  conference:
   - Room
   - Board
+ material:
+  - LocationManager
+  - LocationCard
 exclude_path:
   - /trade/callback/alipay
   - /trade/callback/wxpay
