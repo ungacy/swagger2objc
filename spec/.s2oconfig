@@ -68,6 +68,7 @@ ignore_service:
  - web
  - notice
  - menkor
+ - umbrella
 ignore_category:
  - Sender
  - Inner
@@ -78,17 +79,43 @@ exclude_service_category:
  announcement:
   - AnnouncementTask
   - MyTask
- conference:
-  - Room
-  - Board
+ chat:
+  - Notify
  material:
-  - LocationManager
+  # - LocationManager
   - LocationCard
+  - Guest
+  - Dimension
+ life:
+  - ReportForm
+  - Member
+  - LifeSuperid
+  - Member
+ conference:
+  - Conference
+  - Board
+ affair:
+  - Vip
+  - Auth
+ order:
+  - MenkorCoin
+ user:
+  - IdentityAudit
+ target:
+  - Summary
+  - Progress
+  - TargetRelation
 exclude_path:
   - /trade/callback/alipay
   - /trade/callback/wxpay
   - /trade/callback/chinapay
   - /affair/notice/users
+  - /trade/order/download_alliance_deals
+  - /trade/order/download_deals
+  - /trade/order/download_deals_with_child
+  - /trade/order/download_summary_list
+  - /announcement/role/relate
+  - /user/api/device/front-upload
 specific_name_for_path:
   /trade/fund/transfer: TradeFundTransfer
   /task/task/ann_task_list: TaskAnnTaskList
@@ -109,6 +136,10 @@ add_property:
  PageView:
    resourceJson:
      description: 脚本添加,存储资源字典的json数据
+     type: string
+ SimpleRoleVO:
+   userName:
+     description: 脚本添加,存储用户姓名
      type: string
 path_map:
 category_map:

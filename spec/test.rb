@@ -21,21 +21,7 @@ Swagger2objc::Parser.new(base_uri, path)
 # {"name":"audit","location":"/audit/swagger.json","swaggerVersion":"2.0"}
 # ]
 
-# name = 'web'
-# only = [name]
-# base_uri = 'http://192.168.1.63:19999'
-# path = '/v2/api-docs'
-# Swagger2objc::Parser.new(base_uri, path, only, name)
-
-# name = 'fund'
-# only = [name]
-# base_uri = 'http://192.168.1.168:19999'
-# path = '/v2/api-docs'
-# Swagger2objc::Parser.new(base_uri, path, only, name)
-#
-
-# name = 'collector'
-# only = [name]
-# base_uri = 'http://superid.org:8889'
-# path = '/v2/api-docs'
-# Swagger2objc::Parser.new(base_uri, path, only, name)
+only = ['workflow']
+base_uri = 'https://api.superid.org:1443'
+path = '/services'
+Swagger2objc::Parser.new(base_uri, path, only)

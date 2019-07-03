@@ -94,8 +94,9 @@ module Swagger2objc
       class_prefix + result
     end
 
-    def self.all_ref_of_ref(refs, definitions)
+    def self.all_ref_of_ref(refs, definitions, exclude = nil)
       all_ref = refs.dup
+      model_in_properties = Set.new
       refs.each do |ref|
         model = definitions[ref]
         next if model.nil?
@@ -127,13 +128,20 @@ module Swagger2objc
           end
           if result != ''
             if !all_ref.include?(result)
-              all_ref += all_ref_of_ref([result], definitions)
+              if exclude && exclude.include?(result)
+              else
+                model_in_properties << result
+              end
+
             else
               all_ref << result
             end
 
           end
         end
+      end
+      if model_in_properties.count > 0
+        all_ref += all_ref_of_ref(model_in_properties.to_a, definitions, refs)
       end
       all_ref
     end
