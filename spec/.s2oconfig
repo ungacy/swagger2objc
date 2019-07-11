@@ -143,6 +143,8 @@ add_property:
      type: string
 path_map:
 category_map:
+service_priority:
+ - feed
 service_prefix:
  /menkor: Menkor
  /collector: Collector

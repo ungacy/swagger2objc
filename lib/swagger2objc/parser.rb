@@ -41,10 +41,24 @@ module Swagger2objc
     def all_service
       ignore_service = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_SERVICE]
       replace_service = Swagger2objc::Configure.config['replace_service']
+      service_priority = Swagger2objc::Configure.config['service_priority']
       replace_service = {} if replace_service.nil?
       client = Swagger2objc::Client.new(@base_uri + @path)
       services = client.object_from_uri
-      services.each do |service_hash|
+
+      sort = services.dup
+      if service_priority
+        services.each do |service_hash|
+          name = service_hash['name']
+          if service_priority.include?(name)
+            sort.delete(service_hash)
+            sort.insert(0, service_hash)
+          end
+        end
+      end
+
+
+      sort.each do |service_hash|
         name = service_hash['name']
         next if ignore_service.include?(name)
         next if @only && !@only.include?(name)
