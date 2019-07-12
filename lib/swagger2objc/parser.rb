@@ -57,7 +57,6 @@ module Swagger2objc
         end
       end
 
-
       sort.each do |service_hash|
         name = service_hash['name']
         next if ignore_service.include?(name)
