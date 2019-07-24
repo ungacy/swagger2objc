@@ -72,6 +72,10 @@ module Swagger2objc
         info << "*/\n"
 
         avoid = Swagger2objc::Configure.config[Swagger2objc::Config::AVOID]
+        circular_dependency = Swagger2objc::Configure.config['circular_dependency']
+
+        at_class = circular_dependency[model.id]
+        puts 'model.id : ' + at_class.to_s if at_class
 
         if @format.nil? || format == ''
           puts @ref
@@ -111,6 +115,9 @@ module Swagger2objc
                 info.sub!("{#{type}}", "[#{class_name}]")
               else
                 new_import = "#import \"#{class_name}.h\"\n"
+                if at_class && at_class.include?(@format)
+                  new_import = "@class #{class_name};\n"
+                end
                 import << new_import if format != model.id && !import.include?(new_import)
                 info << "@property (nonatomic, strong, nullable) NSArray<#{class_name} *> *#{format_name};\n"
                 class_map[name] = class_name
@@ -118,6 +125,9 @@ module Swagger2objc
               end
             else
               new_import = "#import \"#{class_name}.h\"\n"
+              if at_class && at_class.include?(@format)
+                new_import = "@class #{class_name};\n"
+              end
               import << new_import if format != model.id && !import.include?(new_import)
               info.sub!("{#{type}}", class_name)
               info << "@property (nonatomic, strong, nullable) #{class_name} *#{format_name};\n"

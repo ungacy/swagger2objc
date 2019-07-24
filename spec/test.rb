@@ -3,9 +3,9 @@ require 'swagger2objc'
 
 # 全服务更新
 
-base_uri = 'https://api.superid.org:1443'
-path = '/services'
-Swagger2objc::Parser.new(base_uri, path)
+# base_uri = 'https://api.superid.org:1443'
+# path = '/services'
+# Swagger2objc::Parser.new(base_uri, path)
 
 # 单服务更新
 #

@@ -69,6 +69,7 @@ ignore_service:
  - notice
  - menkor
  - umbrella
+ - trade
 ignore_category:
  - Sender
  - Inner
@@ -86,6 +87,7 @@ exclude_service_category:
   - LocationCard
   - Guest
   - Dimension
+  - Putaway
  life:
   - ReportForm
   - Member
@@ -97,30 +99,45 @@ exclude_service_category:
  affair:
   - Vip
   - Auth
+  - Comment
+  - Moments
  order:
+  - Order
   - MenkorCoin
+  - InternalDeal
  user:
   - IdentityAudit
  target:
   - Summary
   - Progress
   - TargetRelation
+ lottery:
+  - RandomRateLottery
+  - RandomLottery
+ record:
+  - RoleOperation
+  - Feedback
+ workflow:
+  - Task
+  - Application
+  - Material
+  - CommonMaterial
+  - Umbrella
+  - Education
 exclude_path:
-  - /trade/callback/alipay
-  - /trade/callback/wxpay
-  - /trade/callback/chinapay
   - /affair/notice/users
-  - /trade/order/download_alliance_deals
-  - /trade/order/download_deals
-  - /trade/order/download_deals_with_child
-  - /trade/order/download_summary_list
+  - /order/order/download_alliance_deals
+  - /order/order/download_deals
+  - /order/order/download_deals_with_child
+  - /order/order/download_summary_list
   - /announcement/role/relate
   - /user/api/device/front-upload
+  - /affair/space/moment/create
 specific_name_for_path:
-  /trade/fund/transfer: TradeFundTransfer
   /task/task/ann_task_list: TaskAnnTaskList
   /target/demand/{targetId}: DemandList
   /announcement/video/get: AnnouncementVideoQuery
+  /feed/moments/{momentId}: MomentsQuery
 add_property:
  AffairInfo:
   rolePermission:
@@ -143,6 +160,9 @@ add_property:
      type: string
 path_map:
 category_map:
+circular_dependency:
+ NodeVo:
+  - ModelVo
 service_priority:
  - feed
 service_prefix:
@@ -160,7 +180,6 @@ merge_category_into_server:
   material: Material
   data-access: DataAccess
   fund: Fund
-  trade: Trade
   menkor: Menkor
   file: File
   task: Task
