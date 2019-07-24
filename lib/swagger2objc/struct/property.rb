@@ -75,7 +75,7 @@ module Swagger2objc
         circular_dependency = Swagger2objc::Configure.config['circular_dependency']
 
         at_class = circular_dependency[model.id]
-        #puts 'model.id : ' + at_class.to_s if at_class
+        # puts 'model.id : ' + at_class.to_s if at_class
 
         if @format.nil? || format == ''
           puts @ref

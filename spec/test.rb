@@ -21,7 +21,7 @@ require 'swagger2objc'
 # {"name":"audit","location":"/audit/swagger.json","swaggerVersion":"2.0"}
 # ]
 
-only = ['workflow']
+only = ['material']
 base_uri = 'https://api.superid.org:1443'
 path = '/services'
 Swagger2objc::Parser.new(base_uri, path, only)

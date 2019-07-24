@@ -70,6 +70,7 @@ ignore_service:
  - menkor
  - umbrella
  - trade
+ - demand
 ignore_category:
  - Sender
  - Inner
@@ -133,6 +134,11 @@ exclude_path:
   - /announcement/role/relate
   - /user/api/device/front-upload
   - /affair/space/moment/create
+  - /order/deal/download_deals
+  - /order/deal/download_deals_with_child
+  - /order/deal/download_alliance_deals
+exclude_path_prefix:
+  - /material/rent
 specific_name_for_path:
   /task/task/ann_task_list: TaskAnnTaskList
   /target/demand/{targetId}: DemandList
@@ -176,6 +182,7 @@ service_prefix:
  /live: Live
  /lottery: Lottery
  /version: Version
+ /demand: Demand
 merge_category_into_server:
   material: Material
   data-access: DataAccess

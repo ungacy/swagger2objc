@@ -32,12 +32,11 @@ module Swagger2objc
 
       def setup
         router_map = Swagger2objc::Configure.config[Swagger2objc::Config::ROUTER]
-        path_map = Swagger2objc::Configure.config[Swagger2objc::Config::PATH_MAP]
-        path_map = {} if path_map.nil?
         ignore_category = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_CATEGORY]
         ignore_category = [] if ignore_category.nil?
         exclude_service_category = Swagger2objc::Configure.config['exclude_service_category']
         exclude_path = Swagger2objc::Configure.config['exclude_path']
+        exclude_path_prefix = Swagger2objc::Configure.config['exclude_path_prefix']
         exclude_service_category = [] if exclude_service_category.nil?
         merge_category_into_server = Swagger2objc::Configure.config['merge_category_into_server']
         merge_category_into_server = {} if merge_category_into_server.nil?
@@ -98,8 +97,14 @@ module Swagger2objc
               operation.path = service + operation.path if category != 'Collector'
               next if exclude_path && exclude_path.include?(operation.path)
 
-              mapped_path = path_map[operation.path]
-              next if mapped_path
+              skip = false
+              exclude_path_prefix.each do |prefix|
+                if operation.path.start_with?(prefix)
+                  # puts operation.path + '<---->' + prefix
+                  skip = true
+                end
+              end
+              next if skip
 
               operation.add_subfix = add_subfix
               controller = controller_hash[controller_key]
