@@ -84,7 +84,7 @@ exclude_service_category:
  chat:
   - Notify
  material:
-  # - LocationManager
+  - LocationManager
   - LocationCard
   - Guest
   - Dimension
@@ -123,7 +123,6 @@ exclude_service_category:
   - Application
   - Material
   - CommonMaterial
-  - Umbrella
   - Education
 exclude_path:
   - /affair/notice/users
@@ -134,11 +133,19 @@ exclude_path:
   - /announcement/role/relate
   - /user/api/device/front-upload
   - /affair/space/moment/create
-  - /order/deal/download_deals
-  - /order/deal/download_deals_with_child
-  - /order/deal/download_alliance_deals
 exclude_path_prefix:
   - /material/rent
+  - /order/deal/download
+  - /order/material/instance
+  - /order/view/deposit
+  - /workflow/application
+  - /life/menkor/guest
+  - /lottery/create
+  - /lottery/random
+  - /order/rent
+include_path:
+  - /material/locationManager/get_size
+  - /material/locationManager/list_by_type
 specific_name_for_path:
   /task/task/ann_task_list: TaskAnnTaskList
   /target/demand/{targetId}: DemandList
@@ -164,7 +171,6 @@ add_property:
    userName:
      description: 脚本添加,存储用户姓名
      type: string
-path_map:
 category_map:
 circular_dependency:
  NodeVo:

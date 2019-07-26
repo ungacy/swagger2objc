@@ -36,6 +36,7 @@ module Swagger2objc
         ignore_category = [] if ignore_category.nil?
         exclude_service_category = Swagger2objc::Configure.config['exclude_service_category']
         exclude_path = Swagger2objc::Configure.config['exclude_path']
+        include_path = Swagger2objc::Configure.config['include_path']
         exclude_path_prefix = Swagger2objc::Configure.config['exclude_path_prefix']
         exclude_service_category = [] if exclude_service_category.nil?
         merge_category_into_server = Swagger2objc::Configure.config['merge_category_into_server']
@@ -71,7 +72,8 @@ module Swagger2objc
               next if path.include?('/inner/')
 
               exclude_category = exclude_service_category[@name]
-              next if exclude_category && exclude_category.include?(category)
+
+              origin_category = category.dup
 
               # #合并所有XXX到一个类别中
               merge_category = merge_category_into_server[name]
@@ -95,16 +97,20 @@ module Swagger2objc
               next if operation.deprecated
 
               operation.path = service + operation.path if category != 'Collector'
-              next if exclude_path && exclude_path.include?(operation.path)
 
-              skip = false
-              exclude_path_prefix.each do |prefix|
-                if operation.path.start_with?(prefix)
-                  # puts operation.path + '<---->' + prefix
-                  skip = true
+              unless include_path.include?(operation.path)
+                next if exclude_category && exclude_category.include?(origin_category)
+                next if exclude_path && exclude_path.include?(operation.path)
+
+                skip = false
+                exclude_path_prefix.each do |prefix|
+                  if operation.path.start_with?(prefix)
+                    # puts operation.path + '<---->' + prefix
+                    skip = true
+                  end
                 end
+                next if skip
               end
-              next if skip
 
               operation.add_subfix = add_subfix
               controller = controller_hash[controller_key]
