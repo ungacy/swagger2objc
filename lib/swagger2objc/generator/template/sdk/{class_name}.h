@@ -9,7 +9,7 @@
 {import}#import <Foundation/Foundation.h>
 {comment}
 @interface {class_name} : NSObject
-{properties}{response_class_header}
+{properties}
 - (NSDictionary *__nonnull)srk_config;
 
 @end

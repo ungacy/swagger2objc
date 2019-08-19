@@ -50,8 +50,8 @@ module Swagger2objc
           author: author,
           container_mapping: container_mapping,
           property_mapping: property_mapping,
-          category: category,
-          primary_key: primary_key
+          category: category
+          # primary_key: primary_key
         }
         TemplateReplacer.replace(replacement, Swagger2objc::Config::MODEL)
       end

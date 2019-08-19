@@ -36,7 +36,11 @@ module Swagger2objc
       end
 
       def custom_property_map(hash)
-        return '' if hash.count == 0
+        count = 0
+        hash.each do |key, _value|
+          count += 1 unless key.start_with?('X_SIMU_')
+        end
+        return '' if count == 0
 
         template = "\n/**
  Custom property mapper.\n*/
@@ -46,7 +50,9 @@ module Swagger2objc
 }\n"
         line = ''
         hash.each do |key, value|
-          line << "        @\"#{key}\": @\"#{value}\",\n"
+          unless key.start_with?('X_SIMU_')
+            line << "        @\"#{key}\": @\"#{value}\",\n"
+          end
         end
         template.sub('{line}', line)
       end

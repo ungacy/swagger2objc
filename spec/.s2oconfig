@@ -1,6 +1,7 @@
 author: Ye Tao
 company: SiMu
 project: Super Id
+simple: 1
 class_prefix:
  model: SI
  sdk: SRK

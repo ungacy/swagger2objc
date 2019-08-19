@@ -9,7 +9,7 @@
 #import "{class_name}.h"
 
 @implementation {class_name}
-{container_mapping}{property_mapping}{response_class_body}
+{container_mapping}{property_mapping}
 - (NSDictionary *)srk_config {
 {srk_config}
 }

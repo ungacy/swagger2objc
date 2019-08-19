@@ -9,5 +9,5 @@
 #import "{class_name}.h"
 
 @implementation {class_name}
-{container_mapping}{property_mapping}{primary_key}
+{container_mapping}{property_mapping}
 @end
