@@ -76,7 +76,7 @@ module Swagger2objc
         result.sub!('Message', '')
         result = 'Chat' + result
       end
-      if root_path == '/affair' && !result.start_with?('Affair')
+      if root_path == '/affair' && !result.start_with?('Affair') && !result.downcase.start_with?(category.downcase)
         result = category + result
         result.sub!('MemberMember', 'Member')
       end
