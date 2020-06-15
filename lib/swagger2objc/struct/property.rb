@@ -27,8 +27,10 @@ module Swagger2objc
 
         if @type == 'List' || @type == 'Array' || @type == 'array'
           @format = items['type']
-          @format = items['format'] if @format == 'integer' || @format == 'number'
-          @format = items['$ref'].sub('#/definitions/', '') if @format.nil?
+          if items['format']
+            @format = items['format'] if @format == 'integer' || @format == 'number'
+          end
+          @format = items['$ref'].sub('#/definitions/', '') if @format.nil? && items['$ref']
         elsif @type == 'integer'
           @format = 'int64' if @format.nil?
         elsif @type == 'number'
@@ -78,6 +80,7 @@ module Swagger2objc
         # puts 'model.id : ' + at_class.to_s if at_class
 
         if @format.nil? || format == ''
+          puts "model : #{model.id}"
           puts @ref
           puts "format : #{name}"
           raise "format : #{name}"

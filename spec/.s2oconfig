@@ -1,7 +1,6 @@
 author: Ye Tao
 company: SiMu
 project: Super Id
-simple: 1
 class_prefix:
  model: SI
  sdk: SRK
@@ -22,6 +21,10 @@ Dupicated_Model:
     Instance: OperationLogInstance
   /life:
     ProductPlanItem: ProductPlanFormItem
+  /feed:
+    MultiMediaVO: MomentMultiMediaVO
+  /user:
+    ItemVO: UserServiceItem
 avoid:
   id: id_p
   description: desc
@@ -42,6 +45,7 @@ avoid:
   X-SIMU-ResourceId: X_SIMU_ResourceId
   X-SIMU-AllianceId: X_SIMU_AllianceId
   X-SIMU-BelongedType: X_SIMU_BelongedType
+  X-SIMU-BelongedId: X_SIMU_BelongedId
 rename:
 primary:
   SIFileItem:
@@ -68,10 +72,10 @@ ignore_service:
  - resource
  - web
  - notice
- - menkor
  - umbrella
  - trade
- - demand
+ - menkorweb
+ - workbench
 ignore_category:
  - Sender
  - Inner
@@ -79,10 +83,13 @@ ignore_category:
  - Test
  - Temp
 exclude_service_category:
+ msg:
+  - UserMessage
  announcement:
   - AnnouncementTask
   - MyTask
  chat:
+  - Mobile
   - Notify
  material:
   - LocationManager
@@ -90,6 +97,8 @@ exclude_service_category:
   - Guest
   - Dimension
   - Putaway
+  - MaterialOperation
+  - ReportForm
  life:
   - ReportForm
   - Member
@@ -98,21 +107,25 @@ exclude_service_category:
  conference:
   - Conference
   - Board
+  - BusinessRoom
  affair:
   - Vip
   - Auth
   - Comment
   - Moments
+  - PersonalInfo
  order:
   - Order
   - MenkorCoin
   - InternalDeal
+  - OrderAdapter
+  - LifeOrder
  user:
-  - IdentityAudit
  target:
   - Summary
   - Progress
   - TargetRelation
+  - Group
  lottery:
   - RandomRateLottery
   - RandomLottery
@@ -125,6 +138,20 @@ exclude_service_category:
   - Material
   - CommonMaterial
   - Education
+ sales:
+  - Manger
+  - Grow
+ education:
+  - OnlineCourseGuest
+  - Homework
+  - Personal
+  - Defense
+  - ServiceRoleGroup
+  - PaperCourse
+  - Institute
+  - CourseRelation
+  - OnlineCourse
+  - Course
 exclude_path:
   - /affair/notice/users
   - /order/order/download_alliance_deals
@@ -134,9 +161,641 @@ exclude_path:
   - /announcement/role/relate
   - /user/api/device/front-upload
   - /affair/space/moment/create
+  - /demand/candidate/list
+  - /demand/apply
+  - /demand/template/append
+  - /demand/workflow/list
+  - /permission/api/role/check_detail/permission/{operatedRoleId}
+  - /announcement/title/edit
+  - /task/task/quick_create
+  - /user/api/cancel/star/contact
+  - /user/api/star/contact
+  - /affair/affair/menkor/school/info
+  - /affair/role/charge/list
+  - /affair/role/pool/list
+  - /material/warehouse/operation/detail
+  - /task/my/mobile/list
+  - /task/my/list
+  - /target/api/user/records
+  - /chat/api/recent/recent_chat_by_key
+  - /fund/account/usable_lottery_send_accounts
+  - /affair/affair/friend/list
+  - /affair/affair/guest/info
+  - /affair/affair/partner/affair/list
+  - /affair/affair/search/contacts
+  - /affair/affair/user/partner-affair
+  - /affair/role/affair/list
+  - /affair/role/get/info/batch
+  - /affair/role/star/contact
+  - /affair/role/star/contact/list
+  - /affair/space/contacts
+  - /lottery/shake/again
+  - /life/order/modify_order_seat
+  - /material/warehouse/my/materials
+  - /material/warehouse/overview/affair
+  - /material/warehouse/overview/role
+  - /announcement/create_conference
+  - /workflow/avatar/list
+  - /workflow/detail/time
+  - /workflow/guest/service
+  - /workflow/optional_role_list
+  - /workflow/template/service_list
+  - /chat/api/message/batch_send_message
+  - /target/api/mold
+  - /education/activity/edit/auto-create
+  - /education/homework/batch/create
+  - /education/homework/batch/download-task
+  - /order/view/pay/balance
+  - /order/view/pay/scan
+  - /order/view/pay/scan/code
+  - /order/view/pay/menkor
+  - /target/api/guest/detail
+  - /material/warehouse/name
+  - /material/seat/modify_order_seat
+  - /material/seat/get_Simple_seat
+  - /live/room/get_cur_user_num
+  - /live/room/get_cur_user_nums
+  - /affair/affair/modify/ontime
+  - /order/red_packet/send_group
+  - /order/red_packet/assign_packet_info
+  - /fund/account/payment_info
+  - /fund/account/role/default_menkor_accounts
+  - /fund/account/role/detail_menkor_accounts
+  - /fund/account/update_payment
+  - /affair/affair/alliance/roles/without_stu
+  - /affair/affair/partner/affair/list/v2
+  - /affair/affair/personal/popularity
+  - /affair/affair/personal/visit
+  - /affair/affair/space/list
+  - /affair/member/invite/unregistered/friends
+  - /affair/member/specify/type
+  - /affair/affair/enter/workbench
+  - /affair/affair/exit/workbench
+  - /order/deal/deals/child
+  - /order/deal/material_deal_detail
+  - /order/order/deals/child
+  - /order/order/red_envelope_history/child
+  - /order/order/deals
+  - /order/order/summary/alliance
+  - /order/deal/red_envelope_history/child
+  - /order/order/flow_report
+  - /order/order/red_envelope_history
+  - /order/order/alliance_deals
+  - /order/deal/fund_order_detail
+  - /order/deal/red_envelope_order_detail
+  - /order/deal/summary/sum
+  - /order/deal/summary/list
+  - /order/deal/summary/sum
+  - /order/deal/summary/alliance
+  - /order/deal/first_deal_time
+  - /order/order/red_envelope_order_detail
+  - /order/red_packet/red_packet_detail
+  - /order/material/receive_instance
+  - /order/material/handle_send_back
+  - /order/material/view_reject_send_back
+  - /order/material/send_back_material
+  - /order/material/view_send_back
+  - /order/material/receive_material
+  - /order/material/send_back_instance
+  - /order/material/material_order
+  - /order/material/send_material
+  - /order/view/pay/code
+  - /order/view/charge/app
+  - /order/view/charge/code
+  - /order/view/pay/page
+  - /order/view/charge/page
+  - /order/view/customer/balance
+  - /order/view/code/finish
+  - /order/view/customer/fund
+  - /order/view/pay/app
+  - /order/view/pay/cash
+  - /order/material/application_send_info
+  - /order/material/transfer_and_apply
+  - /order/fund/application/result
+  - /order/fund/apply
+  - /order/fund/vip_order
+  - /chat/api/recent/mark_unread
+  - /chat/api/message/recentAll
+  - /chat/api/chat_group_member/user_members
+  - /chat/api/chatGroup/chatGroupInfo
+  - /chat/api/chatGroup/announcementChatGroups
+  - /msg/todo-message/role/relation
+  - /msg/todo-message/handle
+  - /msg/todo-message/audit/unhandled/exist
+  - /file/api/remove-folder
+  - /file/api/role/records
+  - /file/api/edu-service-paper
+  - /file/api/announcement-submit
+  - /file/api/public-files
+  - /file/api/rm-OSS-private-files
+  - /file/api/announcement-token
+  - /file/api/user-id-card-token
+  - /file/api/app-work
+  - /file/api/user-avatar-token
+  - /file/api/add-folders
+  - /file/api/batch-download-directly
+  - /file/api/chat-token
+  - /file/api/menkor-token
+  - /file/api/navigation
+  - /file/api/entry-avatar-token
+  - /file/api/user/records
+  - /file/api/affair-auth-token
+  - /file/api/mold-image-token
+  - /file/api/add-folders/web
+  - /file/api/addLog
+  - /file/api/material
+  - /file/api/fileSet/my/list
+  - /file/api/batch/all-children-files
+  - /file/api/fileSet/comparePublic
+  - /file/api/all-children-folders
+  - /file/api/alliance-file-size
+  - /file/api/app-announcement-pri
+  - /file/api/app-work-pri
+  - /target/api/roles/edit
+  - /target/api/state/invalid/check
+  - /target/api/delete
+  - /target/api/affair/list
+  - /target/api/state
+  - /target/api/role/records
+  - /target/api/state/change
+  - /target/demand/create
+  - /target/demand/{targetId}
+  - /target/api/relation/apply
+  - /target/api/relation/cancel
+  - /target/api/relation/exit
+  - /target/api/relation/apply/detail
+  - /collector/option
+  - /collector/mobile_option
+  - /collector/peekOption
+  - /collector/peek
+  - /user/api/modify-tags
+  - /user/api/modify-auth
+  - /user/api/device/list
+  - /user/api/verify-superid
+  - /user/api/star-service
+  - /user/api/auth-info
+  - /user/api/external/email/binding
+  - /user/api/user-contacts
+  - /user/api/external/valid-username
+  - /user/api/star-service
+  - /user/api/external/valid-account
+  - /user/api/my/service-item/sign-not-see
+  - /user/api/service-grid
+  - /user/api/my/grow-service
+  - /user/api/modify-public/v2
+  - /user/api/device/offline
+  - /user/api/service-grid
+  - /user/api/external/scan-confirm
+  - /user/api/external/binding-code-check
+  - /user/api/external/auth-infos
+  - /user/api/external/login-confirm
+  - /user/api/my/service-item/details
+  - /user/api/show-star
+  - /life/order/print/info
+  - /life/order/takeout
+  - /life/order/user/ongoing
+  - /life/order/subscribe
+  - /life/order/comment/reply
+  - /life/order/dishes
+  - /life/order/role/list
+  - /life/order/comment
+  - /life/order/seat/info
+  - /life/order/user/auth
+  - /question/paper/submit
+  - /question/paper/statistic
+  - /question/guest/vote/statistic
+  - /question/paper/save
+  - /question/paper/create
+  - /forum/menkor/ann/live/get
+  - /forum/menkor/vod/sts/playToken
+  - /forum/menkor/guest/ann/list
+  - /forum/menkor/guest/video_ann/list
+  - /forum/menkor/guest/theme_ann/list
+  - /forum/menkor/guest/vod/sts/playToken
+  - /forum/menkor/guest/live_ann/list
+  - /forum/superid/video_ann/save
+  - /forum/superid/live_ann/save
+  - /forum/superid/ann/search-inner
+  - /forum/superid/ann/search-outer
+  - /forum/superid/ann/comment/create
+  - /forum/superid/ann/live/show
+  - /forum/superid/ann/live/draft/save
+  - /forum/superid/live_ann/create
+  - /forum/superid/ann/dynamic/list
+  - /forum/superid/video_ann/dynamic/list
+  - /forum/superid/video_ann/create
+  - /forum/superid/ann/search-inner/rich
+  - /forum/superid/ann/children/list
+  - /forum/superid/affair/star
+  - /forum/superid/ann/comment/delete
+  - /forum/superid/ann/search-outer/rich
+  - /forum/superid/ann/comment/list
+  - /audit/config/modifyCriteria
+  - /audit/config/space/audit
+  - /audit/config/space/audit/info
+  - /audit/config/{operationId}/criteria
+  - /audit/config/addCriteria
+  - /audit/config/individual/audit
+  - /audit/config/individual/audit/v2
+  - /audit/config/criteria/existOngoingRecord
+  - /audit/chat/all_info
+  - /audit/config/individual/audit/info
+  - /audit/config/{roleId}/getAuditAffair
+  - /audit/config/modules
+  - /audit/config/individual/audit/info/v2
+  - /audit/config/{affairId}/{roleId}/all
+  - /audit/config/{affairId}/{moduleId}/info
+  - /audit/config/operations
+  - /audit/config/removeAuditor
+  - /audit/config/deleteCriteria
+  - /feed/moments/laud/list
+  - /feed/moments/medias
+  - /feed/moments/media/list
+  - /feed/guest/share
+  - /workflow/templates/category
+  - /workflow/templates/detail
+  - /workflow/record/my_service
+  - /workflow/list
+  - /workflow/create
+  - /workflow/education/thesis
+  - /workflow/update
+  - /workflow/feedback/setWorkflowId
+  - /workflow/nodes
+  - /workflow/overview
+  - /workflow/target/service_list
+  - /workflow/enable
+  - /workflow/delete
+  - /workflow/process/start
+  - /workflow/record/target
+  - /workflow/record/role
+  - /workflow/simple_detail
+  - /workflow/disable
+  - /workflow/check_name
+  - /workflow/content
+  - /workflow/category/list
+  - /workflow/detail
+  - /live/connect/light_weight/cancel_invite
+  - /live/callback/record/notify
+  - /live/room/layout/switch
+  - /live/callback/stream/notify
+  - /live/connect/switch_source
+  - /live/connect/light_weight/end
+  - /live/connect/ongoing/more
+  - /live/connect/light_weight/invite
+  - /live/connect/light_weight/enter
+  - /live/connect/search
+  - /task/view/role/list
+  - /task/task/modify_assistant
+  - /task/my/modify_read_state
+  - /task/task/affair_create
+  - /task/view/order_view
+  - /task/task/target/list
+  - /task/task/get_task_permission
+  - /task/task/unread_count
+  - /task/view/ann_view
+  - /task/task/modify_print
+  - /task/task/check_role
+  - /task/task/move_target
+  - /task/task/record_operator
+  - /task/task/handle/audit
+  - /task/task/batch_commit
+  - /task/task/remove_assistant
+  - /task/task/unread_serve_count
+  - /task/view/serve
+  - /announcement/modify_state
+  - /announcement/video/move
+  - /announcement/video/list
+  - /announcement/video/get
+  - /announcement/video/move-candidate
+  - /announcement/operation/modify
+  - /announcement/operation/current
+  - /announcement/lottery/add_authority
+  - /announcement/lottery/add_guest_role
+  - /announcement/quiz/add
+  - /announcement/quiz/edit
+  - /announcement/quiz/list
+  - /announcement/quiz/modify
+  - /announcement/quiz/move
+  - /announcement/quiz/batch_add
+  - /announcement/quiz/delete
+  - /announcement/guest/public
+  - /announcement/guest/detail
+  - /announcement/my/list
+  - /announcement/member/all_guest
+  - /announcement/member/count
+  - /announcement/member/guest_affair
+  - /announcement/member/receiver_info
+  - /announcement/member/search_tags
+  - /announcement/member/invite
+  - /announcement/member/main_roles
+  - /announcement/member/ann_all_members
+  - /announcement/member/outside_tree
+  - /announcement/member/affair_roles
+  - /announcement/live/show
+  - /announcement/reuse/details
+  - /announcement/reuse/search
+  - /announcement/belong_affair_info
+  - /announcement/overview_public
+  - /announcement/modify_priority
+  - /announcement/delete
+  - /announcement/payment/excel/export
+  - /announcement/simple_inner_mobile
+  - /announcement/search_outer
+  - /announcement/rich_outer_mobile
+  - /announcement/rich_inner_mobile
+  - /announcement/all_version
+  - /announcement/move_target
+  - /announcement/fb
+  - /announcement/param_des
+  - /announcement/forum/member/list
+  - /announcement/pending/simple_list
+  - /announcement/pending/delete
+  - /announcement/pending/rich_list
+  - /announcement/pending/list
+  - /permission/api/identity/{allianceId}/{identityId}
+  - /permission/api/identity/{allianceId}/{identityId}
+  - /material/instance/search_material
+  - /material/template/{id}/image
+  - /material/seat/amount_state
+  - /material/instance/instances/amount
+  - /material/template/pack/list
+  - /material/comment-reply/publish
+  - /material/warehouse/public_without_role
+  - /material/compound/modify/compound_template
+  - /material/warehouse/overview/set_default
+  - /material/template/edit-mark
+  - /material/instance/instances
+  - /material/warehouse/own_warehouse
+  - /material/comment/publish
+  - /material/warehouse/overview/type/materials
+  - /material/instance/present_state
+  - /material/instance/recommend
+  - /material/instance/modify
+  - /material/template/copy
+  - /material/template/invalid_info
+  - /material/rule/detail
+  - /material/comment/evaluate/publish
+  - /material/instance/public
+  - /material/instance/usable
+  - /material/template/list
+  - /material/instance/operation_dynamics
+  - /material/rule/delete
+  - /material/compound/list
+  - /material/warehouse/logs
+  - /material/compound/all/need
+  - /material/rule/list
+  - /material/warehouse/logs_web
+  - /material/comment/evaluate/all
+  - /material/rule/modify
+  - /material/template/out_alliance/search
+  - /material/instance/detail
+  - /material/warehouse/logs/produce_detail
+  - /material/compound/template/has_instance
+  - /material/warehouse/can_manage_warehouse
+  - /material/virtual_warehouse/seats/timeline_view
+  - /material/warehouse/add_scene_warehouse
+  - /material/instance/material_history
+  - /material/compound/material/template_detail
+  - /material/warehouse/add
+  - /material/compound/create/compound_template
+  - /material/comment-reply/all
+  - /material/warehouse/public
+  - /material/comment-reply/cancel_praise
+  - /material/rule/needs
+  - /material/template/invalid
+  - /material/compound/material/instance/detail
+  - /material/rule/can_edit
+  - /material/warehouse/edit/location
+  - /material/comment/permission
+  - /material/template/detail
+  - /material/instance/price/range
+  - /material/compound/template/delete
+  - /material/template/plan/candidates
+  - /material/instance/append
+  - /material/template/obtain
+  - /material/template/price/edit
+  - /material/template/usable
+  - /material/template/out_alliance/get_list
+  - /material/template/logs
+  - /material/template/recover
+  - /material/template/in_alliance/more
+  - /material/warehouse/role/overview/type/warehouse
+  - /material/virtual_warehouse/seats/list
+  - /material/comment-reply/evaluate/total
+  - /material/template/modify
+  - /material/warehouse/overview/type/warehouse
+  - /material/instance/can-apply
+  - /material/template/mark/all
+  - /material/warehouse/target/statistics
+  - /material/comment-reply/add_praise
+  - /material/template/delete_mark
+  - /material/warehouse/overview/warehouse_list
+  - /material/compound/unpack
+  - /material/warehouse/detail
+  - /material/template/price/fluctuation
+  - /material/warehouse/modifyName
+  - /material/template/rule/list
+  - /material/warehouse/logs_overview
+  - /material/compound/template/obtain
+  - /material/rule/list_for_warehouse
+  - /material/rule/add
+  - /material/comment/all
+  - /material/rule/product
+  - /material/template/delete
+  - /material/template/create/normal_template
+  - /material/compound/template/pack
+  - /material/compound/template/obtain_total_price
+  - /material/compound/material/detail
+  - /material/template/recommend
+  - /material/template/template_detail
+  - /material/warehouse/overview/type/materials/detail
+  - /material/template/in_alliance/get_list
+  - /material/template/operation_dynamics
+  - /material/template/update_mark
+  - /material/virtual_warehouse/seats/affair_default_info
+  - /lottery/shake/end
+  - /lottery/send_award
+  - /lottery/modify_shake
+  - /lottery/enter_random
+  - /lottery/modify_assign
+  - /lottery/re_send
+  - /lottery/query_deliver_status
+  - /lottery/shake/restart
+  - /lottery/delete
+  - /lottery/shake/query_team_members_score
+  - /lottery/shake/select_winners
+  - /lottery/shake/start
+  - /lottery/modify_random
+  - /lottery/shake/re_enter
+  - /data-access/access/{resourceType}/{resourceId}
+  - /affair/role/edit/public/type
+  - /affair/role/cards/senior/permission
+  - /affair/role/edit/public
+  - /affair/role/public/info
+  - /affair/role/cards
+  - /affair/role/lastView
+  - /affair/role/beInvitedUsername
+  - /affair/role/chatRole
+  - /affair/role/cards/detail
+  - /affair/alliance/certification/edit
+  - /affair/alliance/default
+  - /affair/alliance/add_certification
+  - /affair/alliance/verify/name
+  - /affair/alliance/valid_code
+  - /affair/alliance/create
+  - /affair/alliance/info
+  - /affair/alliance/edit/code
+  - /affair/alliance/disable
+  - /affair/alliance/avatar/{allianceId}
+  - /affair/alliance/info/simple
+  - /affair/alliance/user/simpleInfo
+  - /affair/alliance/list
+  - /affair/alliance/modify
+  - /affair/alliance/edit/name
+  - /affair/member/users
+  - /affair/member/cancel/guest/role
+  - /affair/member/card/info/v2
+  - /affair/member/candidates/alliance
+  - /affair/member/affairs/applying
+  - /affair/member/check/chat/member/v2
+  - /affair/member/history/users
+  - /affair/member/public/roles
+  - /affair/member/invite/menkor/info
+  - /affair/member/apply/contacts
+  - /affair/member/alliance/role/types
+  - /affair/member/reject
+  - /affair/member/add/menkor/contacts
+  - /affair/member/guest/role
+  - /affair/member/role/alliance/public
+  - /affair/member/agree
+  - /affair/member/director/card
+  - /affair/member/task/quick/create
+  - /affair/member/candidates
+  - /affair/notice/invitation/info
+  - /affair/alliance/member/search/all/user
+  - /affair/alliance/member/role/disable
+  - /affair/alliance/member/role/active
+  - /affair/mold/update
+  - /affair/mold/add
+  - /affair/mold/delete
+  - /affair/space/list
+  - /affair/personnel/employment/transfer
+  - /affair/personnel/role/resource/check
+  - /affair/share/email
+  - /affair/share/affair/info
+  - /affair/affair/check/disable
+  - /affair/affair/tree/candidate
+  - /affair/affair/edit/member/public
+  - /affair/affair/homepage/info
+  - /affair/affair/modify
+  - /affair/affair/move
+  - /affair/affair/mold
+  - /affair/affair/getTags
+  - /affair/affair/avatar/{affairId}
+  - /affair/affair/edit/role/public
+  - /affair/affair/search/name
+  - /affair/affair/menkor/high/school/info
+  - /affair/affair/modify/location
+  - /affair/affair/modify/telephone
+  - /affair/affair/affair/level
+  - /affair/affair/handle/move
+  - /affair/affair/disable
+  - /affair/affair/get/children
+  - /affair/affair/recommend
+  - /affair/affair/info/role
+  - /affair/affair/recover
+  - /affair/affair/search/tags
+  - /fund/pool/show_homepage
+  - /fund/account/usable_role_type_accounts
+  - /fund/pool/get_fund_pool
+  - /fund/account/affair/default_accounts
+  - /fund/pay/enable
+  - /fund/public
+  - /fund/pool/target/statistics
+  - /fund/account/affair/menkor
+  - /fund/account/role/menkor_accounts
+  - /fund/account/receive/default
+  - /fund/pool/my_fund
+  - /fund/account/defaults
+  - /fund/account/affair/app_id
+  - /fund/account/default/affair/role
+  - /fund/pool/role/admin_view
+  - /fund/account/usable_receive_list
+  - /material/template/obtain/latest
+  - /material/instance/batch/sku-stocks
+  - /material/template/template-by-keyword
+  - /material/template/charge/usable-templates
+  - /material/template/show/usable-templates
+  - /material/warehouse/detail_for_role
+  - /material/template/usable/new
+  - /material/template/name-check
+  - /material/instance/change-produce-composition
+  - /material/template/current/template_detail
+  - /material/warehouse/detailWithoutTemplates
+  - /material/instance/stocks
+  - /material/template/show/template-with-price
+  - /material/template/show/usable-templates/alliance-info
+  - /material/template/template-by-keyword/all
+  - /material/template/timer/template_detail
+  - /material/template/show/template-list
+  - /material/instance/sku-stocks
+  - /material/card/instances
+  - /conference/timer/check_timeout
+  - /conference/timer/update_video
+  - /sales/sales/guest/accept_invite
+  - /sales/sales/guest/inviter_info
+  - /file/api/wrap/record-list
+  - /file/api/folder/child-size
+  - /file/api/wrap/batch
+  - /file/api/wrap/delete-record
+  - /file/api/wrap/cancel
+  - /user/api/batch-handle-user-contacts
+  - /user/api/my/star-service/switch
+  - /user/api/my/service
+  - /user/api/my/star-service/judge
+  - /audit/material/templates
+  - /audit/todo-message/audit/unhandled/exist
+  - /audit/todo-message/unhandled/count
+  - /audit/todo-message/search
+  - /audit/material/create-template-info
+  - /audit/todo-message/list
+  - /audit/todo-message/role/relation
+  - /audit/todo-message/handle
+  - /workflow/auth/service
+  - /workflow/process/start
+  - /workflow/templates/category/v2
+  - /workflow/services/disabled
+  - /demand/do_nothing
+  - /announcement/operation/modify/cooperative
+  - /permission/api/identity/{allianceId}/{identityId}
+  - /permission/api/identity/{allianceId}/{identityId}
+  - /material/template/obtain/latest
+  - /material/instance/batch/sku-stocks
+  - /material/template/template-by-keyword
+  - /material/template/charge/usable-templates
+  - /material/template/show/usable-templates
+  - /material/warehouse/detail_for_role
+  - /material/template/usable/new
+  - /material/template/name-check
+  - /material/instance/change-produce-composition
+  - /material/template/current/template_detail
+  - /material/warehouse/detailWithoutTemplates
+  - /material/instance/stocks
+  - /material/template/show/template-with-price
+  - /material/template/show/usable-templates/alliance-info
+  - /material/template/template-by-keyword/all
+  - /material/template/timer/template_detail
+  - /material/template/show/template-list
+  - /material/instance/sku-stocks
+  - /material/card/instances
+  - /affair/space/mate/share
+  - /fund/account/accept_receive_list
 exclude_path_prefix:
+  - /menkor
   - /material/rent
   - /order/deal/download
+  - /order/order/download
+  - /fund/pool/download
   - /order/material/instance
   - /order/view/deposit
   - /workflow/application
@@ -144,9 +803,64 @@ exclude_path_prefix:
   - /lottery/create
   - /lottery/random
   - /order/rent
+  - /user/api/user-address
+  - /user/api/star-affair
+  - /workflow/process
+  - /life/takeout
+  - /material/stock
+  - /material/ann
+  - /recommend/material
+  - /material/charge
+  - /material/package
+  - /order/sale_strategy
+  - /material/social
+  - /affair/affair/colleague
+  - /affair/affair/menkor/schoolMate
+  - /material/seat_config
+  - /material/time_lock
+  - /order/h5
+  - /material/produce
+  - /affair/buz
+  - /material/sku
+  - /material/reuse
+  - /affair/product
 include_path:
   - /material/locationManager/get_size
   - /material/locationManager/list_by_type
+  - /conference/room/enter
+  - /conference/room/create
+  - /conference/room/chat_conference
+  - /conference/room/detail
+  - /workflow/process/start
+  - /workflow/process/list
+  - /workflow/process/detail/type
+  - /announcement/live/get
+  - /menkor/api/manager/notice/handle_review
+  - /menkor/api/manager/reward_info
+  - /order/deal/internal/summary/list
+  - /order/deal/internal/summary/sum
+  - /order/deal/internal/deals
+  - /workflow/life_services
+  - /order/material/instance/back/handle/audit
+  - /material/stock/adjust-log-detail
+  - /education/personal/list
+  - /education/relation/exit
+  - /education/relation/update
+  - /education/course/create
+  - /education/course/update
+  - /education/course/list
+  - /education/course/detail
+  - /education/course/unattended/list
+  - /education/homework/list
+  - /education/online/guest/course/announcement/comment_list
+  - /education/activity/getCandidateNumber
+  - /education/personal/candidate
+  - /education/relation/handle/apply
+  - /education/relation/apply/detail
+  - /education/homework/delete
+  - /education/homework/submit
+  - /education/homework/task/list
+  - /education/online/guest/course/announcement/detail
 specific_name_for_path:
   /task/task/ann_task_list: TaskAnnTaskList
   /target/demand/{targetId}: DemandList
@@ -201,8 +915,8 @@ merge_category_into_server:
   audit: Audit
   workflow: Workflow
   life: Life
-  education: Education
   question: Question
   live: Live
   lottery: Lottery
   version: Version
+  sales: sales

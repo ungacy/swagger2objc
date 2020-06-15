@@ -24,4 +24,4 @@ require 'swagger2objc'
 only = ['material']
 base_uri = 'https://api.superid.org:1443'
 path = '/services'
-Swagger2objc::Parser.new(base_uri, path, only)
+Swagger2objc::Parser.new(base_uri, path, nil)
