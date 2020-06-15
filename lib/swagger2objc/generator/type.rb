@@ -7,6 +7,7 @@ module Swagger2objc
         'integer' => 'int64_t',
         'boolean' => 'BOOL',
         'double' => 'double',
+        'number' => 'NSString',
         'float' => 'float',
         'string' => 'NSString',
         'object' => 'id',
