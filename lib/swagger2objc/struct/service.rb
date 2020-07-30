@@ -32,12 +32,7 @@ module Swagger2objc
 
       def setup
         router_map = Swagger2objc::Configure.config[Swagger2objc::Config::ROUTER]
-        ignore_category = Swagger2objc::Configure.config[Swagger2objc::Config::IGNORE_CATEGORY]
-        ignore_category = [] if ignore_category.nil?
-        exclude_service_category = Swagger2objc::Configure.config['exclude_service_category']
-        exclude_path = Swagger2objc::Configure.config['exclude_path']
-        include_path = Swagger2objc::Configure.config['include_path']
-        exclude_path_prefix = Swagger2objc::Configure.config['exclude_path_prefix']
+        allow_path = Swagger2objc::Configure.config['allow_path']
         exclude_service_category = [] if exclude_service_category.nil?
         merge_category_into_server = Swagger2objc::Configure.config['merge_category_into_server']
         merge_category_into_server = {} if merge_category_into_server.nil?
@@ -56,7 +51,6 @@ module Swagger2objc
             dict.each do |method, operation_hash|
               if operation_hash['tags']
                 controller_key = operation_hash['tags'].first
-                next if ignore_category.include?(controller_key)
               else
                 next
               end
@@ -68,10 +62,6 @@ module Swagger2objc
               category = category[0].upcase + category[1..-1]
               # xx-aa-bb -> xxAaBb
               category.gsub!(/\-\w/) { |match| match[1].upcase }
-              next if ignore_category.include?(category)
-              next if path.include?('/inner/')
-
-              exclude_category = exclude_service_category[@name]
 
               origin_category = category.dup
 
@@ -94,23 +84,11 @@ module Swagger2objc
               operation_hash['service'] = service
               # 某个请求称之为operation
               operation = Swagger2objc::Struct::Operation.new(operation_hash)
-              next if operation.deprecated
+              # next if operation.deprecated
 
               operation.path = service + operation.path if category != 'Collector'
 
-              unless include_path.include?(operation.path)
-                next if exclude_category && exclude_category.include?(origin_category)
-                next if exclude_path && exclude_path.include?(operation.path)
-
-                skip = false
-                exclude_path_prefix.each do |prefix|
-                  if operation.path.start_with?(prefix)
-                    # puts operation.path + '<---->' + prefix
-                    skip = true
-                  end
-                end
-                next if skip
-              end
+              next unless allow_path.include?(operation.path)
 
               operation.add_subfix = add_subfix
               controller = controller_hash[controller_key]
