@@ -78,8 +78,8 @@ module Swagger2objc
         parameters.each { |item| parameter_result << item.result }
         hash = {
           method: method,
-          summary: summary.tr('<', '[').tr('>', ']').gsub('&', '&amp;'),
-          type: type,
+          # summary: summary.tr('<', '[').tr('>', ']').gsub('&', '&amp;'),
+          # type: type,
           param: parameter_result
         }
         hash[:consumes] = consumes.join('#') if consumes

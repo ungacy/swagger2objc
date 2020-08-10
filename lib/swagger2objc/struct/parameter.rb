@@ -119,9 +119,9 @@ module Swagger2objc
       def result
         hash = {
           paramType: @in,
-          key: name,
-          type: type,
-          required: required
+          key: name
+          # type: type,
+          # required: required
         }
 
         if @rename
