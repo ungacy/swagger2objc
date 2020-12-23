@@ -16,8 +16,8 @@ module Swagger2objc
       html_response = nil
       label = Configure.config['label']
       label = '' if label.nil?
-      open(uri,
-           'X-label' => 'label') do |http|
+      URI.open(uri,
+               'X-label' => label) do |http|
         html_response = http.read
       end
       JSON.parse(html_response)
